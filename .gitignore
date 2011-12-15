@@ -1,0 +1,13 @@
+#Aquí están los archivos que no queremos que git controle como archivos .exe y
+#cosas que no necesitamos
+
+#Ejecutables
+*.exe
+*.o
+
+
+#Archivos generados por el OS
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
