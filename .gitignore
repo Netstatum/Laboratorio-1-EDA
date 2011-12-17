@@ -5,6 +5,7 @@
 *.exe
 *.o
 *.out
+strip_poker
 
 
 #Archivos generados por el OS
@@ -19,3 +20,6 @@ pruebas.c
 #archivos de scons
 config.log
 .scon*
+
+#no queremos enviar las ctags
+ctags
