@@ -1,1 +1,20 @@
 Laboratorio de Estructuras de Datos y Algoritmos
+
+----Strip Poker---
+
+MODOS DE JUEGO:
+
+*Practica:
+
+1.- Mazo de 52 cartas
+2.- Cartas con valor y pinta
+3.- Una lista circular de jugadores (definidos antes de cada partida)
+4.- El jugador puede hacer: check, igualar apuesta, aumentar apuesta, all in y retirarse
+5.- Manejar el pozo común de la apuesta y la apuesta individual de cada jugador
+6.- Sistema de rondas y partidas
+7.- Sistema para repartir las cartas a los jugadores y poner las cartas en la meza
+8.- Sistema para ver quien gana
+9.- Probabilidades de obtener cierto juego de cartas
+10.- Interfaz Grafica ASCII
+
+*Apoyo:
