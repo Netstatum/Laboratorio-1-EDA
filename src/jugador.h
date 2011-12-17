@@ -10,7 +10,15 @@
  * enlazada (el ultimo elemento apunta al primer elemento)
  */
 
+
+
 /*Estructura que representa a un jugador
+ * TODO: Agregar los atributos faltantes
+ *
+ * Las modificaciones efectuadas en esta estructura deben ser replicadas en las
+ * siguientes funciones:
+ * 	nueva_lista_jugador, agregar_jugador y test_jugador
+ *
  * ATRUBUTOS:
  * 	monto_actual: es la cantidad de dinero de que dispone el jugador.
  * 	Utilizamos un puntero para actualizar la lista total de jugadores cuando
@@ -27,6 +35,9 @@ typedef struct Jugador{
 	struct Jugador *siguiente;
 } Jugador;
 
+/*Variables globales. No deberian ser usadas por funciones fuera de aqui*/
+
+Jugador *_principio;
 
 /*Devuelve el jugador al cual le corresponde el siguiente turno
  * ARGUMENTOS:
@@ -59,6 +70,37 @@ Jugador *agregar_jugador(Jugador *final, unsigned int monto_actual);
  * devuelva 0 no quiere decir que el puntero sea NULL)*/
 unsigned int monto_actual(Jugador *jugador);
 
+/*Devuelve una nueva lista semi-independiente de jugadores. Lo unico que no es
+ * independiente es el monto de dinero de cada jugador. Se debe crear una lista
+ * de este tipo en cada ronda a partir de la lista general de jugadores.
+ * ARGUMENTOS:
+ * 	nodo: Uno de los nodos que pertenezca a la lista que queremos copiar
+ *
+ * RETORNO: Un nodo perteneciente a la nueva lista creada, devuelve NULL si algo
+ * salio mal*/
+Jugador *nueva_lista_jugador(Jugador *nodo);
+
+/*Cambia el valor de monto en el jugador
+ * ARGUMENTOS:
+ * 	jugador: el jugador al cual se le va a cambiar el monto
+ * 	monto: el nuevo monto_actual del jugador
+ *
+ * RETORNO: Devuelve -1 si algo fue mal, 0 si todo fue bien*/
+int cambiar_monto(Jugador *jugador, unsigned int monto);
+
+
+/*Indica si estamos al final del recorrido de la lista. Para usarla hay llamar a
+ * set_principio antes
+ * ARGUMENTOS:
+ * 	jugador: Un nodo de la lista a ser comprobado si es el final
+ * RETORNO: 0 si no es el final, 1 si es el final
+ * */
+int jugador_final(Jugador *jugador);
+
+/*Marca un punto arbitrario de la lista que va a ser usado como principio
+ * ARGUMENTOS:
+ * 	jugador: un nodo de la lista a usar como principio de esta*/
+void set_principio(Jugador *jugador);
 
 #ifdef DEBUG
 /*Ejecuta algunas pruebas para ver que el codigo de jugador funciona. Solo esta
