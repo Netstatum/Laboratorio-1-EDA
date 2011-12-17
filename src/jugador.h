@@ -1,3 +1,5 @@
+#ifndef _H_JUGADOR_
+#define _H_JUGADOR_
 /*jugador.h
  * Para ejemplos de uso vease la funcion test_jugador
  *
@@ -121,4 +123,5 @@ void set_principio(Jugador *jugador);
  * disponible si se especifica DEBUG
  * RETORNO: 0 Si todo salio bien*/
 int test_jugador();
+#endif
 #endif
