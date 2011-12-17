@@ -12,7 +12,7 @@ loc_env = conf.Finish()
 
 debug = ARGUMENTS.get('debug', 0)
 if int(debug):
-	env.Append(CCFLAGS = '-g')
+	env.Append(CCFLAGS = '-g -DDEBUG')
 
 warnings=ARGUMENTS.get('wall', 0)
 if int(warnings):
