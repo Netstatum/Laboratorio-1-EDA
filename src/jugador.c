@@ -10,6 +10,7 @@ Jugador *siguiente_jugador(Jugador *actual)
 Jugador *agregar_jugador(Jugador *final, unsigned int monto_actual)
 {
 	Jugador *nuevo=NULL, *aux=NULL;
+	unsigned int *monto=NULL;
 
 	if(final)
 	{
@@ -18,7 +19,9 @@ Jugador *agregar_jugador(Jugador *final, unsigned int monto_actual)
 		 * circularmente*/
 		
 		nuevo=malloc(sizeof(Jugador));
-		if(!nuevo)
+		monto=malloc(sizeof(unsigned int));
+
+		if(!nuevo || !monto)
 		{
 			/*Fallamos al obtener memoria para Jugador*/
 			return NULL;
@@ -27,7 +30,9 @@ Jugador *agregar_jugador(Jugador *final, unsigned int monto_actual)
 			final->siguiente=nuevo;
 
 			nuevo->siguiente=aux;
-			nuevo->monto_actual=monto_actual;
+			*monto=monto_actual;
+			nuevo->monto_actual=monto;
+			nuevo->id=final->id+1;
 			return nuevo;
 		}
 	}else{
@@ -35,15 +40,34 @@ Jugador *agregar_jugador(Jugador *final, unsigned int monto_actual)
 		 * crear una nueva*/
 
 		nuevo=malloc(sizeof(Jugador));
-		if(!nuevo)
+		monto=malloc(sizeof(unsigned int));
+
+		if(!nuevo || !monto)
 		{
 			return NULL;
 		}else{
 			/*Como es circular, enlazamos el primer elemento...al
 			 * primer elemento*/
 			nuevo->siguiente=nuevo;
-			nuevo->monto_actual=monto_actual;
+			*monto=monto_actual;
+			nuevo->monto_actual=monto;
+			nuevo->id=1;
 			return nuevo;
+		}
+	}
+}
+
+unsigned int monto_actual(Jugador *jugador)
+{
+	if(!jugador)
+	{
+		return 0;
+	}else{
+		if(!(jugador->monto_actual))
+		{
+			return 0;
+		}else{
+			return *(jugador->monto_actual);
 		}
 	}
 }
@@ -59,7 +83,12 @@ int test_jugador()
 		return -1;
 	}
 
-	if(jugador->monto_actual!=2)
+	if(monto_actual(jugador)!=2)
+	{
+		return -1;
+	}
+
+	if(jugador->id!=1)
 	{
 		return -1;
 	}
@@ -72,7 +101,13 @@ int test_jugador()
 		return -1;
 	}
 
-	if(jugador->monto_actual!=3)
+	if(monto_actual(jugador)!=3)
+	{
+		return -1;
+	}
+
+
+	if(jugador->id!=2)
 	{
 		return -1;
 	}
@@ -85,7 +120,8 @@ int test_jugador()
 		return -1;
 	}
 
-	if(jugador->monto_actual!=2)
+
+	if(jugador->id!=1)
 	{
 		return -1;
 	}
@@ -98,7 +134,7 @@ int test_jugador()
 		return -1;
 	}
 
-	if(jugador->monto_actual!=3)
+	if(jugador->id!=2)
 	{
 		return -1;
 	}
