@@ -4,6 +4,7 @@
 #Ejecutables
 *.exe
 *.o
+*.out
 
 
 #Archivos generados por el OS
