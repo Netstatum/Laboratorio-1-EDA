@@ -67,6 +67,7 @@ unsigned int monto_actual(Jugador *jugador)
 		{
 			return 0;
 		}else{
+			/*Los punteros no son NULL, podemos devolver el monto*/
 			return *(jugador->monto_actual);
 		}
 	}
@@ -134,6 +135,7 @@ int cambiar_monto(Jugador *jugador, unsigned int monto)
 		return -1;
 	}
 	
+	/*Los punteros no son NULL, podemos modificar el monto*/
 	*(jugador->monto_actual)=monto;
 	return 0;
 }
@@ -145,6 +147,11 @@ void set_principio(Jugador *jugador)
 
 int jugador_final(Jugador *jugador)
 {
+	if(!jugador)
+	{
+		return 1;
+	}
+
 	if(jugador->siguiente==_principio)
 	{
 		return 1;
