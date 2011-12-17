@@ -43,6 +43,6 @@ void turnORriver(int ronda);
 
 /** Funcion repartirCartas para darle 2 cartas a cada jugador de la partida
     @param Jugador *primero: puntero al primer jugador, a partir de este y hacia el segundo se iran
-                             repartiendo las cartas
+                             repartiendo las cartas hasta el ultimo jugador en partida
 */
 void repartirCartas(Jugador *primero);
