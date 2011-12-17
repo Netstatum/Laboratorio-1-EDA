@@ -12,3 +12,10 @@
 ehthumbs.db
 Icon?
 Thumbs.db
+
+#Voy a usar este archivo para correr pruebas y no lo quiero en el repo
+pruebas.c
+
+#archivos de scons
+config.log
+.scon*
