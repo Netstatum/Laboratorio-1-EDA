@@ -2,7 +2,6 @@
 #include "carta.h"
 #include "mesa.h"
 
-
 void generadorDelMazo(){
 	int contador = 0;
 	int contadorValor = 0;
@@ -118,16 +117,4 @@ void repartirCartas(Jugador *primero){
         aux=aux->siguiente;
     }
 
-}
-
-
-int main(){
-	generadorDelMazo();
-
-	flop();
-
-	turnORriver(4);
-	turnORriver(5);
-
-	return 0;
 }
