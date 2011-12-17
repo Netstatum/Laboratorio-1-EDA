@@ -1,0 +1,28 @@
+env = Environment()
+conf=Configure(env)
+
+
+if not conf.CheckCHeader('stdio.h'):
+	print "ERROR: iostream C header not found. Please make sure your C library is installed"
+	Exit(1)
+
+
+loc_env = conf.Finish()
+
+
+debug = ARGUMENTS.get('debug', 0)
+if int(debug):
+	env.Append(CCFLAGS = '-g')
+
+warnings=ARGUMENTS.get('wall', 0)
+if int(warnings):
+	env.Append(CCFLAGS='-Wall -O')
+if int(warnings)==2:
+	env.Append(CCFLAGS='-Wshadow -Wcast-qual -Wuninitialized -Wunused -Wfloat-equal -Wstrict-overflow=5 -Wextra -Wredundant-decls')
+
+env.Append(CCFLAGS='-pipe -pedantic -ansi')
+
+libraries = []
+
+env.Program('strip_poker', [Glob('*.c', '*.cpp')], LIBS=libraries)
+
