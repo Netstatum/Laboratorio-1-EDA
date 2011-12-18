@@ -78,48 +78,38 @@ Jugador *nueva_lista_jugador(Jugador *nodo)
 	/*FIXME: Quedo feo...pensar en otra forma de hacerlo*/
 
 	Jugador *primera=nodo;
-	Jugador *nueva=malloc(sizeof(Jugador));
+	Jugador *nueva=NULL;
 	Jugador *nueva_primero=NULL; /*Primer elemento de la nueva lista*/
 
-	if(!nueva)
-	{
-		/*fallamos al obtener memoria para nueva*/
-		return NULL;
-	}
+	nueva=malloc(sizeof(Jugador));
 
-	/*Hacemos el algoritmo una vez para saber cual es el primer elemento asi
-	 * simplemente devolvemos nueva_primero*/
-	nueva->monto_actual=nodo->monto_actual;
 	nueva->id=nodo->id;
-	
+	nueva->monto_actual=nodo->monto_actual;
+
 	nueva->siguiente=malloc(sizeof(Jugador));
-	if(!(nueva->siguiente))
-	{
-		/*TODO: Liberar memoria*/
-		return NULL;
-	}
+
 	nueva_primero=nueva;
+
 	nueva=nueva->siguiente;
 	nodo=nodo->siguiente;
 
-	/*Ejecutamos el while hasta que demos una vuelta completa a la lista
-	 * circular*/
-	while(nodo!=primera)
-	{
-		nueva->monto_actual=nodo->monto_actual;
+	do{
+		/*Copiamos los elementos de nodo en la nueva lista*/
+		nueva=malloc(sizeof(Jugador));
+
 		nueva->id=nodo->id;
-		
+		nueva->monto_actual=nodo->monto_actual;
+
 		nueva->siguiente=malloc(sizeof(Jugador));
-		if(!(nueva->siguiente))
-		{
-			/*TODO: Liberar memoria*/
-			return NULL;
-		}
+
 		nueva=nueva->siguiente;
 		nodo=nodo->siguiente;
-	}
 
-	return nueva_primero; /*Devolvemos el primer elemento*/
+	}while(nodo!=primera);
+
+	nueva->siguiente=nueva_primero;
+
+	return nodo; 
 }
 
 
@@ -160,7 +150,21 @@ int jugador_final(Jugador *jugador)
 	}
 }
 
+void borrar_nodo(Jugador *nodo)
+{
+	Jugador *anterior=nodo->siguiente;
+	while(anterior->siguiente!=nodo)
+	{
+		anterior=anterior->siguiente;
+		printf("%d\n", anterior);
+	}
+
+	anterior=nodo->siguiente;
+	free(nodo);
+}
+
 #ifdef DEBUG
+#include <stdio.h>
 int test_jugador()
 {
 	/*Vemos si podemos crear un jugador en una lista vacia*/
@@ -169,16 +173,19 @@ int test_jugador()
 
 	if(!jugador)
 	{
+		printf("No se puede crear la nueva lista");
 		return -1;
 	}
 
 	if(monto_actual(jugador)!=2)
 	{
+		printf("No se puede obtener el monto del jugador");
 		return -1;
 	}
 
 	if(jugador->id!=1)
 	{
+		printf("El id del jugador 1 no se creo bien");
 		return -1;
 	}
 
@@ -187,17 +194,20 @@ int test_jugador()
 
 	if(!jugador)
 	{
+		printf("No se pudo agregar un jugador");
 		return -1;
 	}
 
 	if(monto_actual(jugador)!=3)
 	{
+		printf("No se agrego bien el monto del jugador");
 		return -1;
 	}
 
 
 	if(jugador->id!=2)
 	{
+		printf("El id del jugador 2 no se creo bien");
 		return -1;
 	}
 	
@@ -206,12 +216,14 @@ int test_jugador()
 
 	if(!jugador)
 	{
+		printf("No se pudo avanzar en la lista circular");
 		return -1;
 	}
 
 
 	if(jugador->id!=1)
 	{
+		printf("Se avanzo mal en la lista");
 		return -1;
 	}
 	
@@ -220,11 +232,13 @@ int test_jugador()
 
 	if(!jugador)
 	{
+		printf("No se pudo avanzar al segundo elemento en la lista circular");
 		return -1;
 	}
 
 	if(jugador->id!=2)
 	{
+		printf("No es el segundo elemento en la lista");
 		return -1;
 	}
 
@@ -235,11 +249,19 @@ int test_jugador()
 	
 	if(!nueva)
 	{
+		printf("No se pudo copiar la lista");
 		return -1;
 	}
 
 	if(nueva->id!=2)
 	{
+		printf("No es el elemento 2 en el que nos encontramos");
+		return -1;
+	}
+
+	if(nueva->siguiente->siguiente!=nueva)
+	{
+		printf("No funciona la lista circular");
 		return -1;
 	}
 
@@ -250,11 +272,22 @@ int test_jugador()
 
 	if(!nueva)
 	{
+		printf("No nos pudimos mover en la nueva lista");
 		return -1;
 	}
 
 	if(nueva->id!=1)
 	{
+		printf("Nos pudimos mover pero no es el primer elemento");
+		return -1;
+	}
+
+	/*Si nos movemos deberia ser el segundo elemento*/
+	nueva=siguiente_jugador(nueva);
+
+	if(nueva->id!=2)
+	{
+		printf("No estamos en el segudo elemento en la nueva lista");
 		return -1;
 	}
 
@@ -262,11 +295,21 @@ int test_jugador()
 	 * global*/
 	cambiar_monto(nueva, 100);
 
-	/*pero avanzamos una pos. con nueva, asi que lo mismo con jugador*/
-	jugador=siguiente_jugador(jugador);
 
 	if(monto_actual(jugador)!=100)
 	{
+		printf("No se cambio el monto actual en la lista vieja");
+		return -1;
+	}
+
+	/*Borramos el nodo actual*/
+	jugador=nueva->siguiente;
+	borrar_nodo(nueva);
+
+	/*Ahora jugador deberia apuntar a si mismo*/
+	if(jugador==jugador->siguiente)
+	{
+		printf("No se pudo borrar el elemento correctamente");
 		return -1;
 	}
 

@@ -118,6 +118,17 @@ int jugador_final(Jugador *jugador);
  * 	jugador: un nodo de la lista a usar como principio de esta*/
 void set_principio(Jugador *jugador);
 
+
+
+/*Borra el nodo dado de la lista. NO DEBERIA UTILIZASE EN LA LISTA GLOBAL DE
+ * JUGADORES
+ * 
+ * ARGUMENTOS:
+ * 	nodo: borra el nodo de la lista */
+void borrar_nodo(Jugador *nodo);
+
+
+
 #ifdef DEBUG
 /*Ejecuta algunas pruebas para ver que el codigo de jugador funciona. Solo esta
  * disponible si se especifica DEBUG
