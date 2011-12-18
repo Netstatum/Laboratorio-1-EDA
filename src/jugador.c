@@ -156,11 +156,25 @@ void borrar_nodo(Jugador *nodo)
 	while(anterior->siguiente!=nodo)
 	{
 		anterior=anterior->siguiente;
-		printf("%d\n", anterior);
 	}
 
 	anterior=nodo->siguiente;
 	free(nodo);
+}
+
+int borrar_jugador_id(Jugador *nodo, unsigned int id)
+{
+	Jugador *primero=nodo;
+	while(nodo->siguiente!=primero)
+	{
+		if(nodo->id==id)
+		{
+			borrar_nodo(nodo);
+			return 0;
+		}
+		nodo=nodo->siguiente;
+	}
+	return 1;
 }
 
 #ifdef DEBUG

@@ -128,6 +128,13 @@ void set_principio(Jugador *jugador);
 void borrar_nodo(Jugador *nodo);
 
 
+/*Borra el nodo en el cual se encuentra el id dado. No deberia utilizarse en la
+ * lista global de jugadores
+ * ARGUMENTOS:
+ * 	id: el id del jugador a borrar
+ * 	nodo: un nodo perteneciente a la lista
+ * RETORNO: Devuelve 0 si se encontro el nodo, 1 si no se encontro*/
+int borrar_jugador_id(Jugador *nodo, unsigned int id);
 
 #ifdef DEBUG
 /*Ejecuta algunas pruebas para ver que el codigo de jugador funciona. Solo esta
