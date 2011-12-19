@@ -1,3 +1,5 @@
+#ifndef _H_CARTA_
+#define _H_CARTA_
 /** Constantes:
 	    _cartas: cantidad de cartas del mazo
 */
@@ -18,3 +20,4 @@ struct carta{
 	int jugada;
 };
 typedef struct carta CARTA;
+#endif

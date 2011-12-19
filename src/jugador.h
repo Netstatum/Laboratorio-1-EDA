@@ -1,5 +1,8 @@
 #ifndef _H_JUGADOR_
 #define _H_JUGADOR_
+
+#include "carta.h"
+
 /*jugador.h
  * Para ejemplos de uso vease la funcion test_jugador
  *
@@ -10,14 +13,6 @@
  *
  * agregar_jugador: Agrega un nodo al final de final dejandola doblemente
  * enlazada (el ultimo elemento apunta al primer elemento)
- *
- * monto_actual: Devuelve el monto actual de dinero que tiene el jugador
- *
- * nueva_lista_jugador: Devuelve una nueva lista semi-independiente de jugadores.
- * Debe usarse esta lista y no la global para cada ronda (Dado que en las rondas
- * debemos sacar a algunos jugadores)
- *
- * cambiar_monto: Cambia el monto_actual del jugador.
  *
  * jugador_final: Indica si el jugador esta al final de la lista. Hay que usar
  * set_principio antes de usar.
@@ -35,10 +30,6 @@
  * 	nueva_lista_jugador, agregar_jugador y test_jugador
  *
  * ATRUBUTOS:
- * 	monto_actual: es la cantidad de dinero de que dispone el jugador.
- * 	Utilizamos un puntero para actualizar la lista total de jugadores cuando
- * 	se modifique el monto en la lista de la ronda. NO MODIFICAR A MANO!
- *
  * 	id: es el identificador del jugador, un numero positivo mayor que 0.
  * 	(partimos del jugador 1). Se incrementa automaticamente al crear nuevos
  * 	nodos.
@@ -51,6 +42,9 @@ typedef struct Jugador{
 	
 	unsigned int monto_actual, id;
 	int jugando;
+
+	CARTA cartas[1];
+
 	struct Jugador *siguiente;
 } Jugador;
 
