@@ -49,7 +49,7 @@
  * 	siguiente: puntero al siguiente elemento de la lista*/
 typedef struct Jugador{
 	
-	unsigned int *monto_actual, id;
+	unsigned int monto_actual, id;
 	int jugando;
 	struct Jugador *siguiente;
 } Jugador;
@@ -76,36 +76,6 @@ Jugador *siguiente_jugador(Jugador *actual);
  * RETORNO: El jugador que se agrega luego de usar la funcion. Devuelve NULL si
  * 	fallamos al obtener memoria para el nuevo nodo*/
 Jugador *agregar_jugador(Jugador *final, unsigned int monto_actual);
-
-/*Devuelve el monto actual de dinero que tiene el jugador
- * Debemos utilizar esta funcion ya que monto_actual en la estructura es un
- * puntero y asi simplificamos algo el codigo
- *
- * ARGUMENTOS:
- * 	jugador: el jugador del cual se quiere saber el monto de dinero
- *
- * RETORNO: El monto de dinero que posee. En caso de que el puntero al monto sea
- * NULL devolvemos 0 como valor de dinero, tambien si jugador es NULL (Que
- * devuelva 0 no quiere decir que el puntero sea NULL)*/
-unsigned int monto_actual(Jugador *jugador);
-
-/*Devuelve una nueva lista semi-independiente de jugadores. Lo unico que no es
- * independiente es el monto de dinero de cada jugador. Se debe crear una lista
- * de este tipo en cada ronda a partir de la lista general de jugadores.
- * ARGUMENTOS:
- * 	nodo: Uno de los nodos que pertenezca a la lista que queremos copiar
- *
- * RETORNO: Un nodo perteneciente a la nueva lista creada, devuelve NULL si algo
- * salio mal*/
-Jugador *nueva_lista_jugador(Jugador *nodo);
-
-/*Cambia el valor de monto en el jugador
- * ARGUMENTOS:
- * 	jugador: el jugador al cual se le va a cambiar el monto
- * 	monto: el nuevo monto_actual del jugador
- *
- * RETORNO: Devuelve -1 si algo fue mal, 0 si todo fue bien*/
-int cambiar_monto(Jugador *jugador, unsigned int monto);
 
 
 /*Indica si estamos al final del recorrido de la lista. Para usarla hay llamar a
