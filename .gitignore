@@ -22,4 +22,4 @@ config.log
 .scon*
 
 #no queremos enviar las ctags
-ctags
+tags
