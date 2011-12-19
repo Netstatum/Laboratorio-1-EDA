@@ -43,10 +43,14 @@
  * 	(partimos del jugador 1). Se incrementa automaticamente al crear nuevos
  * 	nodos.
  *
+ * 	jugando: 0 si no esta jugando en la ronda actual, 1 si esta jugando en
+ * 	la ronda actual
+ *
  * 	siguiente: puntero al siguiente elemento de la lista*/
 typedef struct Jugador{
 	
 	unsigned int *monto_actual, id;
+	int jugando;
 	struct Jugador *siguiente;
 } Jugador;
 
