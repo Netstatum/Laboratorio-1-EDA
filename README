@@ -18,3 +18,9 @@ MODOS DE JUEGO:
 10.- Interfaz Grafica ASCII
 
 *Apoyo:
+
+Compilacion:
+
+-Requisitos:
+	* scons (y python 2.7): www.scons.org/
+

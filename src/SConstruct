@@ -1,9 +1,12 @@
+import platform
+import os
+
 env = Environment()
 conf=Configure(env)
 
 
 if not conf.CheckCHeader('stdio.h'):
-	print "ERROR: iostream C header not found. Please make sure your C library is installed"
+	print "ERROR: stdio.h C header not found. Please make sure your C library is installed"
 	Exit(1)
 
 
@@ -22,7 +25,13 @@ if int(warnings)==2:
 
 env.Append(CCFLAGS='-pipe -pedantic -ansi')
 
-libraries = []
+if platform.system()=="Linux":
+	libraries = ['ncurses']
+	env.Program('strip_poker', [Glob('*.c', '*.cpp')], LIBS=libraries)
+else:
+	dir=os.path.join(os.path.dirname(__file__), "libs")
+	libraries = ['ncurses']
+	env.Program('strip_poker', [Glob('*.c', '*.cpp')], LIBPAH=[dir], LINKFLAGS="--static", LIBS=libraries)
+	
 
-env.Program('strip_poker', [Glob('*.c', '*.cpp')], LIBS=libraries)
 
