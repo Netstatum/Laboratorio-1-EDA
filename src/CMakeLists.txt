@@ -5,8 +5,8 @@ project (strip_poker)
 
 add_executable(strip_poker strip_poker.c)
 
-add_library(jugador jugador.c)
-add_library(mazo mazo.c)
+add_library(jugador STATIC jugador.c)
+add_library(mazo STATIC mazo.c)
 
 add_definitions("-pipe -pedantic -ansi -Wall")
 
@@ -17,6 +17,8 @@ else(WIN32)
 	#enlazamos de forma normal en todo lo demas
 
 endif(WIN32)
+
+find_package(Curses REQUIRED)
 
 
 target_link_libraries(strip_poker jugador mazo)
