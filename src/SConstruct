@@ -29,9 +29,5 @@ if platform.system()=="Linux":
 	libraries = ['ncurses']
 	env.Program('strip_poker', [Glob('*.c', '*.cpp')], LIBS=libraries)
 else:
-	dir=os.path.join(os.path.dirname(__file__), "libs")
 	libraries = ['ncurses']
-	env.Program('strip_poker', [Glob('*.c', '*.cpp')], LIBPAH=[dir], LINKFLAGS="--static", LIBS=libraries)
-	
-
-
+	env.Program('strip_poker', [Glob('*.c', '*.cpp')], LIBPAH=["dir"], LINKFLAGS="--static", LIBS=libraries)
