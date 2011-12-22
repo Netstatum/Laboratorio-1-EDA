@@ -5,23 +5,30 @@ const char **carta_a_ascii(CARTA carta)
 {
 	switch(carta.pinta)
 	{
-		case 0:
+		case 3:
 			/*Corazones*/
 			switch(carta.valor)
 			{
-				case 1:
+				case 2:
 					return corazones_2();
+					break;
+				default:
+					return NULL;
 					break;
 			}
 			break;
-		case 1:
+		case 4:
 			/*diamante*/
 			break;
-		case 2:
+		case 5:
 			/*trebol*/
 			break;
-		case 3:
+		case 6:
 			/*pica*/
+			break;
+
+		default:
+			return NULL;
 			break;
 	}
 }
@@ -92,7 +99,9 @@ char cartas_5_graficas(CARTA cartas[])
 	{
 		for(l=0;l<6;l++)
 		{
-			sprintf(lineas[i][l], "%s", carta_a_ascii(cartas[i])  );
+			sprintf(lineas[i][l], "%s", carta_a_ascii(cartas[i]));
+			printf("%s\n", lineas[i][l]);
 		}
 	}
+
 }
