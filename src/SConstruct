@@ -23,7 +23,7 @@ if int(warnings):
 if int(warnings)==2:
 	env.Append(CCFLAGS='-Wshadow -Wcast-qual -Wuninitialized -Wunused -Wfloat-equal -Wstrict-overflow=5 -Wextra -Wredundant-decls')
 
-env.Append(CCFLAGS='-pipe -pedantic -ansi')
+env.Append(CCFLAGS='-pipe')
 
 if platform.system()=="Linux":
 	libraries = []
