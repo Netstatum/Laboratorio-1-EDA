@@ -115,7 +115,7 @@ int test_jugador()
 		return -1;
 	}
 
-	if(monto_actual(jugador)!=2)
+	if(jugador->monto_actual!=2)
 	{
 		printf("No se puede obtener el monto del jugador");
 		return -1;
@@ -136,7 +136,7 @@ int test_jugador()
 		return -1;
 	}
 
-	if(monto_actual(jugador)!=3)
+	if(jugador->monto_actual!=3)
 	{
 		printf("No se agrego bien el monto del jugador");
 		return -1;
