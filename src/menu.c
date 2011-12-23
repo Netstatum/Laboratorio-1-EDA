@@ -98,10 +98,10 @@ int menuInicio()
     switch (opcion)
     {
         /** Caracter 72 = Flecha Arriba */
-#ifdef _WIN32
-        case 72:
-#else
+#ifdef __linux__
 	case 65:
+#else
+        case 72:
 #endif
         {
             if(P!=0)
@@ -126,10 +126,10 @@ int menuInicio()
         }
 
         /** Caracter 80 = Flecha Abajo */
-#ifdef _WIN32
-        case 80:
-#else
+#ifdef __linux__
 	case 91:
+#else
+        case 80:
 #endif
         {
             if(P != _largoArray)
