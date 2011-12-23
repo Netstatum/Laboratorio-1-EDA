@@ -1,5 +1,6 @@
 #include "jugador.h"
 #include <malloc.h>
+#include <stdio.h>
 
 Jugador *siguiente_jugador(Jugador *actual)
 {

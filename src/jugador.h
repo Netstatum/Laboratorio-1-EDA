@@ -40,8 +40,8 @@
  * 	siguiente: puntero al siguiente elemento de la lista*/
 typedef struct Jugador{
 	
-	unsigned int monto_actual, id;
-	int jugando;
+	unsigned int monto_actual, id, apuesta_actual;
+	char jugando;
 
 	CARTA cartas[1];
 
