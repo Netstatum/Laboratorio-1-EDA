@@ -33,37 +33,6 @@ const char **carta_a_ascii(CARTA carta)
 	}
 }
 
-
-const char *mensaje_bienvenida()
-{
-return "        _..-''--'----_.                                        \n"
-"      ,''.-''| .---/ _`-._                                     \n"
-"    ,' \\ \\  ;| | ,/ / `-._`-.                                  \n"
-"  ,' ,',\\ \\( | |// /,-._  / /                                  \n"
-"  ;.`. `,\\ \\`| |/ / |   )/ /                                   \n"
-" / /`_`.\\_\\ \\| /_.-.'-''/ /                                    \n"
-"/ /_|_:.`. \\ |;'`..')  / /                                     \n"
-"`-._`-._`.`.;`.\\  ,'  / /                                      \n"
-"    `-._`.`/    ,'-._/ /                                       \n"
-"      : `-/     \\`-.._/                                        \n"
-"      |  :      ;._ (                                          \n"
-"      :  |      \\  ` \\                                         \n"
-"       \\         \\   |                                         \n"
-"        :        :   ;                                         \n"
-"        |           /                                          \n"
-"        ;         ,'                                           \n"
-"       /         /                                             \n"
-"      /         /                                              \n"
-"               /                                               \n"
-"  _______  __          __            _______         __                 \n"
-" |   _   ||  |_ .----.|__|.-----.   |   _   |.-----.|  |--..-----..----.\n"
-" |   1___||   _||   _||  ||  _  |   |.  1   ||  _  ||    < |  -__||   _|\n"
-" |____   ||____||__|  |__||   __|   |.  ____||_____||__|__||_____||__|  \n"
-" |:  1   |                |__|      |:  |                               \n"
-" |::.. . |                          |::.|                               \n"
-" `-------'                          `---'                               \n";
-}
-
 const char **corazones_2()
 {
 	const char **cadena={
@@ -87,14 +56,14 @@ char cartas_5_graficas(CARTA cartas[])
 	 * linea entre cartas 6*5+240=270 y agregarle un caracter final NULL
 	 * quedando como total 271*/
 
-	char cadena[271]={NULL}; 
+	char cadena[271]={NULL};
 
 	/*Aqui vamos guardand cada linea para luego usarla asi:
 	 * [numero de carta][linea][contenido_linea]*/
 	char lineas[5][6][8]={NULL};
 
 
-	
+
 	for(i=0;i<5;i++)
 	{
 		for(l=0;l<6;l++)
