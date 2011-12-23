@@ -8,7 +8,7 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 	{
 		case 3:
 			/*Corazones*/
-			if(carta.valor>0 && carta.valor<11)
+			if(carta.valor>1 && carta.valor<11)
 			{
 				/*le sumamos 48 para obtener el valor ascii del
 				 * numero*/
@@ -17,6 +17,8 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 				/*No son numeros, son letras*/
 				switch(carta.valor)
 				{
+					case 1:
+						return corazones(linea, 'A');
 					case 11:
 						return corazones(linea, 'J');
 					case 12:
@@ -28,7 +30,7 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 			break;
 		case 4:
 			/*diamante*/
-			if(carta.valor>0 && carta.valor<11)
+			if(carta.valor>1 && carta.valor<11)
 			{
 				/*le sumamos 48 para obtener el valor ascii del
 				 * numero*/
@@ -37,6 +39,8 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 				/*No son numeros, son letras*/
 				switch(carta.valor)
 				{
+					case 1:
+						return diamante(linea, 'A');
 					case 11:
 						return diamante(linea, 'J');
 					case 12:
@@ -48,7 +52,7 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 			break;
 		case 5:
 			/*trebol*/
-			if(carta.valor>0 && carta.valor<11)
+			if(carta.valor>1 && carta.valor<11)
 			{
 				/*le sumamos 48 para obtener el valor ascii del
 				 * numero*/
@@ -57,6 +61,8 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 				/*No son numeros, son letras*/
 				switch(carta.valor)
 				{
+					case 1:
+						return trebol(linea, 'A');
 					case 11:
 						return trebol(linea, 'J');
 					case 12:
@@ -77,6 +83,8 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 				/*No son numeros, son letras*/
 				switch(carta.valor)
 				{
+					case 1:
+						return pica(linea, 'A');
 					case 11:
 						return pica(linea, 'J');
 					case 12:
