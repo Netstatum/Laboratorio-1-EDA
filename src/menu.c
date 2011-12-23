@@ -1,4 +1,6 @@
 #include "menu.h"
+#include "getch.h"
+#include "display.h"
 
 int menuPrincipal(int starter)
 {
@@ -25,7 +27,7 @@ void iniciarSelect(int starter)
 
 int portada()
 {
-    system("cls");
+    limpiar();
 
     banner();
     menuInicio();
@@ -96,7 +98,11 @@ int menuInicio()
     switch (opcion)
     {
         /** Caracter 72 = Flecha Arriba */
+#ifdef _WIN32
         case 72:
+#else
+	case 65:
+#endif
         {
             if(P!=0)
             {
@@ -120,7 +126,11 @@ int menuInicio()
         }
 
         /** Caracter 80 = Flecha Abajo */
+#ifdef _WIN32
         case 80:
+#else
+	case 91:
+#endif
         {
             if(P != _largoArray)
             {
@@ -180,7 +190,7 @@ int opciones(int posicion)
         /** Creditos */
         case 2:     //CREDITOS
         {
-            system("cls");
+            limpiar();
             printf("\n\n\t\t\t\tCREDITOS\n");
 
             printf("\n\n\tCreado por:");

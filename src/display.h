@@ -8,4 +8,7 @@
 /*TODO: Falta agregar las probabilidades*/
 void display_principal(CARTA cartas_mesa[], CARTA cartas_jugador[]);
 
+/*Limpia la pantalla eliminando los caracteres actuales*/
+void limpiar();
+
 #endif

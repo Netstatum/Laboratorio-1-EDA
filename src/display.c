@@ -13,3 +13,13 @@ void display_principal(CARTA cartas_mesa[], CARTA cartas_jugador[])
 	/*Actualemte este free da un error de doble free xD*/
 	/*free(cartas_mesa_graficas);*/
 }
+
+
+void limpiar()
+{
+#ifdef _WIN32
+	system("cls");
+#else
+	system("clear");
+#endif
+}
