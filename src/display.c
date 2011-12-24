@@ -17,3 +17,13 @@ void display_principal(CARTA cartas_mesa[], CARTA cartas_jugador[])
 	free(cartas_mesa_graficas);
 	free(cartas_jugador_graficas);
 }
+
+
+void limpiar()
+{
+#ifdef __linux__
+	system("clear");
+#else
+	system("cls");
+#endif
+}

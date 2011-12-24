@@ -8,7 +8,7 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 	{
 		case 3:
 			/*Corazones*/
-			if(carta.valor>0 && carta.valor<11)
+			if(carta.valor>1 && carta.valor<11)
 			{
 				/*le sumamos 48 para obtener el valor ascii del
 				 * numero*/
@@ -17,6 +17,8 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 				/*No son numeros, son letras*/
 				switch(carta.valor)
 				{
+					case 1:
+						return corazones(linea, 'A');
 					case 11:
 						return corazones(linea, 'J');
 					case 12:
@@ -28,7 +30,7 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 			break;
 		case 4:
 			/*diamante*/
-			if(carta.valor>0 && carta.valor<11)
+			if(carta.valor>1 && carta.valor<11)
 			{
 				/*le sumamos 48 para obtener el valor ascii del
 				 * numero*/
@@ -37,6 +39,8 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 				/*No son numeros, son letras*/
 				switch(carta.valor)
 				{
+					case 1:
+						return diamante(linea, 'A');
 					case 11:
 						return diamante(linea, 'J');
 					case 12:
@@ -48,7 +52,7 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 			break;
 		case 5:
 			/*trebol*/
-			if(carta.valor>0 && carta.valor<11)
+			if(carta.valor>1 && carta.valor<11)
 			{
 				/*le sumamos 48 para obtener el valor ascii del
 				 * numero*/
@@ -57,6 +61,8 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 				/*No son numeros, son letras*/
 				switch(carta.valor)
 				{
+					case 1:
+						return trebol(linea, 'A');
 					case 11:
 						return trebol(linea, 'J');
 					case 12:
@@ -77,6 +83,8 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 				/*No son numeros, son letras*/
 				switch(carta.valor)
 				{
+					case 1:
+						return pica(linea, 'A');
 					case 11:
 						return pica(linea, 'J');
 					case 12:
@@ -91,37 +99,6 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 			return NULL;
 			break;
 	}
-}
-
-
-const char *mensaje_bienvenida()
-{
-return "        _..-''--'----_.                                        \n"
-"      ,''.-''| .---/ _`-._                                     \n"
-"    ,' \\ \\  ;| | ,/ / `-._`-.                                  \n"
-"  ,' ,',\\ \\( | |// /,-._  / /                                  \n"
-"  ;.`. `,\\ \\`| |/ / |   )/ /                                   \n"
-" / /`_`.\\_\\ \\| /_.-.'-''/ /                                    \n"
-"/ /_|_:.`. \\ |;'`..')  / /                                     \n"
-"`-._`-._`.`.;`.\\  ,'  / /                                      \n"
-"    `-._`.`/    ,'-._/ /                                       \n"
-"      : `-/     \\`-.._/                                        \n"
-"      |  :      ;._ (                                          \n"
-"      :  |      \\  ` \\                                         \n"
-"       \\         \\   |                                         \n"
-"        :        :   ;                                         \n"
-"        |           /                                          \n"
-"        ;         ,'                                           \n"
-"       /         /                                             \n"
-"      /         /                                              \n"
-"               /                                               \n"
-"  _______  __          __            _______         __                 \n"
-" |   _   ||  |_ .----.|__|.-----.   |   _   |.-----.|  |--..-----..----.\n"
-" |   1___||   _||   _||  ||  _  |   |.  1   ||  _  ||    < |  -__||   _|\n"
-" |____   ||____||__|  |__||   __|   |.  ____||_____||__|__||_____||__|  \n"
-" |:  1   |                |__|      |:  |                               \n"
-" |::.. . |                          |::.|                               \n"
-" `-------'                          `---'                               \n";
 }
 
 char *corazones(unsigned int linea, char caracter)
@@ -155,7 +132,7 @@ char *corazones(unsigned int linea, char caracter)
 	return cadena;
 }
 
-  
+
 char *diamante(unsigned int linea, char caracter)
 {
 	/*Estamos practicamente obligados a usar punteros ya que las variables
@@ -263,7 +240,7 @@ char *cartas_5_graficas(CARTA cartas[])
 	/*5 cartas de 8 caracteres +4 espacios +1 salto de linea +NULL*/
 	char lineas[6][5*8+6+17]={'\0'};
 	char *carta1,*carta2,*carta3,*carta4,*carta5;
-	
+
 	for(l=0;l<6;l++)
 	{
 		carta1=carta_a_ascii(cartas[0], l);
@@ -297,7 +274,7 @@ char *cartas_2_graficas(CARTA cartas[])
 	/*2 cartas de 8 caracteres +1 espacios +1 salto de linea +NULL*/
 	char lineas[6][2*8+37]={'\0'};
 	char *carta1,*carta2;
-	
+
 	for(l=0;l<6;l++)
 	{
 		carta1=carta_a_ascii(cartas[0], l);

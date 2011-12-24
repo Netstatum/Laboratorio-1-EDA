@@ -1,18 +1,12 @@
-#include "ascii.h"
-#include "carta.h"
+#include <stdio.h>
+#include "menu.h"
 
 int main()
 {
-	CARTA cartas[5];
-	int i;
+    printf("%s",mensajeBienvenida());
+    printf("\n\n\n\n\n\t\tANTES DE COMENZAR A JUGAR AGRANDE EL TAMA%cO DE LA CONSOLA",165);
+    printf("\n\n\t\t\t\tAL MAXIMO POSIBLE\n");
 
-	for(i=0;i<5;i++)
-	{
-		cartas[i].pinta=3;
-		cartas[i].valor=2;
-	}
-
-	cartas_5_graficas(cartas);
-	
-	return 0;
+    getch();
+    menuPrincipal(0);
 }
