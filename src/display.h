@@ -1,6 +1,9 @@
 #ifndef _H_DISPLAY_
 #define _H_DISPLAY_
 
+/*Aqui se encuentras las funciones para mostrar informacion al usuario hacerca
+ * del estado del juego*/
+
 #include "carta.h"
 
 
