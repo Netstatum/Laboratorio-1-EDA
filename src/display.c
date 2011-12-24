@@ -7,9 +7,13 @@
 void display_principal(CARTA cartas_mesa[], CARTA cartas_jugador[])
 {
 	char *cartas_mesa_graficas=cartas_5_graficas(cartas_mesa);
+	char *cartas_jugador_graficas=cartas_2_graficas(cartas_jugador);
 	printf("%s", cartas_mesa_graficas);
 
+	printf("%s", cartas_jugador_graficas);
 
-	/*Actualemte este free da un error de doble free xD*/
-	/*free(cartas_mesa_graficas);*/
+
+
+	free(cartas_mesa_graficas);
+	free(cartas_jugador_graficas);
 }
