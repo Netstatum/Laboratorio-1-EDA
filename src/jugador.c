@@ -17,7 +17,7 @@ Jugador *agregar_jugador(Jugador *final, unsigned int monto_actual)
 		/*Ya tenemos una lista creada, debemos simplemente agregar un
 		 * elemento al final de el dado como argumento y enlazarlo
 		 * circularmente*/
-		
+
 		nuevo=malloc(sizeof(Jugador));
 
 		if(!nuevo)
@@ -29,7 +29,7 @@ Jugador *agregar_jugador(Jugador *final, unsigned int monto_actual)
 			final->siguiente=nuevo;
 
 			nuevo->siguiente=aux;
-			nuevo->monto_actual=monto_actual;
+			nuevo->dinero=monto_actual;
 			nuevo->id=final->id+1;
 			return nuevo;
 		}
@@ -46,7 +46,7 @@ Jugador *agregar_jugador(Jugador *final, unsigned int monto_actual)
 			/*Como es circular, enlazamos el primer elemento...al
 			 * primer elemento*/
 			nuevo->siguiente=nuevo;
-			nuevo->monto_actual=monto_actual;
+			nuevo->dinero=monto_actual;
 			nuevo->id=1;
 			return nuevo;
 		}
@@ -102,6 +102,22 @@ int borrar_jugador_id(Jugador *nodo, unsigned int id)
 	return 1;
 }
 
+Jugador *crearJugadores(int cantidad){
+    Jugador *lista = NULL;
+
+    if(cantidad<=1)
+        cantidad=2;
+
+    while(cantidad>0){
+        lista = agregar_jugador(lista,_dineroI);
+        lista = lista->siguiente;
+        cantidad--;
+    }
+
+    return lista;
+
+}
+
 #ifdef DEBUG
 #include <stdio.h>
 int test_jugador()
@@ -148,7 +164,7 @@ int test_jugador()
 		printf("El id del jugador 2 no se creo bien");
 		return -1;
 	}
-	
+
 	/*Deberia ser el primer elemento*/
 	jugador=siguiente_jugador(jugador);
 
@@ -164,7 +180,7 @@ int test_jugador()
 		printf("Se avanzo mal en la lista");
 		return -1;
 	}
-	
+
 	jugador=siguiente_jugador(jugador);
 	/*Deberia ser el segundo elemento*/
 
