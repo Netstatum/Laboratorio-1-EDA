@@ -21,6 +21,8 @@
  */
 
 
+/** Dinero inicial con el que parten todos los jugadores */
+#define _dineroI 1000
 
 /*Estructura que representa a un jugador
  * TODO: Agregar los atributos faltantes
@@ -39,8 +41,8 @@
  *
  * 	siguiente: puntero al siguiente elemento de la lista*/
 typedef struct Jugador{
-	
-	unsigned int monto_actual, id, apuesta_actual;
+
+	unsigned int dinero, id, apuesta_actual;
 	char jugando;
 
 	CARTA cartas[1];
@@ -90,7 +92,7 @@ void set_principio(Jugador *jugador);
 
 /*Borra el nodo dado de la lista. NO DEBERIA UTILIZASE EN LA LISTA GLOBAL DE
  * JUGADORES
- * 
+ *
  * ARGUMENTOS:
  * 	nodo: borra el nodo de la lista */
 void borrar_nodo(Jugador *nodo);
@@ -103,6 +105,12 @@ void borrar_nodo(Jugador *nodo);
  * 	nodo: un nodo perteneciente a la lista
  * RETORNO: Devuelve 0 si se encontro el nodo, 1 si no se encontro*/
 int borrar_jugador_id(Jugador *nodo, unsigned int id);
+
+/** Función crearJugadores, crea una lista con tantos jugadores como se especifica
+    @param int cantidad: cantidad de jugadores
+                         si esta cantidad es 1 o menor se toma por deecto el valor de 2
+*/
+Jugador *crearJugadores(int cantidad);
 
 #ifdef DEBUG
 /*Ejecuta algunas pruebas para ver que el codigo de jugador funciona. Solo esta
