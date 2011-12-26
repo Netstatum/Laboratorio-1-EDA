@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <malloc.h>
+#include "getch.h"
 #include "menu.h"
 #include "jugador.h"
 
@@ -17,4 +18,7 @@ int main()
 
 
     //menuPrincipal(0);
+
+
+    return 0;
 }

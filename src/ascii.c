@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <malloc.h>
 #include "ascii.h"
 
@@ -99,6 +100,8 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 			return NULL;
 			break;
 	}
+
+	return NULL;
 }
 
 char *corazones(unsigned int linea, char caracter)
@@ -106,6 +109,8 @@ char *corazones(unsigned int linea, char caracter)
 	/*Estamos practicamente obligados a usar punteros ya que las variables
 	 * locales se eliminan al dejar de usar la funcion*/
 	char *cadena=malloc(sizeof(char)*9);
+
+	memset(cadena, '\0', sizeof(char)*9);
 
 	switch(linea)
 	{
@@ -138,6 +143,7 @@ char *diamante(unsigned int linea, char caracter)
 	/*Estamos practicamente obligados a usar punteros ya que las variables
 	 * locales se eliminan al dejar de usar la funcion*/
 	char *cadena=malloc(sizeof(char)*9);
+	memset(cadena, '\0', sizeof(char)*9);
 
 	switch(linea)
 	{
@@ -169,6 +175,7 @@ char *trebol(unsigned int linea, char caracter)
 	/*Estamos practicamente obligados a usar punteros ya que las variables
 	 * locales se eliminan al dejar de usar la funcion*/
 	char *cadena=malloc(sizeof(char)*9);
+	memset(cadena, '\0', sizeof(char)*9);
 
 	switch(linea)
 	{
@@ -204,6 +211,7 @@ char *pica(unsigned int linea, char caracter)
 	/*Estamos practicamente obligados a usar punteros ya que las variables
 	 * locales se eliminan al dejar de usar la funcion*/
 	char *cadena=malloc(sizeof(char)*9);
+	memset(cadena, '\0', sizeof(char)*9);
 
 	switch(linea)
 	{
@@ -238,8 +246,10 @@ char *cartas_5_graficas(CARTA cartas[])
 	char *cadena=malloc(sizeof(char)*450);
 
 	/*5 cartas de 8 caracteres +4 espacios +1 salto de linea +NULL*/
-	char lineas[6][5*8+6+17]={'\0'};
+	char lineas[6][5*8+6+17];
 	char *carta1,*carta2,*carta3,*carta4,*carta5;
+
+	memset(lineas, '\0', sizeof(char)*(6*(5*8+6+17)));
 
 	for(l=0;l<6;l++)
 	{
@@ -272,8 +282,13 @@ char *cartas_2_graficas(CARTA cartas[])
 	char *cadena=malloc(sizeof(char)*359);
 
 	/*2 cartas de 8 caracteres +1 espacios +1 salto de linea +NULL*/
-	char lineas[6][2*8+37]={'\0'};
+	char lineas[6][2*8+37];
 	char *carta1,*carta2;
+
+
+	memset(lineas, '\0', sizeof(char)*(6*(2*8+37)));
+
+
 
 	for(l=0;l<6;l++)
 	{

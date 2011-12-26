@@ -1,4 +1,5 @@
 #include <time.h>
+#include <stdlib.h>
 #include "carta.h"
 #include "mesa.h"
 
