@@ -91,11 +91,14 @@ void repartirCartas(Jugador *primero){
 
     /** Se asignan las cartas al primero jugador */
     while(contadorC<2){
-            if(mazo[aletoriedad].jugada == 0){
-                aux->cartas[contadorC] = mazo[aletoriedad];
-                mazo[aletoriedad].jugada = 2;
-                contadorC++;
-            }
+
+        /** Se asignan las cartas */
+        aletoriedad = rand() % 52;
+        if(mazo[aletoriedad].jugada == 0){
+            aux->cartas[contadorC] = mazo[aletoriedad];
+            mazo[aletoriedad].jugada = 2;
+            contadorC++;
+        }
     }
     contadorC=0;
 
