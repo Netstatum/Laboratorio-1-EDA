@@ -25,9 +25,5 @@ if int(warnings)==2:
 
 env.Append(CCFLAGS='-pipe')
 
-if platform.system()=="Linux":
-	libraries = ['m']
-	env.Program('strip_poker', [Glob('*.c', '*.cpp')], LIBS=libraries)
-else:
-	libraries = []
-	env.Program('strip_poker', [Glob('*.c', '*.cpp')], LIBPAH=["dir"], LINKFLAGS="--static", LIBS=libraries)
+libraries = ['m']
+env.Program('strip_poker', [Glob('*.c' )], LIBS=libraries)
