@@ -1,3 +1,5 @@
+#ifdef __linux__
+
 #include <stdio.h>
 #include <termios.h>
 #include <unistd.h>
@@ -12,6 +14,6 @@ int getch( ) {
 	tcsetattr( STDIN_FILENO, TCSANOW, &newt );
 	ch = getchar();
 	tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
-	printf("Numero %i\n", ch);
 	return ch;
 }
+#endif

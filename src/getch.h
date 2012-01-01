@@ -15,6 +15,6 @@ int getch();
 /*Podemos usar conio.h*/
 #include <conio.h>
 
-#endif
+#endif /*#ifdef __linux__*/
 
 #endif
