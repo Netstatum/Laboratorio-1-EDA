@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 #include <time.h>
 
 /** Constantes:
@@ -127,8 +126,4 @@ int i;
             }
         }
         }
-        }
-
-int main(){
-	printf ("Hola Mundo"); /*(para comprobar que compila no mas xd)*/
 }
