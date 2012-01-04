@@ -67,11 +67,11 @@ Jugador *siguiente_jugador(Jugador *actual);
  * ARGUMENTOS:
  * 	final: es el ultimo jugador agregado a la lista. Si final es NULL
  * 	entonces se crea una nueva lista desde cero.
- * 	monto_actual: Es el monto que posee el jugador
+ * 	dinero: Es el dinero que posee el jugador
  *
  * RETORNO: El jugador que se agrega luego de usar la funcion. Devuelve NULL si
  * 	fallamos al obtener memoria para el nuevo nodo*/
-Jugador *agregar_jugador(Jugador *final, unsigned int monto_actual);
+Jugador *agregar_jugador(Jugador *final, unsigned int dinero);
 
 
 /*Indica si estamos al final del recorrido de la lista. Para usarla hay llamar a
