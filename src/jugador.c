@@ -118,6 +118,19 @@ Jugador *crearJugadores(int cantidad){
 
 }
 
+void free_jugador(Jugador *nodo)
+{
+	/*No usamos la funcion jugador_final ya que podria estar siendo usada
+	 * por el usuario de la lista*/
+	Jugador *primero=nodo, *aux=NULL;
+
+	do{
+		aux=nodo;
+		nodo=nodo->siguiente;
+		free(aux);
+	}while(nodo!=primero);
+}
+
 #ifdef DEBUG
 #include <stdio.h>
 int test_jugador()

@@ -112,6 +112,11 @@ int borrar_jugador_id(Jugador *nodo, unsigned int id);
 */
 Jugador *crearJugadores(int cantidad);
 
+/*Libera la memoria utilizada por la lista jugador
+ * ARGUMENTOS:
+ * 	nodo: Un nodo que pertenezca a la lista jugador*/
+void free_jugador(Jugador *nodo);
+
 #ifdef DEBUG
 /*Ejecuta algunas pruebas para ver que el codigo de jugador funciona. Solo esta
  * disponible si se especifica DEBUG
