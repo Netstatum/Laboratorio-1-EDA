@@ -1,7 +1,7 @@
-#include <stdio.h>
 #include "menu.h"
 #include "getch.h"
 #include "display.h"
+#include "modo_practica.h"
 
 int menuPrincipal(int starter)
 {
@@ -81,14 +81,13 @@ const char *mensajeBienvenida()
 const char *titulo()
 {
     return "\n"
-"\t       _____ _        _         _____       _                     \n"
-"\t      / ____| |      (_)       |  __ \\     | |                   \n"
-"\t     | (___ | |_ _ __ _ _ __   | |__) |___ | | __ ___ _ __        \n"
-"\t      \\__  \\| __| '__| | '_ \\  |  ___// _ \\| |/ // _ \\ '__|  \n"
-"\t      ____) | |_| |  | | |_) | | |   | (_) |   <|  __/ |          \n"
-"\t     |_____/ \\__|_|  |_| .__/  |_|    \\___/|_|\\_\\\\___|_|     \n"
-"\t                       | |                                        \n"
-"\t                       |_|                                        \n";
+"\t  _____  _ _        __   _    _       _     _   _                  \n"
+"\t |  __ \\(_|_)      / _| | |  | |     | |   | | ( )                 \n"
+"\t | |  | |_ _ _ __ | |_  | |__| | ___ | | __| | |/  ___ _ __ ___    \n"
+"\t | |  | | | | '_ \\|  _| |  __  |/ _ \\| |/ _` |    / _ \\ '_ ` _ \\   \n"
+"\t | |__| | | | | | | |   | |  | | (_) | | (_| |   |  __/ | | | | |  \n"
+"\t |_____/|_|_|_| |_|_|   |_|  |_|\\___/|_|\\__,_|    \\___|_| |_| |_|  \n"
+                                                                 ;
 }
 
 
@@ -99,11 +98,11 @@ int menuInicio()
     switch (opcion)
     {
         /** Caracter 72 = Flecha Arriba */
-#ifdef __linux__
-	case 65:
-#else
+    #ifdef __linux__
+        case 65:
+    #else
         case 72:
-#endif
+    #endif
         {
             if(P!=0)
             {
@@ -127,11 +126,11 @@ int menuInicio()
         }
 
         /** Caracter 80 = Flecha Abajo */
-#ifdef __linux__
-	case 91:
-#else
+    #ifdef __linux__
+        case 91:
+    #else
         case 80:
-#endif
+    #endif
         {
             if(P != _largoArray)
             {
@@ -185,34 +184,14 @@ int opciones(int posicion)
         /** Modo Practica */
         case 1:
         {
+            modo_practica();
             break;
         }
 
         /** Creditos */
         case 2:     //CREDITOS
         {
-            limpiar();
-            printf("\n\n\t\t\t\tCREDITOS\n");
-
-            printf("\n\n\tCreado por:");
-            printf("\n\t\tFelipe Garay");
-            printf("\n\t\tEsteban Gaete Flores");
-            printf("\n\t\tMarcial");
-            printf("\n\tEstudiantes de Ingenier%ca Civil en Informatic%c, USACH",161,160);
-
-            printf("\n\n\tEl Juego a sido creado como objetivo de un Laboratorio del ramo:");
-            printf("\n\n\t\tEstructura de Datos y Algoritmos",162);
-            printf("\n\t\tLenguaje usado: C");
-
-            printf("\n\n\tVersion del Juego: ---");
-            printf("\n\tUltima Edicion: -------\n");
-
-            printf("\n\n\t\t\t\tAGRADECIMIENTOS\n");
-
-            printf("\n\n\tGracias a ...");
-
-            getch();
-            portada();
+            creditos();
             break;
         }
 
@@ -222,4 +201,29 @@ int opciones(int posicion)
             return 0;
         }
     }
+}
+
+void creditos(){
+    limpiar();
+    printf("\n\n\t\t\t\tCREDITOS\n");
+
+    printf("\n\n\tCreado por:");
+    printf("\n\t\tFelipe Garay");
+    printf("\n\t\tEsteban Gaete Flores");
+    printf("\n\t\tMarcial Hernandez");
+    printf("\n\tEstudiantes de Ingenier%ca Civil en Informatic%c, USACH",161,160);
+
+    printf("\n\n\tEl Juego a sido creado como objetivo de un Laboratorio del ramo:");
+    printf("\n\n\t\tEstructura de Datos y Algoritmos",162);
+    printf("\n\t\tLenguaje usado: C");
+
+    printf("\n\n\tVersion del Juego: ---");
+    printf("\n\tUltima Edicion: -------\n");
+
+    printf("\n\n\t\t\t\tAGRADECIMIENTOS\n");
+
+    printf("\n\n\tGracias a ...");
+
+    getch();
+    portada();
 }
