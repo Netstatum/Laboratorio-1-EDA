@@ -1,6 +1,5 @@
 #ifndef _H_MESA_
 #define _H_MESA_
-#include "jugador.h"
 
 /** Estructura tipo mesa de juego
     @var CARTA cartasJugadas[4]: son las 5 cartas que deben jugarse durante una partida
@@ -49,6 +48,6 @@ void turnORriver(int ronda);
     @param Jugador *primero: puntero al primer jugador, a partir de este y hacia el segundo se iran
                              repartiendo las cartas hasta el ultimo jugador en partida
 */
-void repartirCartas(Jugador *primero);
+void repartirCartas();
 
 #endif
