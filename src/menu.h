@@ -70,6 +70,11 @@ int menuInicio();
  */
 int opciones(int posicion);
 
+/**
+    Función creditos, como su nombre dice muestra los creditos y datos especificos del programa
+*/
+void creditos();
+
 /** Consiste de un simple Pixelart de presentación
     @return char*: para ser usado dentro de un printf de la forma
                       printf("%s", titulo());
