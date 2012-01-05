@@ -45,10 +45,13 @@ typedef struct Jugador{
 	unsigned int dinero, id, apuesta_actual;
 	char jugando;
 
-	CARTA cartas[1];
+	CARTA cartas[4];
 
 	struct Jugador *siguiente;
 } Jugador;
+
+/** Lista circular de jugadores */
+Jugador *jugadoresMesa;
 
 /*Variables globales. No deberian ser usadas por funciones fuera de aqui*/
 
@@ -106,11 +109,16 @@ void borrar_nodo(Jugador *nodo);
  * RETORNO: Devuelve 0 si se encontro el nodo, 1 si no se encontro*/
 int borrar_jugador_id(Jugador *nodo, unsigned int id);
 
-/** Función crearJugadores, crea una lista con tantos jugadores como se especifica
+/** Función crearJugadores, crea una lista con tantos jugadores como se especifica con el monto dado
     @param int cantidad: cantidad de jugadores
-                         si esta cantidad es 1 o menor se toma por deecto el valor de 2
+                         si esta cantidad es 1 o menor se toma por defecto el valor de 2
+                         si esta cantidad es 24 o mayor se toma por defecto el valor de 23
+     @param double cantidad: monto total inicial
+                         si esta cantidad es menor de 100 millones se toma por defecto el valor 100
+                         si esta cantidad es mayor que 30000 millones se toma por defecto el valor 30000
 */
-Jugador *crearJugadores(int cantidad);
+Jugador *crearJugadores(unsigned int cantidadJ, unsigned int cantidadM);
+
 
 /*Libera la memoria utilizada por la lista jugador
  * ARGUMENTOS:
