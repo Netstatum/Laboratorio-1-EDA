@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "carta.h"
 #include "mesa.h"
+#include "jugador.h"
 
 void generadorDelMazo(){
 	int contador = 0;
@@ -83,42 +84,46 @@ void turnORriver(int ronda){
     }
 }
 
-void repartirCartas(Jugador *primero){
+void repartirCartas(){
     int aletoriedad, contadorC=0;
-    Jugador *aux = primero;
+    Jugador *aux = _principio;
 
     srand(time(NULL));
 
-    /** Se asignan las cartas al primero jugador */
-    while(contadorC<2){
+    /** Se asignan las cartas al primer jugador */
+    //while(contadorC<2){
 
         /** Se asignan las cartas */
-        aletoriedad = rand() % 52;
+      /*  aletoriedad = rand() % 52;
         if(mazo[aletoriedad].jugada == 0){
             aux->cartas[contadorC] = mazo[aletoriedad];
             mazo[aletoriedad].jugada = 2;
             contadorC++;
         }
     }
-    contadorC=0;
+    contadorC=0;*/
 
     /** Se pasa al siguiente jugador */
-    aux=aux->siguiente;
+   // aux=aux->siguiente;
 
     /** Como es una lista circular al llegar al primero nuevamente debemos detenernos */
-    while(aux!=primero){
+    while(jugador_final(aux)==0){
 
         /** Se asignan las cartas */
-        aletoriedad = rand() % 52;
         while(contadorC<2){
+            aletoriedad = rand() % 52;
+
             if(mazo[aletoriedad].jugada == 0){
-                aux->cartas[contadorC] = mazo[aletoriedad];
                 mazo[aletoriedad].jugada = 2;
+                aux->cartas[contadorC] = mazo[aletoriedad];
                 contadorC++;
             }
         }
+        contadorC = 0;
 
         aux=aux->siguiente;
     }
+
+    _principio = aux->siguiente;
 
 }
