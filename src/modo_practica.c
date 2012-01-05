@@ -66,11 +66,6 @@ int comienzaMP(){
 
     repartirCartas(_principio);
 
-    printf("%d,%c,%d,%c,%d,%c",
-           _principio->cartas[0].valor,_principio->cartas[0].pinta,
-           _principio->siguiente->cartas[0].valor,_principio->siguiente->cartas[0].pinta,
-           _principio->siguiente->siguiente->cartas[0].valor,_principio->siguiente->siguiente->cartas[0].pinta);
-
     getch();
 
     return 0;
