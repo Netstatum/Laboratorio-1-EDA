@@ -1,4 +1,6 @@
 #include <malloc.h>
+#include "display.h"
+#include "getch.h"
 #include "modo_practica.h"
 #include "jugador.h"
 #include "mesa.h"

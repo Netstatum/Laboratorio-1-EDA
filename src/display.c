@@ -5,13 +5,29 @@
 #include "ascii.h"
 
 
-void display_principal(CARTA cartas_mesa[], CARTA cartas_jugador[])
+void display_principal(CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, CARTA cartas_jugador[])
 {
-	char *cartas_mesa_graficas=cartas_5_graficas(cartas_mesa);
-	char *cartas_jugador_graficas=cartas_2_graficas(cartas_jugador);
+	char *cartas_mesa_graficas=NULL, *cartas_jugador_graficas=NULL;
+
+	/*dependiendo de la cantidad de cartas que nos den es la funcion que
+	 * llamamos*/
+	switch(cantidad_cartas_mesa)
+	{
+		case 5:
+			cartas_mesa_graficas=cartas_5_graficas(cartas_mesa);
+			break;
+		default:
+			/*No hacemos nada*/
+			break;
+	}
+
 	printf("%s", cartas_mesa_graficas);
 
-	printf("%s", cartas_jugador_graficas);
+	if(cartas_jugador)
+	{
+		cartas_jugador_graficas=cartas_2_graficas(cartas_jugador);
+		printf("%s", cartas_jugador_graficas);
+	}
 
 
 
