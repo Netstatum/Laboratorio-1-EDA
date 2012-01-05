@@ -15,4 +15,8 @@ void cantidad_jugadores();
     entre varios jugadores
 */
 void info_de_juego();
+
+/** Da inicio al modo como tal */
+int comienzaMP();
+
 #endif // MODO_PRACTICA_H_INCLUDED
