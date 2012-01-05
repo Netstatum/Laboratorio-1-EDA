@@ -102,20 +102,38 @@ int borrar_jugador_id(Jugador *nodo, unsigned int id)
 	return 1;
 }
 
-Jugador *crearJugadores(int cantidad){
+Jugador *crearJugadores(unsigned int cantidadJ, unsigned int cantidadM){
     Jugador *lista = NULL;
+    int cantidadTotal;
 
-    if(cantidad<=1)
-        cantidad=2;
-
-    while(cantidad>0){
-        lista = agregar_jugador(lista,_dineroI);
-        lista = lista->siguiente;
-        cantidad--;
+    if(cantidadJ<=1){
+        printf("\nEl numero ingresado es invalido, la cantidad a sido ajustada al minimo de 2.");
+        cantidadJ=2;
+    }
+    if(cantidadJ>=24){
+        printf("\nEl numero ingresado es invalido, la cantidad a sido ajustada al maximo de  23.");
+        cantidadJ=23;
     }
 
-    return lista;
+    if(cantidadM>30000){
+        printf("\nEl numero ingresado es invalido, la cantidad a sido ajustada al maximo de  30000 millones.");
+        cantidadM=30000;
+    }
+    if(cantidadM<100){
+        printf("\nEl numero ingresado es invalido, la cantidad a sido ajustada al minimo de 100 millones.");
+        cantidadM=100;
+    }
 
+    cantidadTotal = cantidadJ;
+
+    while(cantidadJ>0){
+        lista = agregar_jugador(lista,cantidadM);
+        cantidadJ--;
+    }
+
+    printf("\n\n****Los %i jugadores estan listos para jugar con %u millones****", cantidadTotal, cantidadM);
+
+    return lista;
 }
 
 void free_jugador(Jugador *nodo)
