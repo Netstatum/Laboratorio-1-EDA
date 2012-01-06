@@ -37,8 +37,9 @@ void display_principal(CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, C
 		/*dejamos la mesa sin cartas, pero nos saltamos el mismo espacio
 		 * que ocuparian las cartas*/
 		printf("\n\n\n\n\n\n");
-		printf("\n\n================================================================================\n\n");
 	}
+
+	printf("\n\n================================================================================\n\n");
 
 	if(cartas_jugador)
 	{
