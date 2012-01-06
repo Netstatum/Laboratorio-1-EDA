@@ -70,7 +70,7 @@ unsigned int multihipgeo(unsigned int a, unsigned int nita_a, unsigned int b, un
 /*Ahora hay que ver que combiene hacer, como en un principio se tienen 2 cartas, hay que ver si estan son iguales, si son diferentes, si son
 de la misma pinta, o si son consecutivas, esto sirve para el principio en que NO HAY CARTAS EN MESA TODAVIA*/
 
-int comparador(CARTA carta[4],int turno){
+int comparador(CARTA carta[4],MESA mesajuego,int turno){
     int indicador=0;
 
     if (turno==0){
@@ -89,9 +89,16 @@ int comparador(CARTA carta[4],int turno){
         indicador=indicador+2; /* significa que ademas de lo que se puede hacer en indicador 2, se puede hacer escala color color*/
     }
     }
-    if (turno==1){
-         /*Significa que ademas de las 2 cartas de la mano hay 3 en mesa, y que el siguiente flop es de solo 1 carta*/
+    if (turno==1){ /*Significa que ademas de las 2 cartas de la mano hay 3 en mesa, y que el siguiente flop es de solo 1 carta*/
 
+        if (indicador==0)
+        /*Este es el peor caso, ya que como no habia nada favorable al principio, entonces habrá que comparar todas
+        las cartas entre la mano y la mesa, y lanzar un indicador xP*/
+        {
+            /*Voy a tener que hacer una funcion anexa ~.~ que me diga los extremos de una posible escala entre las 7 cartas mano-mesa
+            y que me diga tambien los pares/trios que se forma, y ver cual es la mayoria de color... un cacho la verdad xd*/
+
+        }
     }
     return indicador;
         /*Si al final el valor de indicador es igual a 0, significa que la prob de ocurrencia de las combinaciones
@@ -100,7 +107,7 @@ int comparador(CARTA carta[4],int turno){
 /*avanzando cualquier comentario es bienvenido xP*/
 
 int prob(CARTA mazo[51],CARTA mano[4],int indicador){
-    int pos_trio,pos_doble_pareja,pos_color,pos_full,pos_poker,pos_escala,pos_escala_color; /*estas variables indicaran las prob de exito de la ocurrencia de su nombre*/
+    int pos_doble,pos_trio,pos_doble_pareja,pos_color,pos_full,pos_poker,pos_escala,pos_escala_color; /*estas variables indicaran las prob de exito de la ocurrencia de su nombre*/
     if (indicador==1 || indicador==3){
         pos_trio=multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo[51]),1, 0, 0, tamano_mazo(mazo[51]), 3);
         if (mano[0].valor!=4){
