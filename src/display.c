@@ -9,7 +9,7 @@ void display_principal(CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, C
 {
 	char *cartas_mesa_graficas=NULL, *cartas_jugador_graficas=NULL;
 
-	if(cartas_mesa)
+	if(cartas_mesa && (cantidad_cartas_mesa>=3 && cantidad_cartas_mesa<=5))
 	{
 		/*dependiendo de la cantidad de cartas que nos den es la funcion que
 		 * llamamos*/
