@@ -67,6 +67,8 @@ void info_de_juego(){
 
 int comienzaMP(){
     int rondas;
+    int opcion;
+    Jugador *jugando;
 
     generadorDelMazo();
 
@@ -76,13 +78,48 @@ int comienzaMP(){
     turnORriver(3);
     turnORriver(4);
 
-    printf("================================================================================\n\n");
+    jugando = _principio;
 
-    display_principal(mesaJuego.cartasJugada,5,_principio->cartas);
+    printf("================================================================================\n");
 
-    printf("\n\n================================================================================\n\n");
+    printf("Pozo Total de la Mesa: %d",mesaJuego.pozoApuestas);
+    printf("\nPorcentaje del pozo que te corresponde: %d",calculoPP(jugando));
 
-    getch();
+
+    printf("\nCartas en la Mesa: \n\n");
+
+
+    display_principal(mesaJuego.cartasJugada,5,jugando->cartas);
+    printf("\nDinero disponible: %d millones",jugando->dinero);
+    printf("\nApuesta maxima realizada: %d",mesaJuego.apuesta_maxima);
+
+    printf("\n\n================================================================================");
+
+    printf("\nProbabilidades de juego:");
+
+    printf("\n\n================================================================================");
+
+    printf("\nQue desea hacer?\n\n");
+
+    printf("[1]Igualar la apuesta maxima");
+    printf("   [2]Aumentar la apuesta maxima");
+    printf("   [3]All IN");
+    printf("        [4]Check");
+    printf("   [5]Retirarse");
+
+
+
+    opcion=getch();
 
     return 0;
+}
+
+int calculoPP(Jugador *jugador){
+    int porcentaje;
+
+    if(jugador->dinero>0){
+        porcentaje = 100;
+    }
+
+    return porcentaje;
 }
