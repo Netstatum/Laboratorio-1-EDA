@@ -1,5 +1,6 @@
 #ifndef MODO_PRACTICA_H_INCLUDED
 #define MODO_PRACTICA_H_INCLUDED
+#include "jugador.h"
 
 /** Función modo_practica, esta función es la encargada de inicializar la partida
     para el modo practica y lanzar el juego
@@ -18,5 +19,8 @@ void info_de_juego();
 
 /** Da inicio al modo como tal */
 int comienzaMP();
+
+/** Hace el calculo de la proporción que le corresponde al jugador del poso total */
+int calculoPP(Jugador *jugador);
 
 #endif // MODO_PRACTICA_H_INCLUDED
