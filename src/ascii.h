@@ -36,4 +36,14 @@ char *cartas_2_graficas(CARTA cartas[]);
  * 	cartas: array de cartas de tamano 5*/
 char *cartas_5_graficas(CARTA cartas[]);
 
+/*Devuelve un string que representa a las 3 cartas dadas como array
+ * ARGUMENTOS:
+ * 	cartas: array de cartas de tamano 3*/
+char *cartas_3_graficas(CARTA cartas[]);
+
+/*Devuelve un string que representa a las 4 cartas dadas como array
+ * ARGUMENTOS:
+ * 	cartas: array de cartas de tamano 4*/
+char *cartas_4_graficas(CARTA cartas[]);
+
 #endif

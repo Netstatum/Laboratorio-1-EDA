@@ -16,6 +16,13 @@ void display_principal(CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, C
 		case 5:
 			cartas_mesa_graficas=cartas_5_graficas(cartas_mesa);
 			break;
+		case 3:
+			cartas_mesa_graficas=cartas_3_graficas(cartas_mesa);
+			break;
+		case 4:
+			cartas_mesa_graficas=cartas_4_graficas(cartas_mesa);
+			break;
+
 		default:
 			/*No hacemos nada*/
 			break;

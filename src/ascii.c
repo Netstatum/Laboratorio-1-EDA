@@ -307,3 +307,74 @@ char *cartas_2_graficas(CARTA cartas[])
 
 	return cadena;
 }
+
+char *cartas_3_graficas(CARTA cartas[])
+{
+	int l;
+	char *cadena=malloc(sizeof(char)*450);
+
+	/*3 cartas de 8 caracteres +1 espacios +1 salto de linea +NULL*/
+	char lineas[6][3*8+37];
+	char *carta1,*carta2, *carta3;
+
+
+	memset(lineas, '\0', sizeof(char)*(6*(3*8+37)));
+
+
+
+	for(l=0;l<6;l++)
+	{
+		carta1=carta_a_ascii(cartas[0], l);
+		carta2=carta_a_ascii(cartas[1], l);
+		carta3=carta_a_ascii(cartas[2], l);
+
+		/*vamos guardando linea por linea para luego contatenarla*/
+		/*26 espacios al principio (80-3*8-3)/2*/
+		sprintf(lineas[l], "                          %s %s %s\n", carta1,carta2, carta3);
+
+		free(carta1);
+		free(carta2);
+		free(carta3);
+	}
+
+	/*concatenamos todo en un mismo string*/
+	sprintf(cadena, "%s%s%s%s%s%s", lineas[0], lineas[1], lineas[2], lineas[3], lineas[4], lineas[5]);
+
+	return cadena;
+}
+
+char *cartas_4_graficas(CARTA cartas[])
+{
+	int l;
+	char *cadena=malloc(sizeof(char)*450);
+
+	/*3 cartas de 8 caracteres +1 espacios +1 salto de linea +NULL*/
+	char lineas[6][4*8+37];
+	char *carta1,*carta2, *carta3, *carta4;
+
+
+	memset(lineas, '\0', sizeof(char)*(6*(4*8+37)));
+
+
+
+	for(l=0;l<6;l++)
+	{
+		carta1=carta_a_ascii(cartas[0], l);
+		carta2=carta_a_ascii(cartas[1], l);
+		carta3=carta_a_ascii(cartas[2], l);
+		carta4=carta_a_ascii(cartas[3], l);
+
+		/*vamos guardando linea por linea para luego contatenarla*/
+		sprintf(lineas[l], "                      %s %s %s %s\n", carta1,carta2, carta3, carta4);
+
+		free(carta1);
+		free(carta2);
+		free(carta3);
+		free(carta4);
+	}
+
+	/*concatenamos todo en un mismo string*/
+	sprintf(cadena, "%s%s%s%s%s%s", lineas[0], lineas[1], lineas[2], lineas[3], lineas[4], lineas[5]);
+
+	return cadena;
+}
