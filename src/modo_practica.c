@@ -19,6 +19,10 @@ int modo_practica(){
 
     info_de_juego();
 
+    limpiar();
+    printf("%s",titulo());
+    printf("\n\n\n");
+
     comienzaMP();
 
     return 0;
@@ -62,9 +66,21 @@ void info_de_juego(){
 }
 
 int comienzaMP(){
+    int rondas;
+
     generadorDelMazo();
 
     repartirCartas(_principio);
+
+    flop();
+    turnORriver(3);
+    turnORriver(4);
+
+    printf("================================================================================\n\n");
+
+    display_principal(mesaJuego.cartasJugada,5,_principio->cartas);
+
+    printf("\n\n================================================================================\n\n");
 
     getch();
 
