@@ -10,7 +10,8 @@
 /*Formatea y muestra las variables dadas segun lo especificado en el lab*/
 /*TODO: Falta agregar las probabilidades
  * ARGUMENTOS:
- * 	cartas_mesa: Un array con 3, 4, o 5 cartas a mostrar en la mesa
+ * 	cartas_mesa: Un array con 3, 4, o 5 cartas a mostrar en la mesa si es
+ * 	NULL entonces se muestra una mesa sin cartas
  * 	cantidad_cartas_mesa: El numero de cartas que contiene cartas_mesa
  * 	cartas_jugador: Las cartas del jugador, si el jugador no tiene cartas
  * 	entonces es NULL*/
