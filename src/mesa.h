@@ -8,6 +8,7 @@
 struct mesa{
     CARTA cartasJugada[4];
     int pozoApuestas;
+    int apuesta_maxima;
 };
 typedef struct mesa MESA;
 
