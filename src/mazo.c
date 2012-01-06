@@ -76,7 +76,7 @@ void turnORriver(int ronda){
         */
         if(mazo[aletoriedad].jugada == 0){
 
-            mesaJuego.cartasJugada[ronda+1] = mazo[aletoriedad];
+            mesaJuego.cartasJugada[ronda] = mazo[aletoriedad];
             mazo[aletoriedad].jugada = 1;
 
             sacadas++;
