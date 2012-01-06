@@ -30,6 +30,8 @@ void display_principal(CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, C
 
 	printf("%s", cartas_mesa_graficas);
 
+    printf("\n\n================================================================================\n\n");
+
 	if(cartas_jugador)
 	{
 		cartas_jugador_graficas=cartas_2_graficas(cartas_jugador);
