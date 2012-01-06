@@ -20,10 +20,6 @@
  * set_principio: Pone como principio el elemento actual de la lista
  */
 
-
-/** Dinero inicial con el que parten todos los jugadores */
-#define _dineroI 1000
-
 /*Estructura que representa a un jugador
  * TODO: Agregar los atributos faltantes
  *
@@ -42,8 +38,7 @@
  * 	siguiente: puntero al siguiente elemento de la lista*/
 typedef struct Jugador{
 
-	unsigned int dinero, id, apuesta_actual;
-	char jugando;
+	unsigned int dinero, id, apuesta_actual,jugando;
 
 	CARTA cartas[4];
 
