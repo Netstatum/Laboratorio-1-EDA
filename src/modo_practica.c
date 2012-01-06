@@ -20,8 +20,6 @@ int modo_practica(){
     info_de_juego();
 
     limpiar();
-    printf("%s",titulo());
-    printf("\n\n\n");
 
     comienzaMP();
 
@@ -66,50 +64,137 @@ void info_de_juego(){
 }
 
 int comienzaMP(){
-    int rondas;
-    int opcion;
+    int rondas=1;
+    int opcion,big,low;
     Jugador *jugando;
 
+    /** Inicializa las variables globales de juego */
+    mesaJuego.pozoApuestas = 0;
+    mesaJuego.apuesta_maxima = 0;
+
+    /** Asignando las variables generales para el juego */
     generadorDelMazo();
+    big = aBig(_principio->dinero);
+    low = aLow(_principio->dinero);
 
+    /** Asignando las variables generales para la partida */
     repartirCartas(_principio);
-
-    flop();
-    turnORriver(3);
-    turnORriver(4);
-
     jugando = _principio;
 
-    printf("================================================================================\n");
+    /** Mensaje de principio de juego */
+    printf("%s",titulo());
+    printf("\n\n\n");
+    printf("\tEl juego comienza con el jugador ID: %i",jugando->id);
+    printf("\n\tPresione una tecla para continuar");
+    getch();
 
-    printf("Pozo Total de la Mesa: %d",mesaJuego.pozoApuestas);
-    printf("\nPorcentaje del pozo que te corresponde: %d",calculoPP(jugando));
+    /** Comienza el juego */
+    while(jugando->siguiente!=jugando){
+        /** Comienza la partida */
+        while(rondas<=4){
+            /** Comienza el turno */
+            do{
+                limpiar();
 
+                printf("%s",titulo());
+                printf("\n\n\n");
+                printf("================================================================================\n");
 
-    printf("\nCartas en la Mesa: \n\n");
+                printf("Pozo Total de la Mesa: %d",mesaJuego.pozoApuestas);
+                printf("\nPorcentaje del pozo que te corresponde: %d",calculoPP(jugando));
 
+                printf("\nCartas en la Mesa: \n\n");
 
-    display_principal(mesaJuego.cartasJugada,5,jugando->cartas);
-    printf("\nDinero disponible: %d millones",jugando->dinero);
-    printf("\nApuesta maxima realizada: %d",mesaJuego.apuesta_maxima);
+                display_principal(mesaJuego.cartasJugada,rondas+1,jugando->cartas);
+                printf("\nDinero disponible: %d millones",jugando->dinero);
+                printf("\nApuesta maxima realizada: %d",mesaJuego.apuesta_maxima);
 
-    printf("\n\n================================================================================");
+                printf("\n\n================================================================================");
 
-    printf("\nProbabilidades de juego:");
+                printf("\nProbabilidades de juego:");
 
-    printf("\n\n================================================================================");
+                printf("\n\n================================================================================");
 
-    printf("\nQue desea hacer?\n\n");
+                printf("\nQue desea hacer?\n\n");
 
-    printf("[1]Igualar la apuesta maxima");
-    printf("   [2]Aumentar la apuesta maxima");
-    printf("   [3]All IN");
-    printf("        [4]Check");
-    printf("   [5]Retirarse");
+                if(rondas==1 && jugando ==_principio){
+                    printf("[1]Apostar el Big de: %i",big);
 
+                    opcion=getch();
 
+                    /** 49 es el ascii de la tecla 1 */
+                    if(opcion==49){
+                        apostandoBigOrLow(big,jugando->dinero);
+                        jugando = siguiente_jugador(jugando);
+                    }
+                }else{
+                    if(rondas==1 && jugando == _principio->siguiente){
+                        printf("[1]Apostar el Low de: %i",low);
 
-    opcion=getch();
+                        opcion=getch();
+
+                        /** 49 es el ascii de la tecla 1 */
+                        if(opcion==49){
+                            apostandoBigOrLow(low,jugando->dinero);
+                            jugando = siguiente_jugador(jugando);
+                        }
+                    }else{
+                        printf("[1]Igualar la apuesta maxima");
+                        printf("   [2]Aumentar la apuesta maxima");
+                        printf("   [3]All IN");
+                        printf("        [4]Check");
+                        printf("   [5]Retirarse");
+
+                        opcion=getch();
+
+                        /** 49 es el ascii de la tecla 1 */
+                        if(opcion==49){}
+                            //funcion de igualar apuesta
+
+                        /** 50 es el ascii de la tecla 2 */
+                        if(opcion=50){}
+                            //funcion de aumentar apuesta
+
+                        /** 51 es el ascii de la tecla 3 */
+                        if(opcion==51){}
+
+                        /** 52 es el ascii de la tecla 4 */
+                        if(opcion==52){}
+
+                        /** 53 es el ascii de la tecla 5 */
+                        if(opcion==53){}
+
+                    }
+                }
+
+                if(opcion>=49 && opcion<=53){
+                    limpiar();
+
+                    printf("%s",titulo());
+                    printf("\n\n\n");
+
+                    printf("\tEs el turno del jugador ID: %i",jugando->id);
+                    printf("\n\tPresione una tecla para continuar");
+                    getch();
+                }
+            }while(jugando->apuesta_actual!=mesaJuego.apuesta_maxima);
+            /** Acaba un turno */
+
+            //todos los jugadores con jugando->jugando = 1 deben ser seteados a 0
+            //si los jugadores con jugando->jugando = 1 tienen jugando->dinero= 0 no se resetea su valor jugando a 0
+            rondas++;
+
+            if(rondas==2)
+                flop();
+
+            if(rondas==3 || rondas==4)
+                turnORriver(rondas);
+
+        }
+        /** Acaba la partida */
+        //todos los jugadores con dinero 0 se eliminan
+    }
+    /** Acaba el juego, hay un ganador */
 
     return 0;
 }
@@ -122,4 +207,28 @@ int calculoPP(Jugador *jugador){
     }
 
     return porcentaje;
+}
+
+int aBig(int mInicial){
+    int aux;
+
+    aux = (mInicial*10)/100;
+
+    return aux;
+}
+
+int aLow(int mInicial){
+    int aux;
+
+    aux = (mInicial*5)/100;
+
+    return aux;
+}
+
+int apostandoBigOrLow(int apuesta, int dinero){
+    if(dinero>apuesta){
+        //apuesta normal
+    }else{
+        //apuesta lo que tiene, se calcula el monto dividido
+    }
 }
