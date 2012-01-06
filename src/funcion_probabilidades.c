@@ -27,6 +27,29 @@ int busqueda_carta_sin_pinta(int numero,CARTA mazo[51]){
     return cantidad;
 }
 
+int busqueda_carta_con_pinta(char pinta,CARTA mazo[51]){
+    int i,color;
+    for (i=0;i<52;i++){
+        if (mazo[i].pinta==pinta && mazo[i].jugada==0){
+            color=color+1;
+        }
+    }
+    return color;
+}
+
+/*basicamente esta funcion me dice si hay determinada carta en el mazo*/
+
+int busqueda_carta_color_y_numero(int numero,char pinta,CARTA mazo[51]){
+        int i,carta_exacta;
+    for (i=0;i<52;i++){
+        if (mazo[i].pinta==pinta && mazo[i].jugada==0 && mazo[i].valor==numero){
+            carta_exacta=carta_exacta+1;
+            i=52;
+        }
+    }
+    return carta_exacta;
+}
+
 /*Permite saber tamaño mazo*/
 
 int tamano_mazo(CARTA mazo[51]){
@@ -60,10 +83,10 @@ int comparador(CARTA carta[4],int turno){
         indicador=2;/* 2 significa que se puede hacer una escala*/
     }
     if (indicador==1&&carta[0].pinta==carta[1].pinta){
-        indicador=indicador+2; /* 3 significa que se puede hacer un trio,un full color, una doble pareja o un poker*/
+        indicador=indicador+2; /* significa que ademas de lo que se puede hacer en indicador 1, se puede hacer color*/
     }
     if (indicador==2&&carta[0].pinta==carta[1].pinta){
-        indicador=indicador+2; /* 4 significa que que se puede hacer una escala o una escala color*/
+        indicador=indicador+2; /* significa que ademas de lo que se puede hacer en indicador 2, se puede hacer escala color color*/
     }
     }
     if (turno==1){
@@ -77,24 +100,29 @@ int comparador(CARTA carta[4],int turno){
 /*avanzando cualquier comentario es bienvenido xP*/
 
 int prob(CARTA mazo[51],CARTA mano[4],int indicador){
-    int pos_trio,pos_doble_pareja,pos_full,pos_poker,pos_escala; /*estas variables indicaran las prob de exito de la ocurrencia de su nombre*/
-    if (indicador==1){
+    int pos_trio,pos_doble_pareja,pos_color,pos_full,pos_poker,pos_escala,pos_escala_color; /*estas variables indicaran las prob de exito de la ocurrencia de su nombre*/
+    if (indicador==1 || indicador==3){
         pos_trio=multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo[51]),1, 0, 0, tamano_mazo(mazo[51]), 3);
         if (mano[0].valor!=4){
-        pos_doble_pareja=multihipgeo(busqueda_carta_sin_pinta(4,mazo[51]),2,0,0,tamano_mazo(mazo[51]),3);
+        pos_doble_pareja=multihipgeo(busqueda_carta_sin_pinta(4,mazo[51]),2,mano[0].valor,0,tamano_mazo(mazo[51]),3);
         }
-        else{
-            pos_doble_pareja=multihipgeo(busqueda_carta_sin_pinta(5,mazo[51]),2,0,0,tamano_mazo(mazo[51]),3);
+        else if(mano[0].valor==4){
+            pos_doble_pareja=multihipgeo(busqueda_carta_sin_pinta(5,mazo[51]),2,mano[0].valor,0,tamano_mazo(mazo[51]),3);
         }
         if (mano[0].valor!=4){
-            pos_full=multihipgeo(busqueda_carta_sin_pinta(4,mazo[51]),3,mano[0].valor,0,tamano_mazo(mazo[51]),3);
+            pos_full=multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo[51]),1,busqueda_carta_sin_pinta(4,mazo[51]),2,tamano_mazo(mazo[51]),3);
         }
-        else{
-            pos_full=multihipgeo(busqueda_carta_sin_pinta(5,mazo[51]),3,mano[0].valor,0,tamano_mazo(mazo[51]),3);
+        else if(mano[0].valor==4){
+            pos_full=multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo[51]),1,busqueda_carta_sin_pinta(5,mazo[51]),2,tamano_mazo(mazo[51]),3);
         }
         pos_poker=multihipgeo(busqueda_carta_sin_pinta(mano[0],mazo[51]),2,0,0,tamano_mazo(mazo[51]),3);
+
+        if (indicador==3){
+            pos_color=multihipgeo(busqueda_carta_con_pinta(mano[0].pinta,mazo[51]),2,0,0,tamano_mazo(mazo[51]),3);
+
+        }
     }
-    if (indicador==2){
+    if (indicador==2||indicador==4){
 
         /*Es necesario el siguiente proceso ya que para usar la formula de probabilidades, nito saber que cartas me deberian salir,
         por esto mismo, si tengo una carta 13, la sucesora de esta es 14, pero 14 no existe!, el sucesor de esta deberia ser 1, debido a esto
@@ -155,11 +183,15 @@ int prob(CARTA mazo[51],CARTA mano[4],int indicador){
                 antecesor1=carta[0].valor-1;
                 antecesor2=antecesor1-1;
             }
+            }
+            if (indicador==2){
             pos_escala=multihipgeo(busqueda_carta_sin_pinta(sucesor1,mazo[51]),1,(busqueda_carta_sin_pinta(sucesor2,mazo[51]),1,tamano_mazo(mazo[51]),3)+multihipgeo(busqueda_carta_sin_pinta(antecesor1,mazo[51]),1,(busqueda_carta_sin_pinta(antecesor2,mazo[51]),1,tamano_mazo(mazo[51]),3))+multihipgeo(busqueda_carta_sin_pinta(antecesor1,mazo[51]),1,(busqueda_carta_sin_pinta(sucesor1,mazo[51]),1,tamano_mazo(mazo[51]),3));
             }
+            else if(indicador==4){
+            pos_escala_color=multihipgeo(busqueda_carta_color_y_numero(sucesor1,mazo[51]),1,(busqueda_carta_color_y_numero(sucesor2,mazo[51]),1,tamano_mazo(mazo[51]),3)+multihipgeo(busqueda_carta_color_y_numero(antecesor1,mazo[51]),1,(busqueda_carta_color_y_numero(antecesor2,mazo[51]),1,tamano_mazo(mazo[51]),3))+multihipgeo(busqueda_carta_color_y_numero(antecesor1,mazo[51]),1,(busqueda_carta_color_y_numero(sucesor1,mazo[51]),1,tamano_mazo(mazo[51]),3));
+            }
     }
-    if (indicador==3){ /*trabajando todavia en esto xP*/
-
-    }
-
 }
+
+/*ya está hecha casi toda la parte de sacar la probabilidad del primer turno donde el flop es de 3 cartas,
+ahora como solo es de una carta, creo que se usa la distribucion hipergeometrica no mas, no la multi, voy a tener que ver xP*/
