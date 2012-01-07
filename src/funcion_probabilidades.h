@@ -12,25 +12,26 @@ double combinatoria(unsigned int a, unsigned int b);
 
 
 
-int busqueda_carta_sin_pinta(int numero,CARTA mazo[51]);
+int busqueda_carta_sin_pinta(int numero,CARTA mazo[]);
 
 
-int busqueda_carta_con_pinta(char pinta,CARTA mazo[51]);
+int busqueda_carta_con_pinta(char pinta,CARTA mazo[]);
 
 
-int busqueda_carta_color_y_numero(int numero,char pinta,CARTA mazo[51]);
+int busqueda_carta_color_y_numero(int numero,char pinta,CARTA mazo[]);
 
 
-int tamano_mazo(CARTA mazo[51]);
+int tamano_mazo(CARTA mazo[]);
 
 
 unsigned int multihipgeo(unsigned int a, unsigned int nita_a, unsigned int b, unsigned int nita_b, unsigned int t_mazo, unsigned int t_flop);
 
 
-int comparador(CARTA carta[4],MESA mesajuego,int turno);
+int comparador(CARTA carta[],MESA mesajuego[],int turno);
 
 
-int prob(CARTA mazo[51],CARTA mano[4],int indicador);
+int prob(CARTA mazo[],CARTA mano[],int indicador);
 
 
 #endif
+
