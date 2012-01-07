@@ -106,7 +106,11 @@ int comparador(CARTA carta[],MESA mesajuego[],int turno){
 /*avanzando cualquier comentario es bienvenido xP*/
 
 int prob(CARTA mazo[],CARTA mano[],int indicador){
-    int pos_doble,pos_trio,pos_doble_pareja,pos_color,pos_full,pos_poker,pos_escala,pos_escala_color; /*estas variables indicaran las prob de exito de la ocurrencia de su nombre*/
+
+    /*DEBEN SER tipo float, ya que como guardan las probabilidades de cada caso, pues guardaran muchos decimales*/
+
+    float pos_doble,pos_trio,pos_doble_pareja,pos_color,pos_full,pos_poker,pos_escala,pos_escala_color; /*estas variables indicaran las prob de exito de la ocurrencia de su nombre*/
+
     if (indicador==1 || indicador==3){
         pos_trio=multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1, 0, 0, tamano_mazo(mazo), 3);
         if (mano[0].valor!=4){
@@ -161,7 +165,7 @@ int prob(CARTA mazo[],CARTA mano[],int indicador){
                 antecesor1=mano[1].valor-1;
                 antecesor2=antecesor1-1;
             }
-            pos_escala=multihipgeo(busqueda_carta_sin_pinta(sucesor1,mazo),1,(busqueda_carta_sin_pinta(sucesor2,mazo),1,tamano_mazo(mazo),3)+multihipgeo(busqueda_carta_sin_pinta(antecesor1,mazo),1,(busqueda_carta_sin_pinta(antecesor2,mazo),1,tamano_mazo(mazo),3))+multihipgeo(busqueda_carta_sin_pinta(antecesor1,mazo),1,(busqueda_carta_sin_pinta(sucesor1,mazo),1,tamano_mazo(mazo),3));
+            pos_escala=multihipgeo((busqueda_carta_sin_pinta(sucesor1,mazo)),1,(busqueda_carta_sin_pinta(sucesor2,mazo)),1,tamano_mazo(mazo),3)+multihipgeo((busqueda_carta_sin_pinta(antecesor1,mazo)),1,(busqueda_carta_sin_pinta(antecesor2,mazo)),1,tamano_mazo(mazo),3)+multihipgeo((busqueda_carta_sin_pinta(antecesor1,mazo)),1,(busqueda_carta_sin_pinta(sucesor1,mazo)),1,tamano_mazo(mazo),3);
             }
             else if (mano[1].valor>mano[0].valor){
             int sucesor1,sucesor2,antecesor1,antecesor2;
@@ -189,12 +193,12 @@ int prob(CARTA mazo[],CARTA mano[],int indicador){
                 antecesor1=mano[0].valor-1;
                 antecesor2=antecesor1-1;
             }
-            }
             if (indicador==2){
-            pos_escala=multihipgeo(busqueda_carta_sin_pinta(sucesor1,mazo),1,(busqueda_carta_sin_pinta(sucesor2,mazo),1,tamano_mazo(mazo),3)+multihipgeo(busqueda_carta_sin_pinta(antecesor1,mazo),1,(busqueda_carta_sin_pinta(antecesor2,mazo),1,tamano_mazo(mazo),3))+multihipgeo(busqueda_carta_sin_pinta(antecesor1,mazo),1,(busqueda_carta_sin_pinta(sucesor1,mazo),1,tamano_mazo(mazo),3));
+            pos_escala=multihipgeo((busqueda_carta_sin_pinta(sucesor1,mazo)),1,(busqueda_carta_sin_pinta(sucesor2,mazo)),1,tamano_mazo(mazo),3)+multihipgeo((busqueda_carta_sin_pinta(antecesor1,mazo)),1,(busqueda_carta_sin_pinta(antecesor2,mazo)),1,tamano_mazo(mazo),3)+multihipgeo((busqueda_carta_sin_pinta(antecesor1,mazo)),1,(busqueda_carta_sin_pinta(sucesor1,mazo)),1,tamano_mazo(mazo),3);
             }
             else if(indicador==4){
-            pos_escala_color=multihipgeo(busqueda_carta_color_y_numero(sucesor1,mazo),1,(busqueda_carta_color_y_numero(sucesor2,mazo),1,tamano_mazo(mazo),3)+multihipgeo(busqueda_carta_color_y_numero(antecesor1,mazo),1,(busqueda_carta_color_y_numero(antecesor2,mazo),1,tamano_mazo(mazo),3))+multihipgeo(busqueda_carta_color_y_numero(antecesor1,mazo),1,(busqueda_carta_color_y_numero(sucesor1,mazo),1,tamano_mazo(mazo),3));
+            pos_escala_color=multihipgeo((busqueda_carta_color_y_numero(sucesor1,mano[0].pinta,mazo)),1,(busqueda_carta_color_y_numero(sucesor2,mano[0].pinta,mazo)),1,tamano_mazo(mazo),3)+multihipgeo((busqueda_carta_color_y_numero(antecesor1,mano[0].pinta,mazo)),1,(busqueda_carta_color_y_numero(antecesor2,mano[0].pinta,mazo)),1,tamano_mazo(mazo),3)+multihipgeo((busqueda_carta_color_y_numero(antecesor1,mano[0].pinta,mazo)),1,(busqueda_carta_color_y_numero(sucesor1,mano[0].pinta,mazo)),1,tamano_mazo(mazo),3);
+            }
             }
     }
 }
