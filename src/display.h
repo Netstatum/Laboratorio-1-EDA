@@ -1,11 +1,24 @@
 #ifndef _H_DISPLAY_
 #define _H_DISPLAY_
 
+/** Para las funciones de C usadas en este archivo */
+#include <stdio.h>
+#include <stdlib.h>
+#include <malloc.h>
+
 /*Aqui se encuentras las funciones para mostrar informacion al usuario hacerca
  * del estado del juego*/
 
 #include "carta.h"
+#include "mesa.h"
+#include "jugador.h"
 
+/** Aqui se encuentran las funciones para acceder a ciertos datos como el titulo o calculos
+    particulares
+ */
+#include "ascii.h"
+#include "menu.h"
+#include "modo_practica.h"
 
 /*Formatea y muestra las variables dadas segun lo especificado en el lab*/
 /*TODO: Falta agregar las probabilidades
@@ -19,7 +32,7 @@
  *
  * 	cartas_jugador: Las cartas del jugador, si el jugador no tiene cartas
  * 	entonces es NULL*/
-void display_principal(CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, CARTA cartas_jugador[]);
+void display_principal(Jugador *jugando, CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, CARTA cartas_jugador[]);
 
 /*Limpia la pantalla eliminando los caracteres actuales*/
 void limpiar();
