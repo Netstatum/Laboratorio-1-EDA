@@ -1,13 +1,18 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <malloc.h>
 #include "display.h"
-#include "ascii.h"
 
-
-void display_principal(CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, CARTA cartas_jugador[])
+void display_principal(Jugador *jugando, CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, CARTA cartas_jugador[])
 {
 	char *cartas_mesa_graficas=NULL, *cartas_jugador_graficas=NULL;
+
+    limpiar();
+    printf("%s",titulo());
+    printf("\n\n");
+    printf("================================================================================\n");
+
+    printf("Pozo Total de la Mesa: %d",mesaJuego.pozoApuestas);
+    printf("\nPorcentaje del pozo que te corresponde: %d",calculoPP(jugando));
+
+    printf("\nCartas en la Mesa: \n\n");
 
 	if(cartas_mesa && (cantidad_cartas_mesa>=3 && cantidad_cartas_mesa<=5))
 	{
@@ -47,10 +52,17 @@ void display_principal(CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, C
 		printf("%s", cartas_jugador_graficas);
 	}
 
-
-
 	free(cartas_mesa_graficas);
 	free(cartas_jugador_graficas);
+
+	printf("\nDinero disponible: %d millones",jugando->dinero);
+    printf("\nApuesta maxima realizada: %d",mesaJuego.apuesta_maxima);
+
+    printf("\n\n================================================================================");
+
+    printf("\nProbabilidades de juego:");
+
+    printf("\n\n================================================================================");
 }
 
 
