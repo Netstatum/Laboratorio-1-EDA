@@ -94,48 +94,29 @@ int comienzaMP(){
         while(rondas<=4){
             /** Comienza el turno */
             do{
-                limpiar();
-
-                printf("%s",titulo());
-                printf("\n\n\n");
-                printf("================================================================================\n");
-
-                printf("Pozo Total de la Mesa: %d",mesaJuego.pozoApuestas);
-                printf("\nPorcentaje del pozo que te corresponde: %d",calculoPP(jugando));
-
-                printf("\nCartas en la Mesa: \n\n");
-
-                display_principal(mesaJuego.cartasJugada,rondas+1,jugando->cartas);
-                printf("\nDinero disponible: %d millones",jugando->dinero);
-                printf("\nApuesta maxima realizada: %d",mesaJuego.apuesta_maxima);
-
-                printf("\n\n================================================================================");
-
-                printf("\nProbabilidades de juego:");
-
-                printf("\n\n================================================================================");
+                display_principal(jugando, mesaJuego.cartasJugada,rondas+1,jugando->cartas);
 
                 printf("\nQue desea hacer?\n\n");
 
-                if(rondas==1 && jugando ==_principio){
-                    printf("[1]Apostar el Big de: %i",big);
-
-                    opcion=getch();
-
-                    /** 49 es el ascii de la tecla 1 */
-                    if(opcion==49){
-                        apostandoBigOrLow(big,jugando->dinero);
-                        jugando = siguiente_jugador(jugando);
-                    }
-                }else{
-                    if(rondas==1 && jugando == _principio->siguiente){
-                        printf("[1]Apostar el Low de: %i",low);
+                if(rondas==1 && jugando == _principio){
+                    printf("[1]Apostar el Low de: %i",low);
 
                         opcion=getch();
 
                         /** 49 es el ascii de la tecla 1 */
                         if(opcion==49){
                             apostandoBigOrLow(low,jugando->dinero);
+                            jugando = siguiente_jugador(jugando);
+                        }
+                }else{
+                    if(rondas==1 && jugando == _principio->siguiente){
+                        printf("[1]Apostar el Big de: %i",big);
+
+                        opcion=getch();
+
+                        /** 49 es el ascii de la tecla 1 */
+                        if(opcion==49){
+                            apostandoBigOrLow(big,jugando->dinero);
                             jugando = siguiente_jugador(jugando);
                         }
                     }else{
@@ -167,7 +148,7 @@ int comienzaMP(){
                     }
                 }
 
-                if(opcion>=49 && opcion<=53){
+               // if(opcion>=49 && opcion<=53){
                     limpiar();
 
                     printf("%s",titulo());
@@ -176,19 +157,32 @@ int comienzaMP(){
                     printf("\tEs el turno del jugador ID: %i",jugando->id);
                     printf("\n\tPresione una tecla para continuar");
                     getch();
-                }
+                //}
             }while(jugando->apuesta_actual!=mesaJuego.apuesta_maxima);
-            /** Acaba un turno */
+            /** Acaba una ronda */
 
             //todos los jugadores con jugando->jugando = 1 deben ser seteados a 0
             //si los jugadores con jugando->jugando = 1 tienen jugando->dinero= 0 no se resetea su valor jugando a 0
             rondas++;
 
-            if(rondas==2)
+            if(rondas==2){
+                limpiar();
+                printf("\nApuesta pre-flop terminada, comienza el flop, presione una tecla para continuar");
                 flop();
+                getch();
+            }
 
-            if(rondas==3 || rondas==4)
+            if(rondas==3 || rondas==4){
+                limpiar();
+                if(rondas==3){
+                    printf("\nComienza el Turn, presione una tecla para continuar");
+                }else{
+                    printf("\nComienza el River, presione una tecla para continuar");
+                }
+
                 turnORriver(rondas);
+                getch();
+            }
 
         }
         /** Acaba la partida */
