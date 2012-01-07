@@ -4,8 +4,8 @@
 #include <math.h>
 #include "log_factorial.h"
 #include "funcion_probabilidades.h"
-#include "carta.h"
 #include "jugador.h"
+#include "mesa.h"
 
 double combinatoria(unsigned int a, unsigned int b){
 	if (b==0 || a==b){
