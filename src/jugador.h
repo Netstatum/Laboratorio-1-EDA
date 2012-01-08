@@ -35,8 +35,10 @@
  * 	(partimos del jugador 1). Se incrementa automaticamente al crear nuevos
  * 	nodos.
  *
- * 	jugando: 0 si no esta jugando en la ronda actual, 1 si esta jugando en
- * 	la ronda actual
+ * 	jugando: 0 si no esta jugando en la ronda actual
+ *           1 si esta jugando en la ronda actual
+ *			 2 si esta jugando pero no tiene dinero
+ *			 3 si se retiro de la partida
  *
  * 	siguiente: puntero al siguiente elemento de la lista*/
 typedef struct Jugador{
