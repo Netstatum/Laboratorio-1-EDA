@@ -84,7 +84,7 @@ int comienzaMP(){
         mesaJuego.apuesta_maxima = 0;
 
         /** Comienza la partida */
-        while(rondas<=4){
+        while(rondas<=4 OR siguiente_jugador(jugando)!=jugando){
             /** Comienza el turno */
             do{
                 display_principal(jugando, mesaJuego.cartasJugada,rondas+1,jugando->cartas);
@@ -147,6 +147,7 @@ int comienzaMP(){
 
                         /** 51 es el ascii de la tecla 3 */
                         if(opcion==51){
+							jugando->jugando=2;
                             apostando(jugando,jugando->dinero);
 							jugando = siguiente_jugador(jugando);
 						}
@@ -169,12 +170,14 @@ int comienzaMP(){
 
                         /** 53 es el ascii de la tecla 5 */
                         if(opcion==53){
-							jugando->jugando=2;
+							jugando->jugando=3;
 							jugando = siguiente_jugador(jugando);
 						}
 
                     }
                 }
+
+				if(siguiente_jugador(jugando)!=jugando /*|| jugando!=_apostadorMaximo*/){
                     limpiar();
                     printf("%s",titulo());
                     printf("\n\n\n");
@@ -182,41 +185,47 @@ int comienzaMP(){
                     printf("\tEs el turno del jugador ID: %i",jugando->id);
                     printf("\n\tPresione una tecla para continuar");
                     getch();
-            }while(/*jugando->apuesta_actual!=mesaJuego.apuesta_maxima*/1==1);
+				}
+            }while(siguiente_jugador(jugando)!=jugando/* || jugando!=_apostadorMaximo*/);
             /** Acaba una ronda */
 
             //todos los jugadores con jugando->jugando = 1 deben ser seteados a 0
             //si los jugadores con jugando->jugando = 1 tienen jugando->dinero= 0 no se resetea su valor jugando a 0
-            rondas++;
 
-            if(rondas==2){
-                limpiar();
-                printf("%s",titulo());
-                printf("\n\n\n");
+            if(siguiente_jugador(jugando)!=jugando){
+                rondas++;
 
-                printf("\nApuesta pre-flop terminada, comienza el flop, presione una tecla para continuar");
-                flop();
-                getch();
-            }
+                if(rondas==2){
+                    limpiar();
+                    printf("%s",titulo());
+                    printf("\n\n\n");
 
-            if(rondas==3 || rondas==4){
-                limpiar();
-                printf("%s",titulo());
-                printf("\n\n\n");
-
-                if(rondas==3){
-                    printf("\nComienza el Turn, presione una tecla para continuar");
-                }else{
-                    printf("\nComienza el River, presione una tecla para continuar");
+                    printf("\nApuesta pre-flop terminada, comienza el flop, presione una tecla para continuar");
+                    flop();
+                    getch();
                 }
 
-                turnORriver(rondas);
-                getch();
+                if(rondas==3 || rondas==4){
+                    limpiar();
+                    printf("%s",titulo());
+                    printf("\n\n\n");
+
+                    if(rondas==3){
+                        printf("\nComienza el Turn, presione una tecla para continuar");
+                    }else{
+                        printf("\nComienza el River, presione una tecla para continuar");
+                    }
+
+                    turnORriver(rondas);
+                    getch();
+                }
             }
 
         }
         /** Acaba la partida */
         //todos los jugadores con dinero 0 se eliminan
+
+        mazoNuevo();
     }
     /** Acaba el juego, hay un ganador */
 
