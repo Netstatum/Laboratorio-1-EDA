@@ -59,13 +59,14 @@ void info_de_juego(){
 
 int comienzaMP(){
     int rondas=1;
-    int opcion,big,low;
+    int opcion,aumento;
     Jugador *jugando = _principio;
 
     /** Asignando las variables generales para el juego */
     generadorDelMazo();
-    big = aBig(_principio->dinero);
-    low = aLow(_principio->dinero);
+	aLow(_principio->dinero);
+    aBig(_principio->dinero);
+
 
     /** Mensaje de principio de juego */
     printf("%s",titulo());
@@ -90,8 +91,8 @@ int comienzaMP(){
 
                 printf("\nQue desea hacer?\n\n");
 
-                if(rondas==1 && jugando == _principio){
-                    printf("[1]Apostar el Low de: %i",low);
+                if(rondas==1 && _aOB && jugando == _principio){
+                    printf("[1]Apostar el Low de: %i",_low);
 
                         opcion=getch();
 
@@ -101,13 +102,14 @@ int comienzaMP(){
                             jugando = siguiente_jugador(jugando);
                         }
                 }else{
-                    if(rondas==1 && jugando == _principio->siguiente){
-                        printf("[1]Apostar el Big de: %i",big);
+                    if(rondas==1 && _aOB && jugando == _principio->siguiente){
+                        printf("[1]Apostar el Big de: %i",_big);
 
                         opcion=getch();
 
                         /** 49 es el ascii de la tecla 1 */
                         if(opcion==49){
+							_aOB = 0;
                             apostando(jugando,_big);
                             jugando = siguiente_jugador(jugando);
                         }
@@ -122,35 +124,65 @@ int comienzaMP(){
 
                         /** 49 es el ascii de la tecla 1 */
                         if(opcion==49){
-							apostando(jugando,mesaJugando.apuesta_maxima);
+							apostando(jugando,mesaJuego.apuesta_maxima);
+							jugando = siguiente_jugador(jugando);
 						}
-                            
+
                         /** 50 es el ascii de la tecla 2 */
-                        if(opcion=50){}
+                        if(opcion==50){
+							limpiar();
+							printf("%s",titulo());
+							printf("\n\n\n");
+
+							printf("Para cancelar esta accion ingrese un monto de 0\n\n");
+							printf("La apuesta maxima es de: %u",mesaJuego.apuesta_maxima);
+							printf("\nIngrese en cuanto desea aumentarla: %u+",mesaJuego.apuesta_maxima);
+							scanf("%u",&aumento);
+
+							if(aumento!=0){
+							    apostando(jugando,mesaJuego.apuesta_maxima+aumento);
+                                jugando = siguiente_jugador(jugando);
+							}
+						}
 
                         /** 51 es el ascii de la tecla 3 */
-                        if(opcion==51){}
+                        if(opcion==51){
+                            apostando(jugando,jugando->dinero);
+							jugando = siguiente_jugador(jugando);
+						}
 
                         /** 52 es el ascii de la tecla 4 */
-                        if(opcion==52){}
+                        if(opcion==52){
+                            if(mesaJuego.apuesta_maxima==jugando->apuesta_actual){
+								jugando->jugando = 1;
+								jugando = siguiente_jugador(jugando);
+							}else{
+								limpiar();
+								printf("%s",titulo());
+								printf("\n\n\n");
+
+								printf("No puedes hacer Check en este momento");
+								printf("\nPresione una tecla para continuar");
+								getch();
+							}
+						}
 
                         /** 53 es el ascii de la tecla 5 */
-                        if(opcion==53){}
+                        if(opcion==53){
+							jugando->jugando=2;
+							jugando = siguiente_jugador(jugando);
+						}
 
                     }
                 }
-
-               // if(opcion>=49 && opcion<=53){
                     limpiar();
-
                     printf("%s",titulo());
                     printf("\n\n\n");
 
                     printf("\tEs el turno del jugador ID: %i",jugando->id);
                     printf("\n\tPresione una tecla para continuar");
                     getch();
-                //}
-            }while(jugando->apuesta_actual!=mesaJuego.apuesta_maxima);
+            }while(/*jugando->apuesta_actual!=mesaJuego.apuesta_maxima*/1==1);
             /** Acaba una ronda */
 
             //todos los jugadores con jugando->jugando = 1 deben ser seteados a 0
@@ -159,6 +191,9 @@ int comienzaMP(){
 
             if(rondas==2){
                 limpiar();
+                printf("%s",titulo());
+                printf("\n\n\n");
+
                 printf("\nApuesta pre-flop terminada, comienza el flop, presione una tecla para continuar");
                 flop();
                 getch();
@@ -166,6 +201,9 @@ int comienzaMP(){
 
             if(rondas==3 || rondas==4){
                 limpiar();
+                printf("%s",titulo());
+                printf("\n\n\n");
+
                 if(rondas==3){
                     printf("\nComienza el Turn, presione una tecla para continuar");
                 }else{
