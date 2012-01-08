@@ -84,7 +84,7 @@ int comienzaMP(){
         mesaJuego.apuesta_maxima = 0;
 
         /** Comienza la partida */
-        while(rondas<=4 OR siguiente_jugador(jugando)!=jugando){
+        while(rondas<=4 || siguiente_jugador(jugando)!=jugando){
             /** Comienza el turno */
             do{
                 display_principal(jugando, mesaJuego.cartasJugada,rondas+1,jugando->cartas);
