@@ -267,6 +267,7 @@ int prob(CARTA mazo[],CARTA mano[],int indicador){
     /*Falta ver la escalera real....*/
 
     if (indicador==2||indicador==4){
+        int i;
 
         /*Es necesario el siguiente proceso ya que para usar la formula de probabilidades, nito saber que cartas me deberian salir,
         por esto mismo, si tengo una carta 13, la sucesora de esta es 14, pero 14 no existe!, el sucesor de esta deberia ser 1, debido a esto
@@ -329,15 +330,42 @@ int prob(CARTA mazo[],CARTA mano[],int indicador){
             }
             if (indicador==2){
             pos_escala=multihipgeo((busqueda_carta_sin_pinta(sucesor1,mazo)),1,(busqueda_carta_sin_pinta(sucesor2,mazo)),1,tamano_mazo(mazo),3)+multihipgeo((busqueda_carta_sin_pinta(antecesor1,mazo)),1,(busqueda_carta_sin_pinta(antecesor2,mazo)),1,tamano_mazo(mazo),3)+multihipgeo((busqueda_carta_sin_pinta(antecesor1,mazo)),1,(busqueda_carta_sin_pinta(sucesor1,mazo)),1,tamano_mazo(mazo),3);
+            /*falta ver pos_escala_color para cuando el indicador ==2*/
             }
             else if(indicador==4){
             pos_escala_color=multihipgeo((busqueda_carta_color_y_numero(sucesor1,mano[0].pinta,mazo)),1,(busqueda_carta_color_y_numero(sucesor2,mano[0].pinta,mazo)),1,tamano_mazo(mazo),3)+multihipgeo((busqueda_carta_color_y_numero(antecesor1,mano[0].pinta,mazo)),1,(busqueda_carta_color_y_numero(antecesor2,mano[0].pinta,mazo)),1,tamano_mazo(mazo),3)+multihipgeo((busqueda_carta_color_y_numero(antecesor1,mano[0].pinta,mazo)),1,(busqueda_carta_color_y_numero(sucesor1,mano[0].pinta,mazo)),1,tamano_mazo(mazo),3);
             }
             }
+
+    for (i=0;i<2;i++){
+    if (mano[0].pinta!=mano[1].pinta){
+                pos_color=pos_color+multihipgeo(busqueda_carta_con_pinta(mano[i].pinta,mazo),3,busqueda_carta_con_pinta(mano[i].pinta,mazo),0,tamano_mazo(mazo),3);
+            }
+            else{
+            pos_color=multihipgeo(busqueda_carta_con_pinta(mano[i].pinta,mazo),2,busqueda_carta_con_pinta(mano[i].pinta,mazo),1,tamano_mazo(mazo),3);
+            }
+            if (busqueda_carta_sin_pinta(mano[i].valor,mazo)==3){
+            pos_poker=pos_poker+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),2,busqueda_carta_sin_pinta(mano[i].valor,mazo),1,tamano_mazo(mazo),3);
+            pos_doble_pareja=pos_poker;
+            }
+            else{
+            pos_poker=0;
+            pos_doble_pareja=pos_poker;
+            }
+
+            if (i==0){
+                pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),1,busqueda_carta_sin_pinta(mano[i+1].valor,mazo),0,tamano_mazo(mazo),3);
+                pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),2,busqueda_carta_sin_pinta(mano[i+1].valor,mazo),0,tamano_mazo(mazo),3);
+            }
+            else if (i==1){
+                pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),1,busqueda_carta_sin_pinta(mazo[i-1].valor,mazo),0,tamano_mazo(mazo),3)+multihipgeo(busqueda_carta_sin_pinta(mano[i-1].valor,mazo),1,busqueda_carta_sin_pinta(mano[i].valor,mazo),1,tamano_mazo(mazo),3);
+                pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),2,busqueda_carta_sin_pinta(mazo[i-1].valor,mazo),0,tamano_mazo(mazo),3);
+            }
+    }
     }
     if (indicador==5){
 
-    /*Esto es lo mismo que el indicador 0 pero en el turno 1... por lo mismo lo dejo para el final*/
+    /*Empezando con los flop que dan una carta*/
 
     }
 }
