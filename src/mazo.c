@@ -107,8 +107,7 @@ void repartirCartas(){
    // aux=aux->siguiente;
 
     /** Como es una lista circular al llegar al primero nuevamente debemos detenernos */
-    while(jugador_final(aux)==0){
-
+    do{
         /** Se asignan las cartas */
         while(contadorC<2){
             aletoriedad = rand() % 52;
@@ -122,8 +121,8 @@ void repartirCartas(){
         contadorC = 0;
 
         aux=aux->siguiente;
-    }
+    }while(aux!=_principio);
 
-    _principio = aux->siguiente;
+    _principio = aux;
 
 }
