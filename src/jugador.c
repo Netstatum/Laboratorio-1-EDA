@@ -1,12 +1,9 @@
 #include "jugador.h"
-#include <malloc.h>
-#include <stdio.h>
 
 Jugador *siguiente_jugador(Jugador *actual)
 {
 	return actual->siguiente;
 }
-
 
 Jugador *agregar_jugador(Jugador *final, unsigned int dinero)
 {
@@ -52,8 +49,6 @@ Jugador *agregar_jugador(Jugador *final, unsigned int dinero)
 		}
 	}
 }
-
-
 
 void set_principio(Jugador *jugador)
 {
@@ -147,6 +142,10 @@ void free_jugador(Jugador *nodo)
 		nodo=nodo->siguiente;
 		free(aux);
 	}while(nodo!=primero);
+}
+
+void set_apostoMas(Jugador *jugador){
+	_apostadorMaximo = jugador;
 }
 
 #ifdef DEBUG
