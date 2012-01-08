@@ -136,40 +136,58 @@ int prob(CARTA mazo[],CARTA mano[],int indicador){
     float pos_doble,pos_trio,pos_doble_pareja,pos_color,pos_full,pos_poker,pos_escala,pos_escala_color; /*estas variables indicaran las prob de exito de la ocurrencia de su nombre*/
 
     if (indicador==0){
-
-        float probabilidad_acumulada;
         int i;
-        for (i=0;i<2;i++){
-            if (i==0){
-                probabilidad_acumulada=probabilidad_acumulada+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),1,busqueda_carta_sin_pinta(mano[i+1].valor,mazo),0,tamano_mazo(mazo),3);
-            }
-            else if (i==1){
-                probabilidad_acumulada=probabilidad_acumulada+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),1,busqueda_carta_sin_pinta(mazo[i-1].valor,mazo),0,tamano_mazo(mazo),3)+multihipgeo(busqueda_carta_sin_pinta(mano[i-1].valor,mazo),1,busqueda_carta_sin_pinta(mano[i].valor,mazo),1,tamano_mazo(mazo),3);
-            }
-        }
-        pos_doble=probabilidad_acumulada;
-        probabilidad_acumulada=0;
+        int sucesor1,sucesor2,sucesor3,antecesor1,antecesor2,antecesor3;
+
+        pos_poker=0;
 
         for (i=0;i<2;i++){
-            if (i==0){
-                probabilidad_acumulada=probabilidad_acumulada+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),2,busqueda_carta_sin_pinta(mano[i+1].valor,mazo),0,tamano_mazo(mazo),3);
-            }
-            else if (i==1){
-                probabilidad_acumulada=probabilidad_acumulada+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),2,busqueda_carta_sin_pinta(mazo[i-1].valor,mazo),0,tamano_mazo(mazo),3);
-            }
-
-        }
-        pos_trio=probabilidad_acumulada;
-        probabilidad_acumulada=0;
-        pos_poker=probabilidad_acumulada; /*No tiene posibilidades de hacer poker el primer turno*/
-
-        for (i=0;i<2;i++){
-            if (i==0){
-
-                if (mano[i].valor==11){
+            if (mano[i].valor==11){
+                sucesor1=12,sucesor2=13,sucesor3=1;
+                antecesor1=mano[i].valor-1,antecesor2=antecesor1-1,antecesor3=antecesor2-1;
                 }
-        }
+            else if (mano[i].valor==12){
+                sucesor1=13,sucesor2=1,sucesor3=2;
+                antecesor1=mano[i].valor-1,antecesor2=antecesor1-1,antecesor3=antecesor2-1;
+                }
+            else if (mano[i].valor==13){
+                sucesor1=1,sucesor2=2,sucesor3=3;
+                antecesor1=mano[i].valor-1,antecesor2=antecesor1-1,antecesor3=antecesor2-1;
+                }
+            else if (mano[i].valor==1){
+                sucesor1=mano[i].valor+1,sucesor2=sucesor1+1,sucesor3=sucesor2+1;
+                antecesor1=13,antecesor2=12,antecesor3=13;
+                }
+            else if (mano[i].valor==2){
+                sucesor1=mano[i].valor+1,sucesor2=sucesor1+1,sucesor3=sucesor2+1;
+                antecesor1=1,antecesor2=13,antecesor3=12;
+                }
+            else if (mano[i].valor==3){
+                sucesor1=mano[i].valor+1,sucesor2=sucesor1+1,sucesor3=sucesor2+1;
+                antecesor1=2,antecesor2=1,antecesor3=13;
+                }
+            else{
+                sucesor1=mano[i].valor+1,sucesor2=sucesor1+1,sucesor3=sucesor2+1;
+                antecesor1=mano[i].valor-1,antecesor2=antecesor1-1,antecesor3=antecesor2-1;
+                }
+            pos_escala=pos_escala+multihipgeo(busqueda_carta_sin_pinta(sucesor1,mazo),1,busqueda_carta_sin_pinta(sucesor2,mazo),1,tamano_mazo(mazo),3)*multihipgeo(busqueda_carta_sin_pinta(sucesor3,mazo),1,0,0,tamano_mazo(mazo),3)+multihipgeo(busqueda_carta_sin_pinta(antecesor1,mazo),1,busqueda_carta_sin_pinta(antecesor2,mazo),1,tamano_mazo(mazo),3)*multihipgeo(busqueda_carta_sin_pinta(antecesor3,mazo),1,0,0,tamano_mazo(mazo),3);
+            pos_escala_color=pos_escala_color+multihipgeo(busqueda_carta_color_y_numero(sucesor1,mano[i].pinta,mazo),1,busqueda_carta_color_y_numero(sucesor2,mano[i].pinta,mazo),1,tamano_mazo(mazo),3)*multihipgeo(busqueda_carta_color_y_numero(sucesor3,mano[i].pinta,mazo),1,0,0,tamano_mazo(mazo),3)+multihipgeo(busqueda_carta_color_y_numero(antecesor1,mano[i].pinta,mazo),1,busqueda_carta_color_y_numero(antecesor2,mano[i].pinta,mazo),1,tamano_mazo(mazo),3)*multihipgeo(busqueda_carta_color_y_numero(antecesor3,mano[i].pinta,mazo),1,0,0,tamano_mazo(mazo),3);
+            if (mano[0].pinta!=mano[1].pinta){
+                pos_color=pos_color+multihipgeo(busqueda_carta_con_pinta(mano[i].pinta,mazo),3,busqueda_carta_con_pinta(mano[i].pinta,mazo),0,tamano_mazo(mazo),3);
+            }
+            else{
+            pos_color=multihipgeo(busqueda_carta_con_pinta(mano[i].pinta,mazo),2,busqueda_carta_con_pinta(mano[i].pinta,mazo),1,tamano_mazo(mazo),3);
+            }
 
+            if (i==0){
+                pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),1,busqueda_carta_sin_pinta(mano[i+1].valor,mazo),0,tamano_mazo(mazo),3);
+                pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),2,busqueda_carta_sin_pinta(mano[i+1].valor,mazo),0,tamano_mazo(mazo),3);
+            }
+            else if (i==1){
+                pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),1,busqueda_carta_sin_pinta(mazo[i-1].valor,mazo),0,tamano_mazo(mazo),3)+multihipgeo(busqueda_carta_sin_pinta(mano[i-1].valor,mazo),1,busqueda_carta_sin_pinta(mano[i].valor,mazo),1,tamano_mazo(mazo),3);
+                pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),2,busqueda_carta_sin_pinta(mazo[i-1].valor,mazo),0,tamano_mazo(mazo),3);
+            }
+        }
     /*Esta la hago al final .... esto significa que al jugador le salio una mano tan dispareja, que no tiene una probabilidad mayor
     para hacer cualquier combinacion, por esto nita que le salgan todas las cartas necesarias*/
 
@@ -293,4 +311,4 @@ int prob(CARTA mazo[],CARTA mano[],int indicador){
 
 /*ya está hecha casi toda la parte de sacar la probabilidad del primer turno donde el flop es de 3 cartas,
 ahora como solo es de una carta, creo que se usa la distribucion hipergeometrica no mas, no la multi, voy a tener que ver xP*/
-}
+
