@@ -39,7 +39,8 @@ void apostando(Jugador *jugando, int apuesta){
 		
     }else{
 		apuestaG(jugando,jugando->dinero);
-	
+		jugando->jugando=2;
+		
         limpiar();
 		printf("%s",titulo());
 		printf("\n\n\n");
