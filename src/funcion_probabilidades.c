@@ -68,7 +68,7 @@ float multihipgeo(int a, int nita_a,int b,int nita_b,int t_mazo,int t_flop){
 /*Ahora hay que ver que combiene hacer, como en un principio se tienen 2 cartas, hay que ver si estan son iguales, si son diferentes, si son
 de la misma pinta, o si son consecutivas, esto sirve para el principio en que NO HAY CARTAS EN MESA TODAVIA*/
 
-int comparador(CARTA carta[],MESA mesajuego[],int turno){
+int comparador(CARTA carta[],int turno){
     int indicador=0;
 
     if (turno==0){
@@ -87,46 +87,39 @@ int comparador(CARTA carta[],MESA mesajuego[],int turno){
         indicador=indicador+2; /* significa que ademas de lo que se puede hacer en indicador 2, se puede hacer escala color color*/
     }
     }
-    if (turno==1){ /*Significa que ademas de las 2 cartas de la mano hay 3 en mesa, y que el siguiente flop es de solo 1 carta*/
+/*Significa que ademas de las 2 cartas de la mano hay 3 en mesa, y que el siguiente flop es de solo 1 carta*/
 
 /*En general los siguientes indicadores me diran que cumple las mismas propiedades que los indicadores del 0 al 4, pero que
 ahora estan en el turno 1, esto significa que al estar en el turno 1, el flop será solo de una carta algo que tomare en cuenta
 en la funcion de prob, tambien tengo que tomar en cuenta las cartas que están en la mesa, que SOLO son 3 en este turno*/
 
-        if (indicador==0)
+        if (indicador==0&&(turno==1||turno==2))
         /*Este es el peor caso, ya que como no habia nada favorable al principio, entonces habrá que comparar todas
         las cartas entre la mano y la mesa, y lanzar un indicador xP*/
         {
             indicador=5;
         }
-        else if (indicador==1){
+        else if (indicador==1&&(turno==1||turno==2)){
             indicador=6;
         }
-        else if (indicador==2){
+        else if (indicador==2&&(turno==1||turno==2)){
             indicador=7;
         }
-        else if (indicador==3){
+        else if (indicador==3&&(turno==1||turno==2)){
             indicador==8;
         }
-        else if (indicador==4){
+        else if (indicador==4&&(turno==1)||turno==2){
             indicador==9;
         }
 
-    }
-    /*Aqui de nuevo cambian las reglas del juego, debido a que ahora las cartas de la mesa son 4*/
 
-    else if (turno==2){
-
-        /*Pendiente, primero termino el turno 1*/
-
-    }
     return indicador;
         /*Si al final el valor de indicador es igual a 0, significa que la prob de ocurrencia de las combinaciones
     será constante, yá explicare esto...*/
 }
 /*avanzando cualquier comentario es bienvenido xP*/
 
-int prob(CARTA mazo[],CARTA mano[],int indicador){
+int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
 
     /*DEBEN SER tipo float, ya que como guardan las probabilidades de cada caso, pues guardaran muchos decimales*/
 
@@ -364,12 +357,39 @@ int prob(CARTA mazo[],CARTA mano[],int indicador){
     }
     }
     if (indicador==5){
+        int i,j;
+        for (i=0;i<2;i++){
+                if (i==0){
+                    pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1,busqueda_carta_sin_pinta(mano[1].valor,mazo),0,tamano_mazo(mazo),1);
+
+                }
+                else if (i==1){
+                    pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[1].valor,mazo),1,busqueda_carta_sin_pinta(mano[0].valor,mazo),0,tamano_mazo(mazo),1);
+                }
+
+            if (busqueda_carta_sin_pinta(mano[i].valor,mesajuego.cartasJugada)==1) /*significa que tiene al menos una repeticion en la mesa*/ {
+                if (i==0){
+                    pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1,busqueda_carta_sin_pinta(mano[1].valor,mazo),0,tamano_mazo(mazo),1);
+            }
+                if (i!=0){
+                    pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mano[1].valor,mazo),1,busqueda_carta_sin_pinta(mano[0].valor,mazo),0,tamano_mazo(mazo),1);
+                }
+            }
+        }
+        for (j=0;j<5;j++){
+            pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
+
+        if (busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mesajuego.cartasJugada)==2){ /*Se pone 2 debido a que se comparará la carta consigo misma, asi que por lo menos encontrará una (ella misma...)*/
+            pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
+        }
+        }
+        /*Verifico a ver si hay pares entre las cartas de la mano y la mesa*/
+
 
     /*Empezando con los flop que dan una carta*/
 
     }
 }
 
-/*ya está hecha casi toda la parte de sacar la probabilidad del primer turno donde el flop es de 3 cartas,
-ahora como solo es de una carta, creo que se usa la distribucion hipergeometrica no mas, no la multi, voy a tener que ver xP*/
+/*Trabajando con el flop 2 y 3 de una sola carta, el del flop 1 de 3 cartas, falta sacar la prob de la escala real*/
 
