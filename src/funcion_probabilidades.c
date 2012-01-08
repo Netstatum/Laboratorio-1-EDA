@@ -137,6 +137,39 @@ int prob(CARTA mazo[],CARTA mano[],int indicador){
 
     if (indicador==0){
 
+        float probabilidad_acumulada;
+        int i;
+        for (i=0;i<2;i++){
+            if (i==0){
+                probabilidad_acumulada=probabilidad_acumulada+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),1,busqueda_carta_sin_pinta(mano[i+1].valor,mazo),0,tamano_mazo(mazo),3);
+            }
+            else if (i==1){
+                probabilidad_acumulada=probabilidad_acumulada+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),1,busqueda_carta_sin_pinta(mazo[i-1].valor,mazo),0,tamano_mazo(mazo),3)+multihipgeo(busqueda_carta_sin_pinta(mano[i-1].valor,mazo),1,busqueda_carta_sin_pinta(mano[i].valor,mazo),1,tamano_mazo(mazo),3);
+            }
+        }
+        pos_doble=probabilidad_acumulada;
+        probabilidad_acumulada=0;
+
+        for (i=0;i<2;i++){
+            if (i==0){
+                probabilidad_acumulada=probabilidad_acumulada+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),2,busqueda_carta_sin_pinta(mano[i+1].valor,mazo),0,tamano_mazo(mazo),3);
+            }
+            else if (i==1){
+                probabilidad_acumulada=probabilidad_acumulada+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),2,busqueda_carta_sin_pinta(mazo[i-1].valor,mazo),0,tamano_mazo(mazo),3);
+            }
+
+        }
+        pos_trio=probabilidad_acumulada;
+        probabilidad_acumulada=0;
+        pos_poker=probabilidad_acumulada; /*No tiene posibilidades de hacer poker el primer turno*/
+
+        for (i=0;i<2;i++){
+            if (i==0){
+
+                if (mano[i].valor==11){
+                }
+        }
+
     /*Esta la hago al final .... esto significa que al jugador le salio una mano tan dispareja, que no tiene una probabilidad mayor
     para hacer cualquier combinacion, por esto nita que le salgan todas las cartas necesarias*/
 
@@ -148,10 +181,10 @@ int prob(CARTA mazo[],CARTA mano[],int indicador){
 
         pos_trio=multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1, 0, 0, tamano_mazo(mazo), 3);
         if (mano[0].valor!=4){
-        pos_doble_pareja=multihipgeo(busqueda_carta_sin_pinta(4,mazo),2,mano[0].valor,0,tamano_mazo(mazo),3);
+        pos_doble_pareja=multihipgeo(busqueda_carta_sin_pinta(4,mazo),2,busqueda_carta_sin_pinta(mano[0].valor,mazo),0,tamano_mazo(mazo),3);
         }
         else if(mano[0].valor==4){
-            pos_doble_pareja=multihipgeo(busqueda_carta_sin_pinta(5,mazo),2,mano[0].valor,0,tamano_mazo(mazo),3);
+            pos_doble_pareja=multihipgeo(busqueda_carta_sin_pinta(5,mazo),2,busqueda_carta_sin_pinta(mano[0].valor,mazo),0,tamano_mazo(mazo),3);
         }
         if (mano[0].valor!=4){
             pos_full=multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1,busqueda_carta_sin_pinta(4,mazo),2,tamano_mazo(mazo),3);
@@ -260,3 +293,4 @@ int prob(CARTA mazo[],CARTA mano[],int indicador){
 
 /*ya está hecha casi toda la parte de sacar la probabilidad del primer turno donde el flop es de 3 cartas,
 ahora como solo es de una carta, creo que se usa la distribucion hipergeometrica no mas, no la multi, voy a tener que ver xP*/
+}
