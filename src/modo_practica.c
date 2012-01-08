@@ -1,10 +1,4 @@
-#include <malloc.h>
-#include "display.h"
-#include "getch.h"
 #include "modo_practica.h"
-#include "jugador.h"
-#include "mesa.h"
-#include "carta.h"
 
 int modo_practica(){
     limpiar();
@@ -66,20 +60,12 @@ void info_de_juego(){
 int comienzaMP(){
     int rondas=1;
     int opcion,big,low;
-    Jugador *jugando;
-
-    /** Inicializa las variables globales de juego */
-    mesaJuego.pozoApuestas = 0;
-    mesaJuego.apuesta_maxima = 0;
+    Jugador *jugando = _principio;
 
     /** Asignando las variables generales para el juego */
     generadorDelMazo();
     big = aBig(_principio->dinero);
     low = aLow(_principio->dinero);
-
-    /** Asignando las variables generales para la partida */
-    repartirCartas(_principio);
-    jugando = _principio;
 
     /** Mensaje de principio de juego */
     printf("%s",titulo());
@@ -90,6 +76,12 @@ int comienzaMP(){
 
     /** Comienza el juego */
     while(jugando->siguiente!=jugando){
+        /** Asignando las variables generales para la partida */
+        repartirCartas(_principio);
+        jugando = _principio;
+        mesaJuego.pozoApuestas = 0;
+        mesaJuego.apuesta_maxima = 0;
+
         /** Comienza la partida */
         while(rondas<=4){
             /** Comienza el turno */
@@ -105,7 +97,7 @@ int comienzaMP(){
 
                         /** 49 es el ascii de la tecla 1 */
                         if(opcion==49){
-                            apostandoBigOrLow(low,jugando->dinero);
+                            apostando(jugando,_low);
                             jugando = siguiente_jugador(jugando);
                         }
                 }else{
@@ -116,7 +108,7 @@ int comienzaMP(){
 
                         /** 49 es el ascii de la tecla 1 */
                         if(opcion==49){
-                            apostandoBigOrLow(big,jugando->dinero);
+                            apostando(jugando,_big);
                             jugando = siguiente_jugador(jugando);
                         }
                     }else{
@@ -129,12 +121,12 @@ int comienzaMP(){
                         opcion=getch();
 
                         /** 49 es el ascii de la tecla 1 */
-                        if(opcion==49){}
-                            //funcion de igualar apuesta
-
+                        if(opcion==49){
+							apostando(jugando,mesaJugando.apuesta_maxima);
+						}
+                            
                         /** 50 es el ascii de la tecla 2 */
                         if(opcion=50){}
-                            //funcion de aumentar apuesta
 
                         /** 51 es el ascii de la tecla 3 */
                         if(opcion==51){}
@@ -201,28 +193,4 @@ int calculoPP(Jugador *jugador){
     }
 
     return porcentaje;
-}
-
-int aBig(int mInicial){
-    int aux;
-
-    aux = (mInicial*10)/100;
-
-    return aux;
-}
-
-int aLow(int mInicial){
-    int aux;
-
-    aux = (mInicial*5)/100;
-
-    return aux;
-}
-
-int apostandoBigOrLow(int apuesta, int dinero){
-    if(dinero>apuesta){
-        //apuesta normal
-    }else{
-        //apuesta lo que tiene, se calcula el monto dividido
-    }
 }
