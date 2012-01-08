@@ -8,6 +8,7 @@
 #include "carta.h"
 #include "jugador.h"
 #include "display.h"
+#include "apuesta.h"
 
 /** Función modo_practica, esta función es la encargada de inicializar la partida
     para el modo practica y lanzar el juego
