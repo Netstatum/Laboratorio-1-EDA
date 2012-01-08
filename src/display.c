@@ -56,7 +56,8 @@ void display_principal(Jugador *jugando, CARTA cartas_mesa[], unsigned int canti
 	free(cartas_jugador_graficas);
 
 	printf("\nDinero disponible: %d millones",jugando->dinero);
-    printf("\nApuesta maxima realizada: %d",mesaJuego.apuesta_maxima);
+	printf("\nTu ultima apuesta realizada: %u",jugando->apuesta_actual);
+    printf("\nApuesta maxima realizada: %u",mesaJuego.apuesta_maxima);
 
     printf("\n\n================================================================================");
 
