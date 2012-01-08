@@ -5,22 +5,24 @@ void apuestaG(Jugador *jugando, int apuesta){
 	jugando->apuesta_actual = apuesta;
 	jugando->dinero -= apuesta;
 	
-	if(apuesta>mesaJugando.apuesta_maxima){
-		mesaJugando.apuesta_maxima=apuesta;
+	if(apuesta>mesaJuego.apuesta_maxima){
+		mesaJuego.apuesta_maxima=apuesta;
 		set_apostoMas(jugando);
 	}
 	
-	mesaJugando.pozoApuestas += apuesta;
+	mesaJuego.pozoApuestas += apuesta;
 }
 
-int aLow(int mInicial){
+void aLow(int mInicial){
 	/** Sera el 5% del monto total inicial de cada jugador */
     _low = (mInicial*5)/100;
+	_aOB = 1;
 }
 
-int aBig(int mInicial){
+void aBig(int mInicial){
 	/** Sera el 10% del monto total inicial de cada jugador */
     _big = (mInicial*10)/100;
+	_aOB = 1;
 }
 
 void apostando(Jugador *jugando, int apuesta){
