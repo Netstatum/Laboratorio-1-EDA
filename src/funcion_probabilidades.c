@@ -357,8 +357,9 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
     }
     }
     if (indicador==5){
-        int i,j;
+        int i,j,guarda_par1=0,guarda_par2=0,guarda_par3=0,guarda_par4=0;
         for (i=0;i<2;i++){
+
                 if (i==0){
                     pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1,busqueda_carta_sin_pinta(mano[1].valor,mazo),0,tamano_mazo(mazo),1);
 
@@ -368,6 +369,12 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
                 }
 
             if (busqueda_carta_sin_pinta(mano[i].valor,mesajuego.cartasJugada)==1) /*significa que tiene al menos una repeticion en la mesa*/ {
+                if (guarda_par1==0){
+                    guarda_par1=mano[i].valor;
+                }
+                else if (guarda_par1!=0&&guarda_par2==0){
+                    guarda_par2=mano[i].valor;
+                }
                 if (i==0){
                     pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1,busqueda_carta_sin_pinta(mano[1].valor,mazo),0,tamano_mazo(mazo),1);
             }
@@ -375,18 +382,93 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
                     pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mano[1].valor,mazo),1,busqueda_carta_sin_pinta(mano[0].valor,mazo),0,tamano_mazo(mazo),1);
                 }
             }
+            if (busqueda_carta_sin_pinta(mano[i].valor,mesajuego.cartasJugada)==2) /*Significa que hay un trio*/{
+                pos_poker=pos_poker+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),1,0,0,tamano_mazo(mazo),1);
+            }
         }
         for (j=0;j<5;j++){
             pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
 
+        if (busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mesajuego.cartasJugada)==3){ /*Significa que hay un trio entre las cartas de la mesa*/
+            pos_poker=pos_poker+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
+        }
+
         if (busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mesajuego.cartasJugada)==2){ /*Se pone 2 debido a que se comparará la carta consigo misma, asi que por lo menos encontrará una (ella misma...)*/
             pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
+                if (guarda_par1==0){
+                    guarda_par1=mesajuego.cartasJugada[j].valor;
+                }
+                else if (guarda_par1!=0&&guarda_par2==0){
+                    guarda_par2=mesajuego.cartasJugada[j].valor;
+                }
+                else if (guarda_par2!=0&&guarda_par3==0){
+                    guarda_par2=mesajuego.cartasJugada[j].valor;
+                    }
+                else if (guarda_par3!=0&&guarda_par4==0){
+                    guarda_par2=mesajuego.cartasJugada[j].valor;
+                }
         }
         }
+        if (guarda_par1!=0){
+            if (guarda_par1!=5){
+                pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(5,mazo),1,0,0,tamano_mazo(mazo),1);
+            }
+            else{
+                pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(4,mazo),1,0,0,tamano_mazo(mazo),1);
+            }
+
+            if (guarda_par2!=0&&guarda_par1!=guarda_par2){
+                pos_full=pos_full+multihipgeo(busqueda_carta_sin_pinta(guarda_par2,mazo),1,0,0,tamano_mazo(mazo),1);
+        }
+        }
+        if (guarda_par3!=0){
+            if (guarda_par3!=5){
+                pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(5,mazo),1,0,0,tamano_mazo(mazo),1);
+            }
+            else{
+                pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(4,mazo),1,0,0,tamano_mazo(mazo),1);
+            }
+            if(guarda_par1!=0&&guarda_par1!=guarda_par3){
+                pos_full=pos_full+multihipgeo(busqueda_carta_sin_pinta(guarda_par3,mazo),1,0,0,tamano_mazo(mazo),1);
+        }
+        }
+        if(guarda_par4!=0){
+            if (guarda_par4!=5){
+                pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(5,mazo),1,0,0,tamano_mazo(mazo),1);
+            }
+            else{
+                pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(4,mazo),1,0,0,tamano_mazo(mazo),1);
+            }
+
+        if(guarda_par1!=0&&guarda_par1!=guarda_par4){
+            pos_full=pos_full+multihipgeo(busqueda_carta_sin_pinta(guarda_par4,mazo),1,0,0,tamano_mazo(mazo),1);
+        }
+        }
+        if (guarda_par2!=0){
+            if (guarda_par2!=5){
+            pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(5,mazo),1,0,0,tamano_mazo(mazo),1);
+            }
+            else{
+            pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(4,mazo),1,0,0,tamano_mazo(mazo),1);
+            }
+            if(guarda_par3!=0&&guarda_par2!=guarda_par3){
+            pos_full=pos_full+multihipgeo(busqueda_carta_sin_pinta(guarda_par3,mazo),1,0,0,tamano_mazo(mazo),1);
+        }
+        }
+        if (guarda_par2!=0&&guarda_par4!=0&&guarda_par2!=guarda_par4){
+            pos_full=pos_full+multihipgeo(busqueda_carta_sin_pinta(guarda_par4,mazo),1,0,0,tamano_mazo(mazo),1);
+        }
+        if (guarda_par3!=0&&guarda_par4!=0&&guarda_par3!=guarda_par4){
+            pos_full=pos_full+multihipgeo(busqueda_carta_sin_pinta(guarda_par3,mazo),1,0,0,tamano_mazo(mazo),1);
+        }
+
+
+
         /*Verifico a ver si hay pares entre las cartas de la mano y la mesa*/
 
 
     /*Empezando con los flop que dan una carta*/
+    /*viendo como sacar la prob de sacar una escala*/
 
     }
 }
