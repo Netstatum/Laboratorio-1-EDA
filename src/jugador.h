@@ -1,6 +1,9 @@
 #ifndef _H_JUGADOR_
 #define _H_JUGADOR_
 
+/** Librerias necesarias para jugador.c/h */
+#include <malloc.h>
+#include <stdio.h>
 #include "carta.h"
 
 /*jugador.h
@@ -48,8 +51,10 @@ typedef struct Jugador{
 /** Lista circular de jugadores */
 Jugador *jugadoresMesa;
 
-/*Variables globales. No deberian ser usadas por funciones fuera de aqui*/
+/** Jugador que ha aumentado la apuesta por lo que es el apostadorMaximo */
+Jugador *_apostadorMaximo;
 
+/*Variables globales. No deberian ser usadas por funciones fuera de aqui*/
 Jugador *_principio;
 
 /*Devuelve el jugador al cual le corresponde el siguiente turno
@@ -119,6 +124,12 @@ Jugador *crearJugadores(unsigned int cantidadJ, unsigned int cantidadM);
  * ARGUMENTOS:
  * 	nodo: Un nodo que pertenezca a la lista jugador*/
 void free_jugador(Jugador *nodo);
+
+/** Función set_apostoMas, asigna el jugador que ha subido la apuesta a la variable global
+	apostadorMaximo
+	@param Jugador *jugador: jugador que ha subido la apuesta
+ */
+Jugador *set_apostoMas(Jugador *jugador);
 
 #ifdef DEBUG
 /*Ejecuta algunas pruebas para ver que el codigo de jugador funciona. Solo esta
