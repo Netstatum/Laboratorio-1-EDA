@@ -1,6 +1,7 @@
 #ifndef MENU_H_INCLUDED
 #define MENU_H_INCLUDED
 
+
 /** Ascii usado para el señalador del menú */
 #define _senalador 36
 
@@ -14,7 +15,7 @@ int P;
 /** Variable usada para mover el "cursor" de las opciones:
     Modo Apoyo, Modo Practica, Creditos y Salir
 */
-char select[_largoArray+1];
+char select_menu[_largoArray+1];
 
 /** Función menuPrincipal, se preocupa de inicializar el array del señalador
     y de mostrar la portada, solo es necesario usar una ves esta funcion al iniciar

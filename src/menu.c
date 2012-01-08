@@ -19,11 +19,11 @@ void iniciarSelect(int starter)
 
     for(i=0;i<_largoArray;i++)
     {
-        select[i] = 0;
+        select_menu[i] = 0;
     }
 
     /** Asigna el valor ascii y la posición inicial del señalador */
-    select[starter] = _senalador;
+    select_menu[starter] = _senalador;
     P = starter;
 }
 
@@ -42,10 +42,10 @@ void banner()
     printf("\n\n\n");
 
     /** En los siguientes Printf se dibuja el cursor de posicion */
-    printf("\t\t\t\t%c MODO APOYO",select[0]);
-    printf("\n\n\t\t\t\t%c MODO PRACTICA",select[1]);
-    printf("\n\n\t\t\t\t%c CREDITOS",select[2]);
-    printf("\n\n\t\t\t\t%c SALIR", select[3]);
+    printf("\t\t\t\t%c MODO APOYO",select_menu[0]);
+    printf("\n\n\t\t\t\t%c MODO PRACTICA",select_menu[1]);
+    printf("\n\n\t\t\t\t%c CREDITOS",select_menu[2]);
+    printf("\n\n\t\t\t\t%c SALIR", select_menu[3]);
 }
 
 const char *mensajeBienvenida()
@@ -108,17 +108,17 @@ int menuInicio()
             if(P!=0)
             {
                 /** Mueve el Cursor a la opcion de arriba */
-                select[P] = 0;
+                select_menu[P] = 0;
                 P--;
-                select[P] = _senalador;
+                select_menu[P] = _senalador;
 
                 portada();
 
             }else{
                 /** Si se esta en la Primera Opcion, al precionar Arriba el Cursor pasa a la última opcion*/
-                select[P] = 0;
+                select_menu[P] = 0;
                 P = _largoArray;
-                select[P]= _senalador;
+                select_menu[P]= _senalador;
 
                 /** Se vuelve a la Portada para mostrar la nueva pocicion del Cursor*/
                 portada();
@@ -136,17 +136,17 @@ int menuInicio()
             if(P != _largoArray)
             {
                 /** Mueve el Cursor a la opcion de abajo */
-                select[P] = 0;
+                select_menu[P] = 0;
                 P++;
-                select[P] = _senalador;
+                select_menu[P] = _senalador;
 
                 /** Se vuelve a la Portada para mostrar la nueva pocicion del Cursor */
                 portada();
             }else{
                 /** Si se esta en la Ultima Opcion, al precionar Abajo el Cursor pasa a la primera opcion */
-                select[P] = 0;
+                select_menu[P] = 0;
                 P = 0;
-                select[P] = _senalador;
+                select_menu[P] = _senalador;
 
                 /** Se vuelve a la Portada para mostrar la nueva pocicion del Cursor*/
                 portada();
