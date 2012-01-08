@@ -2,7 +2,7 @@
 
 Jugador *siguiente_jugador(Jugador *actual)
 {
-	if(actual->siguiente->jugando!=2){
+	if(actual->siguiente->jugando<2){
 		actual->siguiente->jugando=0;
 		return actual->siguiente;
 	}else{
@@ -33,6 +33,8 @@ Jugador *agregar_jugador(Jugador *final, unsigned int dinero)
 			nuevo->siguiente=aux;
 			nuevo->dinero=dinero;
 			nuevo->id=final->id+1;
+			nuevo->apuesta_actual=0;
+			nuevo->jugando=0;
 			return nuevo;
 		}
 	}else{
@@ -50,6 +52,8 @@ Jugador *agregar_jugador(Jugador *final, unsigned int dinero)
 			nuevo->siguiente=nuevo;
 			nuevo->dinero=dinero;
 			nuevo->id=1;
+			nuevo->apuesta_actual=0;
+			nuevo->jugando=0;
 			return nuevo;
 		}
 	}
