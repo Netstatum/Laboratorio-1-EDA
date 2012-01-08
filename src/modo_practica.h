@@ -1,6 +1,13 @@
 #ifndef MODO_PRACTICA_H_INCLUDED
 #define MODO_PRACTICA_H_INCLUDED
+
+/** Librerias necesarias para el funcionamiento de modo_practica.c/h */
+#include <malloc.h>
+#include "getch.h"
+#include "mesa.h"
+#include "carta.h"
 #include "jugador.h"
+#include "display.h"
 
 /** Función modo_practica, esta función es la encargada de inicializar la partida
     para el modo practica y lanzar el juego
@@ -22,14 +29,5 @@ int comienzaMP();
 
 /** Hace el calculo de la proporción que le corresponde al jugador del poso total */
 int calculoPP(Jugador *jugador);
-
-/** Hacen el calculo de la apuesta maxima y minima obligatorias para los dos primeros jugadores
-    en la primera ronda de cada partida, este valor es fijo para el resto del juego
- */
-int aBig(int mInicial);
-int aLow(int mInicial);
-
-/** Analizara si la apuesta puede ser llevada acabo normalmente */
-int apostandoBigOrLow(int apuesta, int dinero);
 
 #endif // MODO_PRACTICA_H_INCLUDED
