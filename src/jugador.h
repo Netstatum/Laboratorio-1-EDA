@@ -129,7 +129,7 @@ void free_jugador(Jugador *nodo);
 	apostadorMaximo
 	@param Jugador *jugador: jugador que ha subido la apuesta
  */
-Jugador *set_apostoMas(Jugador *jugador);
+void set_apostoMas(Jugador *jugador);
 
 #ifdef DEBUG
 /*Ejecuta algunas pruebas para ver que el codigo de jugador funciona. Solo esta
