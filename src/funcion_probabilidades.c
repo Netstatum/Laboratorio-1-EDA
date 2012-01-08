@@ -61,9 +61,11 @@ int tamano_mazo(CARTA mazo[]){
     return tamano;
 }
 
+
+
 /*Funcion multihipergeometrica en su forma generalizada, falta especificar ahora para los casos particulares de las propias combinaciones de cartas*/
 float multihipgeo(int a, int nita_a,int b,int nita_b,int t_mazo,int t_flop){
-	return (combinatoria(a,nita_a)*combinatoria(b,nita_b)*combinatoria((t_mazo-(a+b)),(t_flop-(nita_a+nita_b)))/combinatoria(t_mazo,t_flop));
+	return exp(combinatoria(a,nita_a)+combinatoria(b,nita_b)+combinatoria((t_mazo-(a+b)),(t_flop-(nita_a+nita_b)))-combinatoria(t_mazo,t_flop));
 }
 
 /*Ahora hay que ver que combiene hacer, como en un principio se tienen 2 cartas, hay que ver si estan son iguales, si son diferentes, si son
@@ -90,14 +92,36 @@ int comparador(CARTA carta[],MESA mesajuego[],int turno){
     }
     if (turno==1){ /*Significa que ademas de las 2 cartas de la mano hay 3 en mesa, y que el siguiente flop es de solo 1 carta*/
 
+/*En general los siguientes indicadores me diran que cumple las mismas propiedades que los indicadores del 0 al 4, pero que
+ahora estan en el turno 1, esto significa que al estar en el turno 1, el flop será solo de una carta algo que tomare en cuenta
+en la funcion de prob, tambien tengo que tomar en cuenta las cartas que están en la mesa, que SOLO son 3 en este turno*/
+
         if (indicador==0)
         /*Este es el peor caso, ya que como no habia nada favorable al principio, entonces habrá que comparar todas
         las cartas entre la mano y la mesa, y lanzar un indicador xP*/
         {
-            /*Voy a tener que hacer una funcion anexa ~.~ que me diga los extremos de una posible escala entre las 7 cartas mano-mesa
-            y que me diga tambien los pares/trios que se forma, y ver cual es la mayoria de color... un cacho la verdad xd*/
-
+            indicador=5;
         }
+        else if (indicador==1){
+            indicador=6;
+        }
+        else if (indicador==2){
+            indicador=7;
+        }
+        else if (indicador==3){
+            indicador==8;
+        }
+        else if (indicador==4){
+            indicador==9;
+        }
+
+    }
+    /*Aqui de nuevo cambian las reglas del juego, debido a que ahora las cartas de la mesa son 4*/
+
+    else if (turno==2){
+
+        /*Pendiente, primero termino el turno 1*/
+
     }
     return indicador;
         /*Si al final el valor de indicador es igual a 0, significa que la prob de ocurrencia de las combinaciones
@@ -111,7 +135,17 @@ int prob(CARTA mazo[],CARTA mano[],int indicador){
 
     float pos_doble,pos_trio,pos_doble_pareja,pos_color,pos_full,pos_poker,pos_escala,pos_escala_color; /*estas variables indicaran las prob de exito de la ocurrencia de su nombre*/
 
+    if (indicador==0){
+
+    /*Esta la hago al final .... esto significa que al jugador le salio una mano tan dispareja, que no tiene una probabilidad mayor
+    para hacer cualquier combinacion, por esto nita que le salgan todas las cartas necesarias*/
+
+    }
+
     if (indicador==1 || indicador==3){
+
+        pos_doble=0;
+
         pos_trio=multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1, 0, 0, tamano_mazo(mazo), 3);
         if (mano[0].valor!=4){
         pos_doble_pareja=multihipgeo(busqueda_carta_sin_pinta(4,mazo),2,mano[0].valor,0,tamano_mazo(mazo),3);
@@ -129,9 +163,25 @@ int prob(CARTA mazo[],CARTA mano[],int indicador){
 
         if (indicador==3){
             pos_color=multihipgeo(busqueda_carta_con_pinta(mano[0].pinta,mazo),2,0,0,tamano_mazo(mazo),3);
-
+        }
+        else if(indicador==2){
+            float prob1,prob2;
+            prob1=multihipgeo(busqueda_carta_con_pinta(mano[0].pinta,mazo),3,0,0,tamano_mazo(mazo),3);
+            prob2=multihipgeo(busqueda_carta_con_pinta(mano[1].pinta,mazo),2,0,0,tamano_mazo(mazo),3);
+            if (prob1>=prob2){
+            pos_color=prob1;
+            }
+            else if(prob2>prob1){
+            pos_color=prob2;
+            }
         }
     }
+
+    /*Falta ver la prob de que salga escalera, escalera color y escalera real.... aunque si se tienen 2 cartas iguales (lo indica el indicador)
+    entonces... se nita que las 3 cartas del flop sean consecutivas xdd, por tanto para estos 3 casos seria la misma metodologia
+    que se deberia usar como si fuera el indicador ==0 */
+
+
     if (indicador==2||indicador==4){
 
         /*Es necesario el siguiente proceso ya que para usar la formula de probabilidades, nito saber que cartas me deberian salir,
@@ -200,6 +250,11 @@ int prob(CARTA mazo[],CARTA mano[],int indicador){
             pos_escala_color=multihipgeo((busqueda_carta_color_y_numero(sucesor1,mano[0].pinta,mazo)),1,(busqueda_carta_color_y_numero(sucesor2,mano[0].pinta,mazo)),1,tamano_mazo(mazo),3)+multihipgeo((busqueda_carta_color_y_numero(antecesor1,mano[0].pinta,mazo)),1,(busqueda_carta_color_y_numero(antecesor2,mano[0].pinta,mazo)),1,tamano_mazo(mazo),3)+multihipgeo((busqueda_carta_color_y_numero(antecesor1,mano[0].pinta,mazo)),1,(busqueda_carta_color_y_numero(sucesor1,mano[0].pinta,mazo)),1,tamano_mazo(mazo),3);
             }
             }
+    }
+    if (indicador==5){
+
+    /*Esto es lo mismo que el indicador 0 pero en el turno 1... por lo mismo lo dejo para el final*/
+
     }
 }
 
