@@ -2,7 +2,12 @@
 
 Jugador *siguiente_jugador(Jugador *actual)
 {
-	return actual->siguiente;
+	if(actual->siguiente->jugando!=2){
+		actual->siguiente->jugando=0;
+		return actual->siguiente;
+	}else{
+		siguiente_jugador(actual->siguiente);
+	}
 }
 
 Jugador *agregar_jugador(Jugador *final, unsigned int dinero)
@@ -99,34 +104,35 @@ int borrar_jugador_id(Jugador *nodo, unsigned int id)
 
 Jugador *crearJugadores(unsigned int cantidadJ, unsigned int cantidadM){
     Jugador *lista = NULL;
-    int cantidadTotal;
 
     if(cantidadJ<=1){
-        printf("\nEl numero ingresado es invalido, la cantidad a sido ajustada al minimo de 2.");
+        printf("\nEl numero ingresado es invalido....");
+		printf("\nLa cantidad ha sido ajustada al minimo de 2 jugadores.");
         cantidadJ=2;
     }
     if(cantidadJ>=24){
-        printf("\nEl numero ingresado es invalido, la cantidad a sido ajustada al maximo de  23.");
+        printf("\nEl numero ingresado es invalido....");
+		printf("\nLa cantidad ha sido ajustada al maximo de 23 jugadores.");
         cantidadJ=23;
     }
 
     if(cantidadM>30000){
-        printf("\nEl numero ingresado es invalido, la cantidad a sido ajustada al maximo de  30000 millones.");
+        printf("\nEl numero ingresado es invalido....");
+		printf("\nLa cantidad ha sido ajustada al maximo de 30000 millones.");
         cantidadM=30000;
     }
     if(cantidadM<100){
-        printf("\nEl numero ingresado es invalido, la cantidad a sido ajustada al minimo de 100 millones.");
+        printf("\nEl numero ingresado es invalido....");
+		printf("\nLa cantidad ha sido ajustada al minimo de 100 millones.");
         cantidadM=100;
     }
-
-    cantidadTotal = cantidadJ;
 
     while(cantidadJ>0){
         lista = agregar_jugador(lista,cantidadM);
         cantidadJ--;
     }
 
-    printf("\n\n****Los %i jugadores estan listos para jugar con %u millones****", cantidadTotal, cantidadM);
+    printf("\n\n****Los %i jugadores estan listos para jugar con %u millones****", lista->id, cantidadM);
 
     return lista;
 }
