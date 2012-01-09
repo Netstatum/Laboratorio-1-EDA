@@ -4,12 +4,12 @@ void apuestaG(Jugador *jugando, int apuesta){
 
 	jugando->apuesta_actual += apuesta;
 	jugando->dinero -= apuesta;
-	
+
 	if(jugando->apuesta_actual>mesaJuego.apuesta_maxima){
 		mesaJuego.apuesta_maxima=jugando->apuesta_actual;
 		set_apostoMas(jugando);
 	}
-	
+
 	mesaJuego.pozoApuestas += apuesta;
 }
 
@@ -26,26 +26,26 @@ void aBig(int mInicial){
 }
 
 void apostando(Jugador *jugando, int apuesta){
-    if(jugando->dinero>=apuesta-jugando->apuesta_actual){
-		apuestaG(jugando,apuesta-jugando->apuesta_actual);
-		
+    if(jugando->dinero>=apuesta){
+		apuestaG(jugando,apuesta);
+
 		limpiar();
 		printf("%s",titulo());
 		printf("\n\n\n");
-		
+
 		printf("La apuesta ha sido realizada satisfactoriamente\n");
 		printf("Presione una tecla para continuar");
 		getch();
-		
+
     }else{
 		apuestaG(jugando,jugando->dinero);
 		jugando->jugando=2;
-		
+
         limpiar();
 		printf("%s",titulo());
 		printf("\n\n\n");
-		
-		printf("Ha apostado más de lo que tiene, por lo que la apuesta se a limitado a apostar todo su dinero\n");
+
+		printf("Ha apostado mas de lo que tiene, por lo que la apuesta se a limitado a apostar todo su dinero\n");
 		printf("Presione una tecla para continuar");
 		getch();
     }
