@@ -2,11 +2,19 @@
 
 Jugador *siguiente_jugador(Jugador *actual)
 {
-	if(actual->siguiente->jugando<2){
+	if(actual->siguiente->jugando<3){
 		actual->siguiente->jugando=0;
 		return actual->siguiente;
 	}else{
 		siguiente_jugador(actual->siguiente);
+	}
+}
+
+Jugador *cualEsSiguiente_jugador(Jugador *actual){
+	if(actual->siguiente->jugando<3){
+		return actual->siguiente;
+	}else{
+		cualEsSiguiente_jugador(actual->siguiente);
 	}
 }
 
