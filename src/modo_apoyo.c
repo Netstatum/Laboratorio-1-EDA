@@ -13,8 +13,7 @@ void modo_apoyo()
 	 * fgets escribe la cantidad de caracteres que nosotros le digamos en un
 	 * puntero y hace que termine en NULL (por eso pinta es pinta[2])*/
 	CARTA cartas[5];
-	char pinta[2], valor[3];
-	unsigned int i; /*Usamos char ya que es lo mismo que un int pero de menor tamano*/
+	CARTA jugador[2];
 
 
 	limpiar();
@@ -22,8 +21,25 @@ void modo_apoyo()
 	printf("\n\n\n");
 
 	printf("Ingrese las cartas del flop:\n");
+	ingresar_cartas(cartas, 3);
 
-	for(i=0;i<3;)
+
+	printf("\n");
+	printf("Ingrese sus cartas:\n");
+	ingresar_cartas(jugador, 2);
+
+	display_modo_practica(cartas, 3, jugador);
+
+
+
+}
+
+void ingresar_cartas(CARTA *cartas, int cantidad_preguntar)
+{
+	unsigned int i; 
+	char pinta[2], valor[3];
+	
+	for(i=0;i<cantidad_preguntar;)
 	{
 		printf("Carta %i: \n", i+1);
 
@@ -32,7 +48,7 @@ void modo_apoyo()
 		limpiar_buffer();
 
 		printf("Valor: ");
-		obtener(valor); /*Obtener valor se encarga de limpiar el buffer*/
+		obtener(valor);
 		
 		if(revisar_entrada(pinta[0], valor))
 		{
@@ -43,13 +59,8 @@ void modo_apoyo()
 			convertir_a_carta(&(cartas[i]), pinta, valor);
 			i++;
 		}
+		printf("\n");
 	}
-
-	for(i=0;i<3;i++)
-	{
-		printf("Pinta: %i Valor:%i\n", cartas[i]->pinta, cartas[i]->valor);
-	}
-
 }
 
 int revisar_entrada(char pinta, char *valor)
@@ -133,6 +144,36 @@ void convertir_a_carta(CARTA *carta, char *pinta, char *valor)
 			default:
 				break;
 		}
+	}
+
+	switch(pinta[0])
+	{
+		case 'c':
+			carta->pinta=3;
+			break;
+		case 'd':
+			carta->pinta=4;
+			break;
+		case 't':
+			carta->pinta=5;
+			break;
+		case 'p':
+			carta->pinta=6;
+			break;
+		case 'C':
+			carta->pinta=3;
+			break;
+		case 'D':
+			carta->pinta=4;
+			break;
+		case 'T':
+			carta->pinta=5;
+			break;
+		case 'P':
+			carta->pinta=6;
+			break;
+		default:
+			break;
 	}
 }
 
