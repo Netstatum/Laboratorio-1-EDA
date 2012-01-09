@@ -889,7 +889,7 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
     pos_poker=pos_poker*100;
     pos_real=pos_real*100;
     pos_trio=pos_trio*100;
-    Imprimir_datos(pos_doble,pos_trio,pos_doble_pareja,pos_escala,pos_color,pos_full,pos_poker,pos_escala_color,pos_real);
+    Imprimir_datos(pos_doble,pos_trio,pos_doble_pareja,pos_escala,pos_color,pos_full,pos_poker,pos_escala_color);
 
 
 }
