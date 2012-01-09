@@ -90,22 +90,6 @@ void repartirCartas(){
 
     srand(time(NULL));
 
-    /** Se asignan las cartas al primer jugador */
-    //while(contadorC<2){
-
-        /** Se asignan las cartas */
-      /*  aletoriedad = rand() % 52;
-        if(mazo[aletoriedad].jugada == 0){
-            aux->cartas[contadorC] = mazo[aletoriedad];
-            mazo[aletoriedad].jugada = 2;
-            contadorC++;
-        }
-    }
-    contadorC=0;*/
-
-    /** Se pasa al siguiente jugador */
-   // aux=aux->siguiente;
-
     /** Como es una lista circular al llegar al primero nuevamente debemos detenernos */
     do{
         /** Se asignan las cartas */
