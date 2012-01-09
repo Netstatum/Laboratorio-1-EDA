@@ -363,7 +363,6 @@ void inicializarMesaJuego(){
 
 void inicializarJugadores(){
 	Jugador *aux = _principio;
-	int contador=0;
 
     do{
 		if(aux->dinero!=0){
