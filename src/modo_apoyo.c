@@ -50,7 +50,7 @@ void modo_apoyo()
 		marcar_mazo(&jugador[i], 2);
 	}
 
-	/*Vemos las probabilidades*/
+	/*Vemos las probabilidades en la primera ronda*/
 	asignar(&mesa, cartas);
 	prob(mazo, jugador, mesa, comparador(jugador,1));
 
@@ -66,7 +66,8 @@ void modo_apoyo()
 
 	marcar_mazo(&cartas[3], 1);
 	asignar(&mesa, cartas);
-	prob(mazo, jugador, mesa, comparador(jugador,1));
+	/*prob en la segunda ronda*/
+	prob(mazo, jugador, mesa, comparador(jugador,2));
 
 
 	printf("\n");
@@ -78,7 +79,8 @@ void modo_apoyo()
 
 	marcar_mazo(&cartas[4], 1);
 	asignar(&mesa, cartas);
-	prob(mazo, jugador, mesa, comparador(jugador,1));
+	/*prob en la tercera ronda*/
+	prob(mazo, jugador, mesa, comparador(jugador,3));
 }
 
 void ingresar_cartas(CARTA *cartas, int cantidad_preguntar)
