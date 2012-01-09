@@ -34,8 +34,17 @@
  * 	entonces es NULL*/
 void display_principal(Jugador *jugando, CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, CARTA cartas_jugador[]);
 
-void display_modo_practica(CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, CARTA cartas_jugador[]);
-
+/*Muestra solamente las cartas en la pantalla
+ * ARGUMENTOS:
+ * 	NULL entonces se muestra una mesa sin cartas
+ *
+ * 	cantidad_cartas_mesa: El numero de cartas que contiene cartas_mesa. Si
+ * 	la cantidad de cartas es menor que 3 o mayor que 5 no muestra nada en la
+ * 	mesa
+ *
+ * 	cartas_jugador: Las cartas del jugador, si el jugador no tiene cartas
+ * 	entonces es NULL*/
+void display_modo_apoyo(CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, CARTA cartas_jugador[]);
 
 /*Limpia la pantalla eliminando los caracteres actuales*/
 void limpiar();

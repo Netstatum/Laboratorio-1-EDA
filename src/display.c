@@ -66,7 +66,7 @@ void display_principal(Jugador *jugando, CARTA cartas_mesa[], unsigned int canti
     printf("\n\n================================================================================");
 }
 
-void display_modo_practica(CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, CARTA cartas_jugador[])
+void display_modo_apoyo(CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, CARTA cartas_jugador[])
 {
 	char *cartas_mesa_graficas=NULL, *cartas_jugador_graficas=NULL;
 

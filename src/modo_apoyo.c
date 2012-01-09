@@ -26,7 +26,7 @@ void modo_apoyo()
 	printf("Ingrese sus cartas:\n");
 	ingresar_cartas(jugador, 2);
 
-	display_modo_practica(cartas, 3, jugador);
+	display_modo_apoyo(cartas, 3, jugador);
 
 	/*TODO: Probabilidades*/
 
@@ -35,7 +35,7 @@ void modo_apoyo()
 	ingresar_cartas(&carta_aux, 1);
 	cartas[3]=carta_aux;
 
-	display_modo_practica(cartas, 4, jugador);
+	display_modo_apoyo(cartas, 4, jugador);
 
 	/*TODO: Probabilidades*/
 
@@ -44,7 +44,7 @@ void modo_apoyo()
 	ingresar_cartas(&carta_aux, 1);
 	cartas[4]=carta_aux;
 
-	display_modo_practica(cartas, 5, jugador);
+	display_modo_apoyo(cartas, 5, jugador);
 
 	/*TODO: Probabilidades*/
 }
