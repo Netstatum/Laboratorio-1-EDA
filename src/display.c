@@ -65,9 +65,7 @@ void display_principal(Jugador *jugando, CARTA cartas_mesa[], unsigned int canti
 
     printf("\nProbabilidades de juego:");
 
-
     prob(mazo,jugando->cartas,mesaJuego,comparador(jugando->cartas,cantidad_cartas_mesa-2));
-
 
     printf("\n\n================================================================================");
 }

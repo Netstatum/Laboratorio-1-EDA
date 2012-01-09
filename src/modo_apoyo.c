@@ -2,16 +2,24 @@
 #include <string.h>
 
 #include "modo_apoyo.h"
+#include "funcion_probabilidades.h"
 #include "display.h"
 #include "menu.h"
+#include "mesa.h"
 
 
 
 void modo_apoyo()
 {
-	CARTA cartas[5];
+	CARTA cartas[5]; /*Cartas de la mesa*/
 	CARTA carta_aux;
-	CARTA jugador[2];
+	MESA mesa;
+	CARTA jugador[2]; /*Cartas del usuario*/
+	unsigned int i;
+
+	/*mazo esta definida en mesa.h y la inicializamos con generadorDelMazo
+	 * */
+	generadorDelMazo();
 
 
 	limpiar();
@@ -26,18 +34,41 @@ void modo_apoyo()
 	printf("Ingrese sus cartas:\n");
 	ingresar_cartas(jugador, 2);
 
+	/*Tenemos las cartas del flop, ahora mostramos la informacion*/
 	display_modo_apoyo(cartas, 3, jugador);
 
-	/*TODO: Probabilidades*/
+	/*Marcamos las cartas en juego en el mazo*/
+	for(i=0;i<3;i++)
+	{
+		/*Con 1 ya que son las cartas de la mesa*/
+		marcar_mazo(&cartas[i], 1);
+	}
+
+	for(i=0;i<2;i++)
+	{
+		/*Marcamos las cartas como en la mano*/
+		marcar_mazo(&jugador[i], 2);
+	}
+
+	/*Vemos las probabilidades en la primera ronda*/
+	asignar(&mesa, cartas);
+	prob(mazo, jugador, mesa, comparador(jugador,1));
 
 	printf("\n");
 	printf("Ingrese las cartas del turn:\n");
 	ingresar_cartas(&carta_aux, 1);
 	cartas[3]=carta_aux;
 
+	/*Marcamos en el mazo la nueva carta en juego*/
+
 	display_modo_apoyo(cartas, 4, jugador);
 
-	/*TODO: Probabilidades*/
+
+	marcar_mazo(&cartas[3], 1);
+	asignar(&mesa, cartas);
+	/*prob en la segunda ronda*/
+	prob(mazo, jugador, mesa, comparador(jugador,2));
+
 
 	printf("\n");
 	printf("Ingrese las cartas del river:\n");
@@ -46,7 +77,10 @@ void modo_apoyo()
 
 	display_modo_apoyo(cartas, 5, jugador);
 
-	/*TODO: Probabilidades*/
+	marcar_mazo(&cartas[4], 1);
+	asignar(&mesa, cartas);
+	/*prob en la tercera ronda*/
+	prob(mazo, jugador, mesa, comparador(jugador,3));
 }
 
 void ingresar_cartas(CARTA *cartas, int cantidad_preguntar)
@@ -211,5 +245,44 @@ void obtener(char *cadena)
 		}
 		cadena[i]=entrada;
 		i++;
+	}
+}
+
+void marcar_mazo(CARTA *carta, int tipo_jugada)
+{
+	/*tipo_jugada: si es 1 es en la mesa, si es 2 es en la mano*/
+	int mult;
+	switch(carta->pinta)
+	{
+		case 3:
+			/*corazon*/
+			mult=1;
+			break;
+		case 4:
+			/*diamante*/
+			mult=2;
+			break;
+		case 5:
+			/*trebol*/
+			mult=3;
+			break;
+		case 6:
+			/*pica*/
+			mult=4;
+			break;
+		default:
+			mult=0;
+			break;
+	}
+
+	mazo[mult*carta->valor-1].jugada=tipo_jugada;
+}
+
+void asignar(MESA *mesa, CARTA *cartas)
+{
+	unsigned int i;
+	for(i=0;i<5;i++)
+	{
+		mesa->cartasJugada[i]=cartas[i];
 	}
 }

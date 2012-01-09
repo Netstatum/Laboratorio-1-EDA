@@ -2,7 +2,6 @@
 #define _H_FUNCION_PROBABILIDADES_
 #include "carta.h"
 #include "mesa.h"
-#include "log_factorial.h"
 
 /*Devuelve la combinatoria con log. log(combinatoria). Para convertirla a
  * numeros normales utilizamos exp que se encuentra en math
