@@ -2,10 +2,21 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
-#include "log_factorial.h"
-#include "funcion_probabilidades.h"
 #include "jugador.h"
 #include "mesa.h"
+
+float log_factorial(int n)
+{
+	float factorial=0;
+	int i;
+
+	for(i=2;i<=n;i++)
+	{
+		factorial=factorial+log(i);
+	}
+
+	return factorial;
+}
 
 double combinatoria(unsigned int a, unsigned int b){
 	if (b==0 || a==b){
@@ -69,20 +80,23 @@ float multihipgeo(int a, int nita_a,int b,int nita_b,int t_mazo,int t_flop){
 /*Ahora hay que ver que combiene hacer, como en un principio se tienen 2 cartas, hay que ver si estan son iguales, si son diferentes, si son
 de la misma pinta, o si son consecutivas, esto sirve para el principio en que NO HAY CARTAS EN MESA TODAVIA*/
 
-/*Funcion que muestra los datos en pantalla*/
+/*------------------------------------------------------------------------------------------
+
+/*Funcion que "deberia" mostrar los datos en pantalla*/
 void Imprimir_datos(float pos_doble,float pos_trio, float pos_doble_pareja, float pos_escala, float pos_color, float pos_full, float pos_poker, float pos_escala_color, float pos_escala_real){
 printf("Probabilidades de exito segun tu mano actual\n\n");
-printf("Doble:%.3f\n");
-printf("Trio:%.3f\n");
-printf("Doble pareja:%.3f\n");
-printf("Escala:%.3f\n");
-printf("Color:%.3f\n");
-printf("Full:%.3f\n");
-printf("Poker:%.3f\n");
-printf("Escala Color:%.3f\n");
-printf("Doble:%.3f\n");
-printf("Escala Real:%.3f\n");
+printf("Doble:%.10f", pos_doble);printf("%\n");
+printf("Trio:%.10f", pos_trio);printf("%\n");
+printf("Doble pareja:%.10f",pos_doble_pareja);printf("%\n");
+printf("Escala:%.10f", pos_escala);printf("%\n");
+printf("Color:%.10f",pos_color);printf("%\n");
+printf("Full:%.10f",pos_full);printf("%\n");
+printf("Poker:%.10f",pos_poker);printf("%\n");
+printf("Escala Color:%.10f",pos_escala_color);printf("%\n");
+printf("Escala Real:%.10f", pos_escala_real);printf("%\n");
 }
+
+/*---------------------De esta forma tendria que ser la funcion, quedo a medio hacer D:-------------------------------------------------------------------*/
 
 int comparador(CARTA carta[],int turno){
     int indicador=0;
@@ -124,7 +138,7 @@ en la funcion de prob, tambien tengo que tomar en cuenta las cartas que están en
         else if (indicador==3&&(turno==1||turno==2)){
             indicador==8;
         }
-        else if (indicador==4&&(turno==1)||turno==2){
+        else if (indicador==4&&(turno==1||turno==2)){
             indicador==9;
         }
 
@@ -867,7 +881,15 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
             pos_full=pos_full+multihipgeo(busqueda_carta_sin_pinta(guarda_par3,mazo),1,0,0,tamano_mazo(mazo),1);
         }
     }
-    /*Bueno Aqui se deberian imprimir en pantalla los valores pos_ (todos los pos_ que salen en principio de la funcion*/
+    pos_doble=pos_doble*100;
+    pos_doble_pareja=pos_doble_pareja*100;
+    pos_escala=pos_escala*100;
+    pos_escala_color=pos_escala_color*100;
+    pos_full=pos_full*100;
+    pos_poker=pos_poker*100;
+    pos_real=pos_real*100;
+    pos_trio=pos_trio*100;
+    Imprimir_datos(pos_doble,pos_trio,pos_doble_pareja,pos_escala,pos_color,pos_full,pos_poker,pos_escala_color,pos_real);
 
 
 }

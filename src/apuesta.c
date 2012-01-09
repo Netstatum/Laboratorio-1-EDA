@@ -1,4 +1,5 @@
 #include "apuesta.h"
+#include "display.h"
 
 void apuestaG(Jugador *jugando, int apuesta){
 

@@ -129,7 +129,7 @@ char *corazones(unsigned int linea, char caracter)
 			if(caracter=='D')
 			{
 				/*Caso especial 10*/
-				sprintf(cadena, "|10  _ |", caracter);
+				sprintf(cadena, "|10  _ |");
 			}else{
 				sprintf(cadena, "|%c_  _ |", caracter);
 			}

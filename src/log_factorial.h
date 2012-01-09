@@ -1,3 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <math.h>
+
 /*Esta funcion devuelve el logaritmo del factorial calculado. Lo podemos usar
  * para calcular logaritmos grandes sin miedo al overflow tansformando con exp
  * de logaritmo a factorial normal LUEGO DE REALIZAR LOS CALCULOS con los
@@ -15,4 +20,4 @@
 /*Devuelve log(n!)
  * ARGUMENTOS:
  * 	n: El factorial que queremos encontrar*/
-double log_factorial(unsigned int n);
+float log_factorial(int n);
