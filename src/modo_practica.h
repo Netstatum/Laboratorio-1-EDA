@@ -43,4 +43,10 @@ void allUnCheck();
 /** Borra los jugadores con dinero 0 */
 void chaoPerdedores();
 
+/** Inicializa la mesa */
+void inicializarMesaJuego();
+
+/** Inicializa los jugadores */
+void inicializarJugadores();
+
 #endif // MODO_PRACTICA_H_INCLUDED
