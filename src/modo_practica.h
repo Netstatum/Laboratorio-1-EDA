@@ -10,6 +10,9 @@
 #include "display.h"
 #include "apuesta.h"
 
+/** Determina si la ronda finalizo */
+int _finRonda;
+
 /** Función modo_practica, esta función es la encargada de inicializar la partida
     para el modo practica y lanzar el juego
 */
@@ -30,5 +33,14 @@ int comienzaMP();
 
 /** Hace el calculo de la proporción que le corresponde al jugador del poso total */
 int calculoPP(Jugador *jugador);
+
+/** Verifica si todos los jugadores han hecho check en la ronda */
+int allCheck(Jugador *jugador);
+
+/** Permite a todos los jugadores que hicieron check volver a jugar la siguiente ronda*/
+void allUnCheck();
+
+/** Borra los jugadores con dinero 0 */
+void chaoPerdedores();
 
 #endif // MODO_PRACTICA_H_INCLUDED
