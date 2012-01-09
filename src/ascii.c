@@ -9,7 +9,7 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 	{
 		case 3:
 			/*Corazones*/
-			if(carta.valor>1 && carta.valor<11)
+			if(carta.valor>1 && carta.valor<10)
 			{
 				/*le sumamos 48 para obtener el valor ascii del
 				 * numero*/
@@ -20,6 +20,8 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 				{
 					case 1:
 						return corazones(linea, 'A');
+					case 10:
+						return corazones(linea, 'D');
 					case 11:
 						return corazones(linea, 'J');
 					case 12:
@@ -31,7 +33,7 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 			break;
 		case 4:
 			/*diamante*/
-			if(carta.valor>1 && carta.valor<11)
+			if(carta.valor>1 && carta.valor<10)
 			{
 				/*le sumamos 48 para obtener el valor ascii del
 				 * numero*/
@@ -42,6 +44,8 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 				{
 					case 1:
 						return diamante(linea, 'A');
+					case 10:
+						return diamante(linea, 'D');
 					case 11:
 						return diamante(linea, 'J');
 					case 12:
@@ -53,7 +57,7 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 			break;
 		case 5:
 			/*trebol*/
-			if(carta.valor>1 && carta.valor<11)
+			if(carta.valor>1 && carta.valor<10)
 			{
 				/*le sumamos 48 para obtener el valor ascii del
 				 * numero*/
@@ -64,6 +68,8 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 				{
 					case 1:
 						return trebol(linea, 'A');
+					case 10:
+						return trebol(linea, 'D');
 					case 11:
 						return trebol(linea, 'J');
 					case 12:
@@ -75,7 +81,7 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 			break;
 		case 6:
 			/*pica*/
-			if(carta.valor>0 && carta.valor<11)
+			if(carta.valor>1 && carta.valor<10)
 			{
 				/*le sumamos 48 para obtener el valor ascii del
 				 * numero*/
@@ -86,6 +92,8 @@ char *carta_a_ascii(CARTA carta, unsigned int linea)
 				{
 					case 1:
 						return pica(linea, 'A');
+					case 10:
+						return pica(linea, 'D');
 					case 11:
 						return pica(linea, 'J');
 					case 12:
@@ -118,7 +126,13 @@ char *corazones(unsigned int linea, char caracter)
 			sprintf(cadena, ".------.");
 			break;
 		case 1:
-			sprintf(cadena, "|%c_  _ |", caracter);
+			if(caracter=='D')
+			{
+				/*Caso especial 10*/
+				sprintf(cadena, "|10  _ |", caracter);
+			}else{
+				sprintf(cadena, "|%c_  _ |", caracter);
+			}
 			break;
 		case 2:
 			sprintf(cadena, "|( \\/ )|");
@@ -127,7 +141,13 @@ char *corazones(unsigned int linea, char caracter)
 			sprintf(cadena, "| \\  / |");
 			break;
 		case 4:
-			sprintf(cadena, "|  \\/ %c|", caracter);
+			if(caracter=='D')
+			{
+				/*Caso especial 10*/
+				sprintf(cadena, "|  \\/10|");
+			}else{
+				sprintf(cadena, "|  \\/ %c|", caracter);
+			}
 			break;
 		case 5:
 			sprintf(cadena, "`-----+'");
@@ -151,7 +171,12 @@ char *diamante(unsigned int linea, char caracter)
 			sprintf(cadena, ".------.");
 			break;
 		case 1:
-			sprintf(cadena, "|%c /\\  |", caracter);
+			if(caracter=='D')
+			{
+				sprintf(cadena, "|10/\\  |");
+			}else{
+				sprintf(cadena, "|%c /\\  |", caracter);
+			}
 			break;
 		case 2:
 			sprintf(cadena, "| /  \\ |");
@@ -160,7 +185,12 @@ char *diamante(unsigned int linea, char caracter)
 			sprintf(cadena, "| \\  / |");
 			break;
 		case 4:
-			sprintf(cadena, "|  \\/ %c|", caracter);
+			if(caracter=='D')
+			{
+				sprintf(cadena, "|  \\/10|");
+			}else{
+				sprintf(cadena, "|  \\/ %c|", caracter);
+			}
 			break;
 		case 5:
 			sprintf(cadena, "`-----+'");
@@ -183,7 +213,12 @@ char *trebol(unsigned int linea, char caracter)
 			sprintf(cadena, ".------.");
 			break;
 		case 1:
-			sprintf(cadena, "|%c _   |", caracter);
+			if(caracter=='D')
+			{
+				sprintf(cadena, "|10_   |");
+			}else{
+				sprintf(cadena, "|%c _   |", caracter);
+			}
 			break;
 		case 2:
 			sprintf(cadena, "| ( )  |");
@@ -192,7 +227,12 @@ char *trebol(unsigned int linea, char caracter)
 			sprintf(cadena, "|(_x_) |");
 			break;
 		case 4:
-			sprintf(cadena, "|  Y  %c|", caracter);
+			if(caracter=='D')
+			{
+				sprintf(cadena, "|  Y 10|");
+			}else{
+				sprintf(cadena, "|  Y  %c|", caracter);
+			}
 			break;
 		case 5:
 			sprintf(cadena, "`-----+'");
@@ -219,7 +259,12 @@ char *pica(unsigned int linea, char caracter)
 			sprintf(cadena, ".------.");
 			break;
 		case 1:
-			sprintf(cadena, "|%c .   |", caracter);
+			if(caracter=='D')
+			{
+				sprintf(cadena, "|10.   |");
+			}else{
+				sprintf(cadena, "|%c .   |", caracter);
+			}
 			break;
 		case 2:
 			sprintf(cadena, "| / \\  |");
@@ -228,7 +273,12 @@ char *pica(unsigned int linea, char caracter)
 			sprintf(cadena, "|(_,_) |");
 			break;
 		case 4:
-			sprintf(cadena, "|  I  %c|", caracter);
+			if(caracter=='D')
+			{
+				sprintf(cadena, "|  I 10|");
+			}else{
+				sprintf(cadena, "|  I  %c|", caracter);
+			}
 			break;
 		case 5:
 			sprintf(cadena, "`-----+'");
