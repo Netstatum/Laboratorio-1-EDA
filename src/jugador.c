@@ -2,12 +2,16 @@
 
 Jugador *siguiente_jugador(Jugador *actual)
 {
-	if(actual->siguiente->jugando<3){
-		actual->siguiente->jugando=0;
-		return actual->siguiente;
-	}else{
-		siguiente_jugador(actual->siguiente);
-	}
+    if(!allCheckorAllAlIn(actual)){
+        if(actual->siguiente->jugando<2){
+            actual->siguiente->jugando=0;
+            return actual->siguiente;
+        }else{
+            siguiente_jugador(actual->siguiente);
+        }
+    }else{
+        return actual;
+    }
 }
 
 Jugador *cualEsSiguiente_jugador(Jugador *actual){

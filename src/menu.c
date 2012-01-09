@@ -12,7 +12,6 @@ int menuPrincipal(int starter)
     portada();
 }
 
-
 void iniciarSelect(int starter)
 {
     int i;

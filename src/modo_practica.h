@@ -35,7 +35,7 @@ int comienzaMP();
 int calculoPP(Jugador *jugador);
 
 /** Verifica si todos los jugadores han hecho check en la ronda */
-int allCheck(Jugador *jugador);
+int allCheckOrAllIn(Jugador *jugador);
 
 /** Permite a todos los jugadores que hicieron check volver a jugar la siguiente ronda*/
 void allUnCheck();
