@@ -85,7 +85,7 @@ int comienzaMP(){
 		jugando = _principio;
 
         /** Comienza la partida */
-        while(rondas<=4 && cualEsSiguiente_jugador(jugando)!=jugando){
+        while(rondas<=4 && cualEsSiguiente_jugador(jugando)!=jugando && !allCheckorAllAlIn(jugando)){
             /** Comienza el turno */
             do{
                 display_principal(jugando, mesaJuego.cartasJugada,rondas+1,jugando->cartas);
@@ -131,7 +131,7 @@ int comienzaMP(){
 						*/
                         if(opcion==49){
 							if(jugando->apuesta_actual!=mesaJuego.apuesta_maxima){
-								apostando(jugando,mesaJuego.apuesta_maxima);
+								apostando(jugando,mesaJuego.apuesta_maxima-jugando->apuesta_actual);
 								jugando = siguiente_jugador(jugando);
 							}else{
 								limpiar();
@@ -158,7 +158,7 @@ int comienzaMP(){
 							scanf("%u",&aumento);
 
 							if(aumento!=0){
-							    apostando(jugando,mesaJuego.apuesta_maxima+aumento);
+							    apostando(jugando,mesaJuego.apuesta_maxima+aumento-jugando->apuesta_actual);
                                 jugando = siguiente_jugador(jugando);
 							}
 						}
@@ -180,7 +180,7 @@ int comienzaMP(){
 							jugando->jugando = 1;
 
                             if(mesaJuego.apuesta_maxima==jugando->apuesta_actual){
-								if(jugando==_apostadorMaximo || allCheck(jugando)){
+								if(jugando==_apostadorMaximo || allCheckorAllAlIn(jugando)){
 									_finRonda=1;
 								}else{
 									jugando = siguiente_jugador(jugando);
@@ -210,7 +210,7 @@ int comienzaMP(){
                 }
 
 				/** Si no se han retirado todos, ni es el fin de ronda ni todos han hecho Check */
-				if(cualEsSiguiente_jugador(jugando)!=jugando && !_finRonda && !allCheck(jugando)){
+				if(cualEsSiguiente_jugador(jugando)!=jugando && !_finRonda && !allCheckorAllAlIn(jugando)){
                     limpiar();
                     printf("%s",titulo());
                     printf("\n\n\n");
@@ -222,7 +222,7 @@ int comienzaMP(){
 			/** Si no se han retirado todos, ni es el fin de ronda ni todos han hecho Check
 				Se pasa al siguiente jugador
 			*/
-            }while(cualEsSiguiente_jugador(jugando)!=jugando && !_finRonda && !allCheck(jugando));
+            }while(cualEsSiguiente_jugador(jugando)!=jugando && !_finRonda && !allCheckorAllAlIn(jugando));
             /** Acaba una ronda */
 
 			/** Si no se han retirado todos */
@@ -319,7 +319,7 @@ int calculoPP(Jugador *jugador){
     return porcentaje;
 }
 
-int allCheck(Jugador *jugador){
+int allCheckorAllAlIn(Jugador *jugador){
 	Jugador *aux =jugador;
 
 	do{
@@ -337,7 +337,7 @@ void allUnCheck(){
     Jugador *aux = _principio;
 
     do{
-		if(aux->jugando<=2){
+		if(aux->jugando<2){
 			aux->jugando=0;
 		}
 
@@ -391,3 +391,5 @@ void inicializarJugadores(){
 
     _principio = aux;
 }
+
+
