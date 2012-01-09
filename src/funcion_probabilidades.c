@@ -109,7 +109,7 @@ en la funcion de prob, tambien tengo que tomar en cuenta las cartas que están en
         else if (indicador==3&&(turno==1||turno==2)){
             indicador==8;
         }
-        else if (indicador==4&&(turno==1)||turno==2){
+        else if (indicador==4&&(turno==1||turno==2)){
             indicador==9;
         }
 
