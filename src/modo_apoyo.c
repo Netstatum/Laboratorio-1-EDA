@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "modo_apoyo.h"
 #include "display.h"
@@ -13,6 +14,7 @@ void modo_apoyo()
 	 * fgets escribe la cantidad de caracteres que nosotros le digamos en un
 	 * puntero y hace que termine en NULL (por eso pinta es pinta[2])*/
 	CARTA cartas[5];
+	CARTA carta_aux;
 	CARTA jugador[2];
 
 
@@ -30,8 +32,25 @@ void modo_apoyo()
 
 	display_modo_practica(cartas, 3, jugador);
 
+	/*TODO: Probabilidades*/
 
+	printf("\n");
+	printf("Ingrese las cartas del turn:\n");
+	ingresar_cartas(&carta_aux, 1);
+	cartas[3]=carta_aux;
 
+	display_modo_practica(cartas, 4, jugador);
+
+	/*TODO: Probabilidades*/
+
+	printf("\n");
+	printf("Ingrese las cartas del river:\n");
+	ingresar_cartas(&carta_aux, 1);
+	cartas[4]=carta_aux;
+
+	display_modo_practica(cartas, 5, jugador);
+
+	/*TODO: Probabilidades*/
 }
 
 void ingresar_cartas(CARTA *cartas, int cantidad_preguntar)
@@ -41,6 +60,8 @@ void ingresar_cartas(CARTA *cartas, int cantidad_preguntar)
 	
 	for(i=0;i<cantidad_preguntar;)
 	{
+		
+		memset(valor, '\0', sizeof(char)*3);
 		printf("Carta %i: \n", i+1);
 
 		printf("Pinta: ");
@@ -112,6 +133,7 @@ void convertir_a_carta(CARTA *carta, char *pinta, char *valor)
 {
 	if(es_numero(valor))
 	{
+		printf("%s\n", valor);
 		sscanf(valor, "%i", &(carta->valor));
 	}else{
 		/*Es una letra y debemos hacer la conversion nosotros*/
