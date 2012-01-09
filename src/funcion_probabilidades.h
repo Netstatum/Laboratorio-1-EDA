@@ -2,15 +2,14 @@
 #define _H_FUNCION_PROBABILIDADES_
 #include "carta.h"
 #include "mesa.h"
+#include "log_factorial.h"
 
 /*Devuelve la combinatoria con log. log(combinatoria). Para convertirla a
  * numeros normales utilizamos exp que se encuentra en math
  * Argumentos:
  * 	a: Es n
  * 	b: Es r*/
-double combinatoria(unsigned int a, unsigned int b);
-
-
+double combinatoria(int a,int b);
 
 int busqueda_carta_sin_pinta(int numero,CARTA mazo[]);
 

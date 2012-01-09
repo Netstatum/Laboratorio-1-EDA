@@ -12,7 +12,8 @@
 #include "carta.h"
 #include "mesa.h"
 #include "jugador.h"
-
+#include "log_factorial.h"
+#include "funcion_probabilidades.h"
 /** Aqui se encuentran las funciones para acceder a ciertos datos como el titulo o calculos
     particulares
  */
