@@ -179,6 +179,7 @@ int opciones(int posicion)
         /** Modo Apoyo */
         case 0:
         {
+	    modo_apoyo();
             break;
         }
 
@@ -215,7 +216,7 @@ void creditos(){
     printf("\n\tEstudiantes de Ingenier%ca Civil en Informatic%c, USACH",161,160);
 
     printf("\n\n\tEl Juego a sido creado como objetivo de un Laboratorio del ramo:");
-    printf("\n\n\t\tEstructura de Datos y Algoritmos",162);
+    printf("\n\n\t\tEstructura de Datos y Algoritmos");
     printf("\n\t\tLenguaje usado: C");
 
     printf("\n\n\tVersion del Juego: ---");
