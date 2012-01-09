@@ -466,7 +466,9 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
                 }
                 else if (i==1){
                     pos_doble=multihipgeo(busqueda_carta_sin_pinta(mano[1].valor,mazo),1,0,0,tamano_mazo(mazo),1);
-                }
+                    pos_doble=pos_doble/2;
+                    }
+
 
             if (busqueda_carta_sin_pinta(mano[i].valor,mesajuego.cartasJugada)==1) /*significa que tiene al menos una repeticion en la mesa*/ {
                 if (guarda_par1==0){
@@ -475,11 +477,14 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
                 else if (guarda_par1!=0&&guarda_par2==0){
                     guarda_par2=mano[i].valor;
                 }
+                if (busqueda_carta_sin_pinta(mano[i].pinta,mesajuego.cartasJugada)==2){
                 if (i==0){
                     pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1,busqueda_carta_sin_pinta(mano[1].valor,mazo),0,tamano_mazo(mazo),1);
             }
                 if (i!=0){
                     pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mano[1].valor,mazo),1,busqueda_carta_sin_pinta(mano[0].valor,mazo),0,tamano_mazo(mazo),1);
+                    pos_trio=pos_trio/2;
+                }
                 }
             }
             if (busqueda_carta_sin_pinta(mano[i].valor,mesajuego.cartasJugada)==2) /*Significa que hay un trio*/{
@@ -487,13 +492,18 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
             }
         }
         for (j=0;j<5;j++){
+            float pos_doble2;
             if (busqueda_carta_con_pinta(mesajuego.cartasJugada[j].pinta,mesajuego.cartasJugada)==3){
                 pos_color=pos_color+multihipgeo(busqueda_carta_con_pinta(mesajuego.cartasJugada[j].pinta,mazo),1,0,0,tamano_mazo(mazo),1);
                 }
 
-            pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
+            pos_doble2=pos_doble2+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
+            if (j==4){
+                pos_doble2=pos_doble2/j;
+                pos_doble=pos_doble+pos_doble2;
+            }
 
-        if (busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mesajuego.cartasJugada)==3){ /*Significa que hay un trio entre las cartas de la mesa*/
+        if (busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mesajuego.cartasJugada)==3){ /*Significa que hay un par entre las cartas de la mesa*/
             pos_poker=pos_poker+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
         }
 
@@ -572,6 +582,7 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
         int i,j,guarda_par1=0,guarda_par2=0,guarda_par3=0,guarda_par4=0;
             if (busqueda_carta_con_pinta(mano[i].pinta,mesajuego.cartasJugada)==2){ /*Esto implica que hay 2 cartas en mesa que tienen la misma pinta que una de las cartas de tu mano, como el indicador es el caso 5, tienes la peor mano, asi que tus cartas son de distinto color...*/
                 pos_color=pos_color+multihipgeo(busqueda_carta_con_pinta(mano[i].pinta,mazo),1,0,0,tamano_mazo(mazo),1);
+                pos_doble=1;/*Debido a que ya se tiene un par*/
             }
             int sucesor1,sucesor2,sucesor3,antecesor1,antecesor2,antecesor3;
             if (mano[0].valor==13){
@@ -650,13 +661,19 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
                 pos_poker=pos_poker+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),1,0,0,tamano_mazo(mazo),1);
             }
 
-            /*falta pos_doble?*/
         for (j=0;j<5;j++){
+            float pos_doble2;
             if (busqueda_carta_con_pinta(mesajuego.cartasJugada[j].pinta,mesajuego.cartasJugada)==3){
                 pos_color=pos_color+multihipgeo(busqueda_carta_con_pinta(mesajuego.cartasJugada[j].pinta,mazo),1,0,0,tamano_mazo(mazo),1);
                 }
 
             pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
+
+            pos_doble2=pos_doble2+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
+            if (j==4){
+                pos_doble2=pos_doble2/j;
+                pos_doble=pos_doble+pos_doble2;
+            }
 
         if (busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mesajuego.cartasJugada)==2){ /*Significa que hay un doble entre las cartas de la mesa*/
             pos_poker=pos_poker+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
@@ -783,18 +800,24 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
                 else if (guarda_par1!=0&&guarda_par2==0){
                     guarda_par2=mano[i].valor;
                 }
+
+            if (busqueda_carta_sin_pinta(mano[i].pinta,mesajuego.cartasJugada)==2){
                 if (i==0){
                     pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1,busqueda_carta_sin_pinta(mano[1].valor,mazo),0,tamano_mazo(mazo),1);
             }
                 if (i!=0){
                     pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mano[1].valor,mazo),1,busqueda_carta_sin_pinta(mano[0].valor,mazo),0,tamano_mazo(mazo),1);
+                    pos_trio=pos_trio/2;
                 }
+                }
+
             }
             if (busqueda_carta_sin_pinta(mano[i].valor,mesajuego.cartasJugada)==2) /*Significa que hay un trio*/{
                 pos_poker=pos_poker+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),1,0,0,tamano_mazo(mazo),1);
             }
         }
         for (j=0;j<5;j++){
+            float pos_doble2;
             if (indicador==7){
             if (busqueda_carta_con_pinta(mesajuego.cartasJugada[j].pinta,mesajuego.cartasJugada)==3){
                 pos_color=pos_color+multihipgeo(busqueda_carta_con_pinta(mesajuego.cartasJugada[j].pinta,mazo),1,0,0,tamano_mazo(mazo),1);
@@ -806,7 +829,11 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
                 }
             }
 
-            pos_doble=multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
+            pos_doble2=pos_doble2+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
+            if (j==4){
+                pos_doble2=pos_doble2/j;
+                pos_doble=pos_doble+pos_doble2;
+            }
 
         if (busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mesajuego.cartasJugada)==3){ /*Significa que hay un trio entre las cartas de la mesa*/
             pos_poker=pos_poker+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);

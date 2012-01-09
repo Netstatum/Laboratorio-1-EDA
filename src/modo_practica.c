@@ -32,7 +32,7 @@ void cantidad_jugadores(){
 
     printf(" Ingrese el dinero inicial que tendra cada uno de los participantes\n");
     printf(" Considerese el monto en terminos de millones\n\n");
-    printf("\t Monto Inicial: "); scanf("%u",&mInicial);
+    printf("\t Monto Inicial: "); scanf("%d",&mInicial);
 
     jugadoresMesa = crearJugadores(cJugadores,mInicial);
     set_principio(jugadoresMesa->siguiente);
@@ -94,7 +94,7 @@ int comienzaMP(){
 
 				/** Apuesta el low si corresponde */
                 if(rondas==1 && _aOB && jugando == _principio){
-                    printf("[1]Apostar el Low de: %i",_low);
+                    printf("[1]Apostar el Low de: %g",_low);
 
                         opcion=getch();
 
@@ -106,7 +106,7 @@ int comienzaMP(){
                 }else{
 					/** Apuesta el big si corresponde */
                     if(rondas==1 && _aOB && jugando == _principio->siguiente){
-                        printf("[1]Apostar el Big de: %i",_big);
+                        printf("[1]Apostar el Big de: %g",_big);
 
                         opcion=getch();
 
@@ -153,9 +153,9 @@ int comienzaMP(){
 							printf("\n\n\n");
 
 							printf("Para cancelar esta accion ingrese un monto de 0\n\n");
-							printf("La apuesta maxima es de: %u",mesaJuego.apuesta_maxima);
-							printf("\nIngrese en cuanto desea aumentarla: %u+",mesaJuego.apuesta_maxima);
-							scanf("%u",&aumento);
+							printf("La apuesta maxima es de: %g",mesaJuego.apuesta_maxima);
+							printf("\nIngrese en cuanto desea aumentarla: %g+",mesaJuego.apuesta_maxima);
+							scanf("%i",&aumento);
 
 							if(aumento!=0){
 							    apostando(jugando,mesaJuego.apuesta_maxima+aumento-jugando->apuesta_actual);
@@ -281,6 +281,7 @@ int comienzaMP(){
             printf("\n\n\n");
 
             printf("Felicidades jugador ID:%u, has ganado esta partida",jugando->id);
+            printf("\nTu monto actual de dinero es: %g", jugando->dinero);
             printf("\nPresione una tecla para continuar");
             getch();
 		}
@@ -303,20 +304,17 @@ int comienzaMP(){
     /** Acaba el juego, hay un ganador */
 
 	//felicitar al ganador y se acabo fin game over
-	printf("gano el %u",_principio->id);
+	limpiar();
+    printf("%s",titulo());
+    printf("\n\n\n");
+	printf("Felicidades al jugador %u!!!!!!!!",_principio->id);
+	printf("\nUstedes es el ganador de %g",jugando->dinero);
+
+	printf("\n\nPresione una tecla para finalizar el juego");
+	printf("\nGracias por jugar!");
 	getch();
 
     return 0;
-}
-
-int calculoPP(Jugador *jugador){
-    int porcentaje;
-
-    if(jugador->dinero>=0){
-        porcentaje = 100;
-    }
-
-    return porcentaje;
 }
 
 int allCheckorAllAlIn(Jugador *jugador){
@@ -391,5 +389,3 @@ void inicializarJugadores(){
 
     _principio = aux;
 }
-
-

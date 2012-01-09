@@ -3,16 +3,15 @@
 void display_principal(Jugador *jugando, CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, CARTA cartas_jugador[])
 {
 	char *cartas_mesa_graficas=NULL, *cartas_jugador_graficas=NULL;
-	int pozoApuestas = mesaJuego.pozoApuestas;
-	int apuestaMax = mesaJuego.apuesta_maxima;
+	double pozoApuestas = mesaJuego.pozoApuestas;
+	double apuestaMax = mesaJuego.apuesta_maxima;
 
     limpiar();
     printf("%s",titulo());
     printf("\n\n");
     printf("================================================================================\n");
 
-    printf("Pozo Total de la Mesa: %d",pozoApuestas);
-    printf("\nPorcentaje del pozo que te corresponde: %d",calculoPP(jugando));
+    printf("Pozo Total de la Mesa: %g",pozoApuestas);
 
     printf("\nCartas en la Mesa: \n\n");
 
@@ -57,9 +56,9 @@ void display_principal(Jugador *jugando, CARTA cartas_mesa[], unsigned int canti
 	free(cartas_mesa_graficas);
 	free(cartas_jugador_graficas);
 
-	printf("\nDinero disponible: %d millones",jugando->dinero);
-	printf("\nTu ultima apuesta realizada: %i",jugando->apuesta_actual);
-    printf("\nApuesta maxima realizada: %i",apuestaMax);
+	printf("\nDinero disponible: %g millones",jugando->dinero);
+	printf("\nTu ultima apuesta realizada: %g",jugando->apuesta_actual);
+    printf("\nApuesta maxima realizada: %g",apuestaMax);
 
     printf("\n\n================================================================================");
 

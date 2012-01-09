@@ -31,11 +31,8 @@ void info_de_juego();
 /** Da inicio al modo como tal */
 int comienzaMP();
 
-/** Hace el calculo de la proporción que le corresponde al jugador del poso total */
-int calculoPP(Jugador *jugador);
-
 /** Verifica si todos los jugadores han hecho check en la ronda */
-int allCheckOrAllIn(Jugador *jugador);
+int allCheckorAllAlIn(Jugador *jugador);
 
 /** Permite a todos los jugadores que hicieron check volver a jugar la siguiente ronda*/
 void allUnCheck();

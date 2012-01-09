@@ -21,8 +21,6 @@ int busqueda_carta_color_y_numero(int numero,char pinta,CARTA mazo[]);
 
 int tamano_mazo(CARTA mazo[]);
 
-
-
 float multihipgeo(int a, int nita_a,int b,int nita_b,int t_mazo,int t_flop);
 
 int comparador(CARTA carta[],int turno);

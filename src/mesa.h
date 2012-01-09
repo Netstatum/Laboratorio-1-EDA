@@ -9,8 +9,8 @@
 */
 struct mesa{
     CARTA cartasJugada[5];
-    int pozoApuestas;
-    int apuesta_maxima;
+    double pozoApuestas;
+    double apuesta_maxima;
 };
 typedef struct mesa MESA;
 
