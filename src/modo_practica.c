@@ -226,7 +226,7 @@ int comienzaMP(){
 			/** Si no se han retirado todos */
             if(siguiente_jugador(jugando)!=jugando){
                 rondas++; //avanza una ronda
-				jugador = _principio;
+				jugando = _principio;
 				_finRonda=0; //ya no es fin de ronda
 				_apostadorMaximo=NULL; //no hay apostadorMaximo actualmente
 				allUnCheck(); //todos los jugadores que hicieron check pueden volver a jugar
