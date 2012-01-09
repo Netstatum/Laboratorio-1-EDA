@@ -35,6 +35,7 @@ void mazoNuevo(){
     /** Ningunca carta ha sido jugada */
 	while(contador<=51){
 	    mazo[contador].jugada=0;
+	    contador++;
 	}
 }
 
