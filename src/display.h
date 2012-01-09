@@ -34,6 +34,9 @@
  * 	entonces es NULL*/
 void display_principal(Jugador *jugando, CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, CARTA cartas_jugador[]);
 
+void display_modo_practica(CARTA cartas_mesa[], unsigned int cantidad_cartas_mesa, CARTA cartas_jugador[]);
+
+
 /*Limpia la pantalla eliminando los caracteres actuales*/
 void limpiar();
 
