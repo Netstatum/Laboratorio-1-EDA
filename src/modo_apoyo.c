@@ -6,6 +6,7 @@
 #include "display.h"
 #include "menu.h"
 #include "mesa.h"
+#include "entrada.h"
 
 
 
@@ -156,12 +157,6 @@ int es_numero(char *caracter)
 
 	return 1;
 }
-
-void limpiar_buffer()
-{
-	while(getchar()!='\n');
-}
-
 
 void convertir_a_carta(CARTA *carta, char *pinta, char *valor)
 {

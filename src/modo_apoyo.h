@@ -20,8 +20,6 @@ int revisar_entrada(char pinta, char *valor);
  * RETORNO: 1 si es numero valido, 0 si no es valido*/
 int es_numero(char *caracter);
 
-/*Saca todos los caracteres que estan en el buffer de la entrada estandar*/
-void limpiar_buffer();
 
 /*Convierte los strigs pinta y valor en una estructura carta
  * ARGUMENTOS:
@@ -43,4 +41,18 @@ void obtener(char *cadena);
  * 	cantidad_preguntar
  * 	cantidad_preguntar: el numero de cartas a preguntar*/
 void ingresar_cartas(CARTA *cartas, int cantidad_preguntar);
+
+
+/*Marca la carta segun el tipo_jugada en el mazo
+ * ARGUMENTOS:
+ * 	carta: La carta a marcar en el mazo
+ * 	tipo_jugada: 1 si es en la mesa, 2 si es en la mano*/
+void marcar_mazo(CARTA *carta, int tipo_jugada);
+
+
+/*Asigna las cartas (array de 5) en las cartas de la mesa (tambien array de 5)
+ * ARGUMENTOS:
+ * 	mesa: una estructura mesa que representa el estado actual de la mesa
+ * 	cartas: las cartas a ser asignadas a la mesa*/
+void asignar(MESA *mesa, CARTA *cartas)
 #endif
