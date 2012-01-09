@@ -43,7 +43,8 @@
  * 	siguiente: puntero al siguiente elemento de la lista*/
 typedef struct Jugador{
 
-	unsigned int dinero, id, apuesta_actual,jugando;
+	unsigned int id,jugando;
+	double dinero, apuesta_actual;
 
 	CARTA cartas[4];
 
@@ -79,7 +80,7 @@ Jugador *cualEsSiguiente_jugador(Jugador *actual);
  *
  * RETORNO: El jugador que se agrega luego de usar la funcion. Devuelve NULL si
  * 	fallamos al obtener memoria para el nuevo nodo*/
-Jugador *agregar_jugador(Jugador *final, unsigned int dinero);
+Jugador *agregar_jugador(Jugador *final, double dinero);
 
 
 /*Indica si estamos al final del recorrido de la lista. Para usarla hay llamar a
@@ -122,7 +123,7 @@ int borrar_jugador_id(Jugador *nodo, unsigned int id);
                          si esta cantidad es menor de 100 millones se toma por defecto el valor 100
                          si esta cantidad es mayor que 30000 millones se toma por defecto el valor 30000
 */
-Jugador *crearJugadores(unsigned int cantidadJ, unsigned int cantidadM);
+Jugador *crearJugadores(unsigned int cantidadJ, double cantidadM);
 
 
 /*Libera la memoria utilizada por la lista jugador

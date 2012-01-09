@@ -3,6 +3,7 @@
 #include "getch.h"
 #include "display.h"
 #include "modo_practica.h"
+#include "modo_apoyo.h"
 
 int menuPrincipal(int starter)
 {
@@ -10,6 +11,8 @@ int menuPrincipal(int starter)
     iniciarSelect(starter);
 
     portada();
+
+    return 0;
 }
 
 void iniciarSelect(int starter)
@@ -32,6 +35,8 @@ int portada()
 
     banner();
     menuInicio();
+
+    return 0;
 }
 
 void banner()
@@ -168,6 +173,8 @@ int menuInicio()
             portada();
         }
     }
+
+    return 0;
 }
 
 int opciones(int posicion)
@@ -202,6 +209,8 @@ int opciones(int posicion)
             return 0;
         }
     }
+
+    return 0;
 }
 
 void creditos(){

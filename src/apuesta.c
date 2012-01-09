@@ -1,7 +1,7 @@
 #include "apuesta.h"
 #include "display.h"
 
-void apuestaG(Jugador *jugando, int apuesta){
+void apuestaG(Jugador *jugando, double apuesta){
 
 	jugando->apuesta_actual += apuesta;
 	jugando->dinero -= apuesta;
@@ -17,19 +17,19 @@ void apuestaG(Jugador *jugando, int apuesta){
 	mesaJuego.pozoApuestas += apuesta;
 }
 
-void aLow(int mInicial){
+void aLow(double mInicial){
 	/** Sera el 5% del monto total inicial de cada jugador */
     _low = (mInicial*5)/100;
 	_aOB = 1;
 }
 
-void aBig(int mInicial){
+void aBig(double mInicial){
 	/** Sera el 10% del monto total inicial de cada jugador */
     _big = (mInicial*10)/100;
 	_aOB = 1;
 }
 
-void apostando(Jugador *jugando, int apuesta){
+void apostando(Jugador *jugando, double apuesta){
     if(jugando->dinero>=apuesta){
 
 		apuestaG(jugando,apuesta);

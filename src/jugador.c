@@ -1,4 +1,5 @@
 #include "jugador.h"
+#include "modo_practica.h"
 
 Jugador *siguiente_jugador(Jugador *actual)
 {
@@ -22,7 +23,7 @@ Jugador *cualEsSiguiente_jugador(Jugador *actual){
 	}
 }
 
-Jugador *agregar_jugador(Jugador *final, unsigned int dinero)
+Jugador *agregar_jugador(Jugador *final, double dinero)
 {
 	Jugador *nuevo=NULL, *aux=NULL;
 
@@ -118,7 +119,7 @@ int borrar_jugador_id(Jugador *nodo, unsigned int id)
 	return 1;
 }
 
-Jugador *crearJugadores(unsigned int cantidadJ, unsigned int cantidadM){
+Jugador *crearJugadores(unsigned int cantidadJ, double cantidadM){
     Jugador *lista = NULL;
 
     if(cantidadJ<=1){
@@ -148,7 +149,7 @@ Jugador *crearJugadores(unsigned int cantidadJ, unsigned int cantidadM){
         cantidadJ--;
     }
 
-    printf("\n\n****Los %i jugadores estan listos para jugar con %u millones****", lista->id, cantidadM);
+    printf("\n\n****Los %i jugadores estan listos para jugar con %g millones****", lista->id, cantidadM);
 
     return lista;
 }
