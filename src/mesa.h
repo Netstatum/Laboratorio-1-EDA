@@ -8,7 +8,7 @@
          int pozoApuestas: apuesta total realizada en cada instante
 */
 struct mesa{
-    CARTA cartasJugada[4];
+    CARTA cartasJugada[5];
     int pozoApuestas;
     int apuesta_maxima;
 };
