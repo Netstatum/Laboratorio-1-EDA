@@ -69,6 +69,21 @@ float multihipgeo(int a, int nita_a,int b,int nita_b,int t_mazo,int t_flop){
 /*Ahora hay que ver que combiene hacer, como en un principio se tienen 2 cartas, hay que ver si estan son iguales, si son diferentes, si son
 de la misma pinta, o si son consecutivas, esto sirve para el principio en que NO HAY CARTAS EN MESA TODAVIA*/
 
+/*Funcion que muestra los datos en pantalla*/
+void Imprimir_datos(float pos_doble,float pos_trio, float pos_doble_pareja, float pos_escala, float pos_color, float pos_full, float pos_poker, float pos_escala_color, float pos_escala_real){
+printf("Probabilidades de exito segun tu mano actual\n\n");
+printf("Doble:%.3f\n");
+printf("Trio:%.3f\n");
+printf("Doble pareja:%.3f\n");
+printf("Escala:%.3f\n");
+printf("Color:%.3f\n");
+printf("Full:%.3f\n");
+printf("Poker:%.3f\n");
+printf("Escala Color:%.3f\n");
+printf("Doble:%.3f\n");
+printf("Escala Real:%.3f\n");
+}
+
 int comparador(CARTA carta[],int turno){
     int indicador=0;
 
