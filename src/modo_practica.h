@@ -40,4 +40,7 @@ int allCheck(Jugador *jugador);
 /** Permite a todos los jugadores que hicieron check volver a jugar la siguiente ronda*/
 void allUnCheck();
 
+/** Borra los jugadores con dinero 0 */
+void chaoPerdedores();
+
 #endif // MODO_PRACTICA_H_INCLUDED
