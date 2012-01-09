@@ -133,7 +133,6 @@ void convertir_a_carta(CARTA *carta, char *pinta, char *valor)
 {
 	if(es_numero(valor))
 	{
-		printf("%s\n", valor);
 		sscanf(valor, "%i", &(carta->valor));
 	}else{
 		/*Es una letra y debemos hacer la conversion nosotros*/
