@@ -166,7 +166,7 @@ int comienzaMP(){
                         /** 51 es el ascii de la tecla 3 */
 						/** ALL IN */
                         if(opcion==51){
-							jugando->jugando=2;
+							//jugando->jugando=2;
                             apostando(jugando,jugando->dinero);
 							jugando = siguiente_jugador(jugando);
 						}
