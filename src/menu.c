@@ -179,7 +179,11 @@ int opciones(int posicion)
         /** Modo Apoyo */
         case 0:
         {
+<<<<<<< HEAD
+			modo_apoyo();
+=======
 	    modo_apoyo();
+>>>>>>> 4507c443bf5df4a53c7bd5372d0d7c129791957e
             break;
         }
 

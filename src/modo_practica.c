@@ -85,12 +85,12 @@ int comienzaMP(){
 		jugando = _principio;
 
         /** Comienza la partida */
-        while(rondas<=4 && siguiente_jugador(jugando)!=jugando){
+        while(rondas<=4 && cualEsSiguiente_jugador(jugando)!=jugando){
             /** Comienza el turno */
             do{
                 display_principal(jugando, mesaJuego.cartasJugada,rondas+1,jugando->cartas);
 
-                printf("\nQue desea hacer?%i\n\n",rondas);
+                printf("\nQue desea hacer?\n\n");
 
 				/** Apuesta el low si corresponde */
                 if(rondas==1 && _aOB && jugando == _principio){
@@ -177,14 +177,16 @@ int comienzaMP(){
 							Si el jugador haciendo check es el jugador _apostadorMaximo, se acaba la ronda
 						*/
                         if(opcion==52){
+							jugando->jugando = 1;
+
                             if(mesaJuego.apuesta_maxima==jugando->apuesta_actual){
-								if(jugando==_apostadorMaximo){
+								if(jugando==_apostadorMaximo || allCheck(jugando)){
 									_finRonda=1;
 								}else{
 									jugando = siguiente_jugador(jugando);
 								}
 
-								jugando->jugando = 1;
+
 
 							}else{
 								limpiar();
@@ -208,7 +210,7 @@ int comienzaMP(){
                 }
 
 				/** Si no se han retirado todos, ni es el fin de ronda ni todos han hecho Check */
-				if(siguiente_jugador(jugando)!=jugando && !_finRonda && !allCheck(jugando)){
+				if(cualEsSiguiente_jugador(jugando)!=jugando && !_finRonda && !allCheck(jugando)){
                     limpiar();
                     printf("%s",titulo());
                     printf("\n\n\n");
@@ -220,11 +222,11 @@ int comienzaMP(){
 			/** Si no se han retirado todos, ni es el fin de ronda ni todos han hecho Check
 				Se pasa al siguiente jugador
 			*/
-            }while(siguiente_jugador(jugando)!=jugando && !_finRonda && !allCheck(jugando));
+            }while(cualEsSiguiente_jugador(jugando)!=jugando && !_finRonda && !allCheck(jugando));
             /** Acaba una ronda */
 
 			/** Si no se han retirado todos */
-            if(siguiente_jugador(jugando)!=jugando){
+            if(cualEsSiguiente_jugador(jugando)!=jugando){
                 rondas++; //avanza una ronda
 				jugando = _principio; //la siguiente ronda parte con el _principio
 				_finRonda=0; //ya no es fin de ronda
@@ -267,8 +269,20 @@ int comienzaMP(){
         /** Acaba la partida */
 
 		/** Si no se han retirado todos se debe verificar quien gana */
-		if(siguiente_jugador(jugando)!=jugando){
+		if(cualEsSiguiente_jugador(jugando)!=jugando){
 			//Se verifica quien tiene el mejor juego
+			rondas++; //solo para el debugger
+		}else{
+            //gano pq los wns se retiraron
+            jugando->dinero += mesaJuego.pozoApuestas;
+
+            limpiar();
+            printf("%s",titulo());
+            printf("\n\n\n");
+
+            printf("Felicidades jugador ID:%u, has ganado esta partida",jugando->id);
+            printf("\nPresione una tecla para continuar");
+            getch();
 		}
 
         /** Todos los jugadores con jugador->dinero=0 se eliminan */
@@ -276,6 +290,8 @@ int comienzaMP(){
 
 		/** Si aun quedan jugadores contra los que luchar */
 		if(jugando->siguiente!=jugando){
+            rondas=1;
+            _aOB=1;
 			_principio = _principio->siguiente; //El primer jugador sera el siguiente
 			mazoNuevo(); //Se llena el mazo para repartir correctamente
 		}
