@@ -67,6 +67,9 @@ Jugador *_principio;
  * RETORNO: El jugador que le corresponde el siguiente turno*/
 Jugador *siguiente_jugador(Jugador *actual);
 
+/** Devuelve cual es el siguiente jugador sin asignarlo como tal */
+Jugador *cualEsSiguiente_jugador(Jugador *actual);
+
 /*Agrega un nodo al final de final dejandola doblemente enlazada (el ultimo
  * elemento apunta al primer elemento)
  * ARGUMENTOS:
