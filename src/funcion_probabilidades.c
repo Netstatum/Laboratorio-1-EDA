@@ -83,8 +83,7 @@ de la misma pinta, o si son consecutivas, esto sirve para el principio en que NO
 /*------------------------------------------------------------------------------------------
 
 /*Funcion que "deberia" mostrar los datos en pantalla*/
-void Imprimir_datos(float pos_doble,float pos_trio, float pos_doble_pareja, float pos_escala, float pos_color, float pos_full, float pos_poker, float pos_escala_color, float pos_escala_real){
-printf("Probabilidades de exito segun tu mano actual\n\n");
+void Imprimir_datos(float pos_doble,float pos_trio, float pos_doble_pareja, float pos_escala, float pos_color, float pos_full, float pos_poker, float pos_escala_color){
 printf("Doble:%.10f", pos_doble);printf("%\n");
 printf("Trio:%.10f", pos_trio);printf("%\n");
 printf("Doble pareja:%.10f",pos_doble_pareja);printf("%\n");
@@ -93,7 +92,6 @@ printf("Color:%.10f",pos_color);printf("%\n");
 printf("Full:%.10f",pos_full);printf("%\n");
 printf("Poker:%.10f",pos_poker);printf("%\n");
 printf("Escala Color:%.10f",pos_escala_color);printf("%\n");
-printf("Escala Real:%.10f", pos_escala_real);printf("%\n");
 }
 
 /*---------------------De esta forma tendria que ser la funcion, quedo a medio hacer D:-------------------------------------------------------------------*/
@@ -463,11 +461,11 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
                 pos_escala_color=pos_escala_color+multihipgeo(busqueda_carta_color_y_numero(antecesor3,mano[i].pinta,mazo),1,0,0,tamano_mazo(mazo),1);
             }
             if (i==0){
-                    pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1,busqueda_carta_sin_pinta(mano[1].valor,mazo),0,tamano_mazo(mazo),1);
+                    pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1,0,0,tamano_mazo(mazo),1);
 
                 }
                 else if (i==1){
-                    pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[1].valor,mazo),1,busqueda_carta_sin_pinta(mano[0].valor,mazo),0,tamano_mazo(mazo),1);
+                    pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[1].valor,mazo),1,0,0,tamano_mazo(mazo),1);
                 }
 
             if (busqueda_carta_sin_pinta(mano[i].valor,mesajuego.cartasJugada)==1) /*significa que tiene al menos una repeticion en la mesa*/ {
@@ -651,6 +649,8 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
             if (busqueda_carta_sin_pinta(mano[i].valor,mesajuego.cartasJugada)==1) /*Significa que hay un trio*/{
                 pos_poker=pos_poker+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),1,0,0,tamano_mazo(mazo),1);
             }
+
+            /*falta pos_doble?*/
         for (j=0;j<5;j++){
             if (busqueda_carta_con_pinta(mesajuego.cartasJugada[j].pinta,mesajuego.cartasJugada)==3){
                 pos_color=pos_color+multihipgeo(busqueda_carta_con_pinta(mesajuego.cartasJugada[j].pinta,mazo),1,0,0,tamano_mazo(mazo),1);
@@ -769,11 +769,11 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
             }
 
             if (i==0){
-                    pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1,busqueda_carta_sin_pinta(mano[1].valor,mazo),0,tamano_mazo(mazo),1);
+                    pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1,0,0,tamano_mazo(mazo),1);
 
                 }
                 else if (i==1){
-                    pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[1].valor,mazo),1,busqueda_carta_sin_pinta(mano[0].valor,mazo),0,tamano_mazo(mazo),1);
+                    pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[1].valor,mazo),1,0,0,tamano_mazo(mazo),1);
                 }
 
             if (busqueda_carta_sin_pinta(mano[i].valor,mesajuego.cartasJugada)==1) /*significa que tiene al menos una repeticion en la mesa*/ {

@@ -65,7 +65,13 @@ void display_principal(Jugador *jugando, CARTA cartas_mesa[], unsigned int canti
 
     printf("\nProbabilidades de juego:");
 
+<<<<<<< HEAD
     prob(mazo,jugando->cartas,mesaJuego,comparador(jugando->cartas,cantidad_cartas_mesa-2));
+=======
+
+    prob(mazo,jugando->cartas,mesaJuego,comparador(jugando->cartas,cantidad_cartas_mesa-2));
+
+>>>>>>> c7f8e5dff980a097fccb5163e5f21a960e95eb7d
 
     printf("\n\n================================================================================");
 }
