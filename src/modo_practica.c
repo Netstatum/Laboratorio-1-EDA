@@ -79,19 +79,19 @@ int comienzaMP(){
     /** Comienza el juego */
     do{
         /** Asignando las variables generales para la partida */
+		inicializarJugadores();
         repartirCartas(_principio);
-        jugando = _principio;
-        mesaJuego.pozoApuestas = 0;
-        mesaJuego.apuesta_maxima = 0;
-		
+        inicializarMesaJuego();
+		jugando = _principio;
+
         /** Comienza la partida */
-        while(rondas<=4 || siguiente_jugador(jugando)!=jugando){
+        while(rondas<=4 && siguiente_jugador(jugando)!=jugando){
             /** Comienza el turno */
             do{
                 display_principal(jugando, mesaJuego.cartasJugada,rondas+1,jugando->cartas);
 
-                printf("\nQue desea hacer?\n\n");
-				
+                printf("\nQue desea hacer?%i\n\n",rondas);
+
 				/** Apuesta el low si corresponde */
                 if(rondas==1 && _aOB && jugando == _principio){
                     printf("[1]Apostar el Low de: %i",_low);
@@ -126,7 +126,7 @@ int comienzaMP(){
                         opcion=getch();
 
                         /** 49 es el ascii de la tecla 1 */
-						/** Igualar la apuesta maxima 
+						/** Igualar la apuesta maxima
 							Solo se realiza si la ultima apuesta hecha es diferente de la apuesta maxima
 						*/
                         if(opcion==49){
@@ -137,11 +137,11 @@ int comienzaMP(){
 								limpiar();
 								printf("%s",titulo());
 								printf("\n\n\n");
-								
+
 								printf("Su apuesta ya es igual a la apuesta maxima");
 								printf("\nPresiona una tecla para continuar");
 								getch();
-								
+
 							}
 						}
 
@@ -183,9 +183,9 @@ int comienzaMP(){
 								}else{
 									jugando = siguiente_jugador(jugando);
 								}
-								
-								jugando->jugando = 1;								
-								
+
+								jugando->jugando = 1;
+
 							}else{
 								limpiar();
 								printf("%s",titulo());
@@ -217,7 +217,7 @@ int comienzaMP(){
                     printf("\n\tPresione una tecla para continuar");
                     getch();
 				}
-			/** Si no se han retirado todos, ni es el fin de ronda ni todos han hecho Check 
+			/** Si no se han retirado todos, ni es el fin de ronda ni todos han hecho Check
 				Se pasa al siguiente jugador
 			*/
             }while(siguiente_jugador(jugando)!=jugando && !_finRonda && !allCheck(jugando));
@@ -226,7 +226,7 @@ int comienzaMP(){
 			/** Si no se han retirado todos */
             if(siguiente_jugador(jugando)!=jugando){
                 rondas++; //avanza una ronda
-				jugando = _principio;
+				jugando = _principio; //la siguiente ronda parte con el _principio
 				_finRonda=0; //ya no es fin de ronda
 				_apostadorMaximo=NULL; //no hay apostadorMaximo actualmente
 				allUnCheck(); //todos los jugadores que hicieron check pueden volver a jugar
@@ -258,29 +258,29 @@ int comienzaMP(){
                     getch();
                 }
             }
-			
+
 			/** Si no se han retirado todos
 				Se avanza a la siguiente ronda
 			*/
 
         }
         /** Acaba la partida */
-		
+
 		/** Si no se han retirado todos se debe verificar quien gana */
 		if(siguiente_jugador(jugando)!=jugando){
 			//Se verifica quien tiene el mejor juego
 		}
-		
+
         /** Todos los jugadores con jugador->dinero=0 se eliminan */
 		chaoPerdedores();
-		
+
 		/** Si aun quedan jugadores contra los que luchar */
 		if(jugando->siguiente!=jugando){
 			_principio = _principio->siguiente; //El primer jugador sera el siguiente
 			mazoNuevo(); //Se llena el mazo para repartir correctamente
 		}
-	
-	/** Si aun quedan jugadores contra los que luchar 
+
+	/** Si aun quedan jugadores contra los que luchar
 		se vuelve a jugar otra partida
 	*/
     }while(jugando->siguiente!=jugando);
@@ -289,14 +289,14 @@ int comienzaMP(){
 	//felicitar al ganador y se acabo fin game over
 	printf("gano el %u",_principio->id);
 	getch();
-	
+
     return 0;
 }
 
 int calculoPP(Jugador *jugador){
     int porcentaje;
 
-    if(jugador->dinero>0){
+    if(jugador->dinero>=0){
         porcentaje = 100;
     }
 
@@ -305,7 +305,7 @@ int calculoPP(Jugador *jugador){
 
 int allCheck(Jugador *jugador){
 	Jugador *aux =jugador;
-	
+
 	do{
 		if(aux->jugando>=1){
 			aux=aux->siguiente;
@@ -313,7 +313,7 @@ int allCheck(Jugador *jugador){
 			return 0;
 		}
 	}while(aux!=jugador);
-	
+
 	return 1;
 }
 
@@ -324,7 +324,7 @@ void allUnCheck(){
 		if(aux->jugando<=2){
 			aux->jugando=0;
 		}
-		
+
         aux=aux->siguiente;
     }while(aux!=_principio);
 
@@ -339,7 +339,7 @@ void chaoPerdedores(){
 		if(aux->dinero==0){
 			borrar_nodo(aux);
 		}
-		
+
         aux=aux2;
 		aux2=aux2->siguiente;
     }while(aux!=_principio);
@@ -347,3 +347,32 @@ void chaoPerdedores(){
     _principio = aux;
 }
 
+void inicializarMesaJuego(){
+	int contador=0;
+
+	while(contador<5){
+		mesaJuego.cartasJugada[contador].valor = 0;
+		mesaJuego.cartasJugada[contador].pinta = 0;
+		mesaJuego.cartasJugada[contador].jugada = 0;
+		contador++;
+	}
+
+	mesaJuego.pozoApuestas = 0;
+	mesaJuego.apuesta_maxima = 0;
+}
+
+void inicializarJugadores(){
+	Jugador *aux = _principio;
+	int contador=0;
+
+    do{
+		if(aux->dinero!=0){
+			aux->apuesta_actual=0;
+			aux->jugando = 0;
+		}
+
+		aux=aux->siguiente;
+    }while(aux!=_principio);
+
+    _principio = aux;
+}

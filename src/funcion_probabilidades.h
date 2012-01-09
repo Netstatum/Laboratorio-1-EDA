@@ -24,13 +24,13 @@ int busqueda_carta_color_y_numero(int numero,char pinta,CARTA mazo[]);
 int tamano_mazo(CARTA mazo[]);
 
 
-unsigned int multihipgeo(unsigned int a, unsigned int nita_a, unsigned int b, unsigned int nita_b, unsigned int t_mazo, unsigned int t_flop);
+
+float multihipgeo(int a, int nita_a,int b,int nita_b,int t_mazo,int t_flop);
+
+int comparador(CARTA carta[],int turno);
 
 
-int comparador(CARTA carta[],MESA mesajuego[],int turno);
-
-
-int prob(CARTA mazo[],CARTA mano[],int indicador);
+int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador);
 
 
 #endif

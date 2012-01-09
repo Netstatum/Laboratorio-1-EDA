@@ -3,6 +3,7 @@
 #include <time.h>
 #include <math.h>
 #include "log_factorial.h"
+#include "funcion_probabilidades.h"
 #include "jugador.h"
 #include "mesa.h"
 
