@@ -5,7 +5,6 @@
 #include "funcion_probabilidades.h"
 #include "display.h"
 #include "menu.h"
-#include "mesa.h"
 #include "entrada.h"
 
 

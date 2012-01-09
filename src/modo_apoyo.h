@@ -1,6 +1,7 @@
 #ifndef _H_MODO_APOYO_
 #define _H_MODO_APOYO_
 #include "carta.h"
+#include "mesa.h"
 
 
 /*Funcion que ejecuta el modo apoyo*/
@@ -54,5 +55,5 @@ void marcar_mazo(CARTA *carta, int tipo_jugada);
  * ARGUMENTOS:
  * 	mesa: una estructura mesa que representa el estado actual de la mesa
  * 	cartas: las cartas a ser asignadas a la mesa*/
-void asignar(MESA *mesa, CARTA *cartas)
+void asignar(MESA *mesa, CARTA *cartas);
 #endif
