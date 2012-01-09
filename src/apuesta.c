@@ -2,11 +2,11 @@
 
 void apuestaG(Jugador *jugando, int apuesta){
 
-	jugando->apuesta_actual = apuesta;
+	jugando->apuesta_actual += apuesta;
 	jugando->dinero -= apuesta;
 	
-	if(apuesta>mesaJuego.apuesta_maxima){
-		mesaJuego.apuesta_maxima=apuesta;
+	if(jugando->apuesta_actual>mesaJuego.apuesta_maxima){
+		mesaJuego.apuesta_maxima=jugando->apuesta_actual;
 		set_apostoMas(jugando);
 	}
 	
@@ -26,8 +26,8 @@ void aBig(int mInicial){
 }
 
 void apostando(Jugador *jugando, int apuesta){
-    if(jugando->dinero>=apuesta){
-		apuestaG(jugando,apuesta);
+    if(jugando->dinero>=apuesta-jugando->apuesta_actual){
+		apuestaG(jugando,apuesta-jugando->apuesta_actual);
 		
 		limpiar();
 		printf("%s",titulo());
