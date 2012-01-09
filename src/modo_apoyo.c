@@ -9,10 +9,6 @@
 
 void modo_apoyo()
 {
-	/*En esta funcion utilizamos fgets ya que es mas segura que otras
-	 * funciones como scanf.
-	 * fgets escribe la cantidad de caracteres que nosotros le digamos en un
-	 * puntero y hace que termine en NULL (por eso pinta es pinta[2])*/
 	CARTA cartas[5];
 	CARTA carta_aux;
 	CARTA jugador[2];
@@ -55,13 +51,17 @@ void modo_apoyo()
 
 void ingresar_cartas(CARTA *cartas, int cantidad_preguntar)
 {
+	/*En esta funcion utilizamos fgets ya que es mas segura que otras
+	 * funciones como scanf.
+	 * fgets escribe la cantidad de caracteres que nosotros le digamos en un
+	 * puntero y hace que termine en NULL (por eso pinta es pinta[2])*/
 	unsigned int i; 
 	char pinta[2], valor[3];
 	
 	for(i=0;i<cantidad_preguntar;)
 	{
 		
-		memset(valor, '\0', sizeof(char)*3);
+		memset(valor, '\0', sizeof(char)*3); /*para que los strings terminen en NULL*/
 		printf("Carta %i: \n", i+1);
 
 		printf("Pinta: ");
