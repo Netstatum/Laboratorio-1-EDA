@@ -461,11 +461,11 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
                 pos_escala_color=pos_escala_color+multihipgeo(busqueda_carta_color_y_numero(antecesor3,mano[i].pinta,mazo),1,0,0,tamano_mazo(mazo),1);
             }
             if (i==0){
-                    pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1,0,0,tamano_mazo(mazo),1);
+                    pos_doble=multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1,0,0,tamano_mazo(mazo),1);
 
                 }
                 else if (i==1){
-                    pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[1].valor,mazo),1,0,0,tamano_mazo(mazo),1);
+                    pos_doble=multihipgeo(busqueda_carta_sin_pinta(mano[1].valor,mazo),1,0,0,tamano_mazo(mazo),1);
                 }
 
             if (busqueda_carta_sin_pinta(mano[i].valor,mesajuego.cartasJugada)==1) /*significa que tiene al menos una repeticion en la mesa*/ {
@@ -769,11 +769,11 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
             }
 
             if (i==0){
-                    pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1,0,0,tamano_mazo(mazo),1);
+                    pos_doble=multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1,0,0,tamano_mazo(mazo),1);
 
                 }
                 else if (i==1){
-                    pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[1].valor,mazo),1,0,0,tamano_mazo(mazo),1);
+                    pos_doble=multihipgeo(busqueda_carta_sin_pinta(mano[1].valor,mazo),1,0,0,tamano_mazo(mazo),1);
                 }
 
             if (busqueda_carta_sin_pinta(mano[i].valor,mesajuego.cartasJugada)==1) /*significa que tiene al menos una repeticion en la mesa*/ {
@@ -806,7 +806,7 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
                 }
             }
 
-            pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
+            pos_doble=multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
 
         if (busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mesajuego.cartasJugada)==3){ /*Significa que hay un trio entre las cartas de la mesa*/
             pos_poker=pos_poker+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
