@@ -296,7 +296,7 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
         segun corresponda*/
 
         if (mano[0].valor>mano[1].valor){
-            int sucesor1,sucesor2,antecesor1,antecesor2;
+            int sucesor1=0,sucesor2=0,antecesor1=0,antecesor2=0;
             if (mano[0].valor==13){
                 sucesor1=1;
                 sucesor2=sucesor1+1;
@@ -328,7 +328,7 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
 
             }
             else if (mano[1].valor>mano[0].valor){
-            int sucesor1,sucesor2,antecesor1,antecesor2;
+            int sucesor1=0,sucesor2=0,antecesor1=0,antecesor2=0;
             if (mano[1].valor==13){
                 sucesor1=1;
                 sucesor2=sucesor1+1;
@@ -492,7 +492,7 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
             }
         }
         for (j=0;j<5;j++){
-            float pos_doble2;
+            float pos_doble2=0;
             if (busqueda_carta_con_pinta(mesajuego.cartasJugada[j].pinta,mesajuego.cartasJugada)==3){
                 pos_color=pos_color+multihipgeo(busqueda_carta_con_pinta(mesajuego.cartasJugada[j].pinta,mazo),1,0,0,tamano_mazo(mazo),1);
                 }
