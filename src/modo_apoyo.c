@@ -6,6 +6,7 @@
 #include "display.h"
 #include "menu.h"
 #include "entrada.h"
+#include "getch.h"
 
 
 
@@ -23,8 +24,8 @@ void modo_apoyo()
 
 
 	limpiar();
+	printf("%s", titulo());
 
-	printf("\n\n\n");
 
 	printf("Ingrese las cartas del flop:\n");
 	ingresar_cartas(cartas, 3);
@@ -35,7 +36,6 @@ void modo_apoyo()
 	ingresar_cartas(jugador, 2);
 
 	/*Tenemos las cartas del flop, ahora mostramos la informacion*/
-	display_modo_apoyo(cartas, 3, jugador);
 
 	/*Marcamos las cartas en juego en el mazo*/
 	for(i=0;i<3;i++)
@@ -52,22 +52,41 @@ void modo_apoyo()
 
 	/*Vemos las probabilidades en la primera ronda*/
 	asignar(&mesa, cartas);
+
+	limpiar();
+	printf("%s", titulo());
+
+	display_modo_apoyo(cartas, 3, jugador);
 	prob(mazo, jugador, mesa, comparador(jugador,1));
 
-	printf("\n");
+	printf("\nPresione una tecla para continuar...");
+	getch();
+	limpiar();
+	printf("%s", titulo());
+
+ 
+
 	printf("Ingrese las cartas del turn:\n");
 	ingresar_cartas(&carta_aux, 1);
 	cartas[3]=carta_aux;
 
 	/*Marcamos en el mazo la nueva carta en juego*/
 
-	display_modo_apoyo(cartas, 4, jugador);
 
 
 	marcar_mazo(&cartas[3], 1);
 	asignar(&mesa, cartas);
 	/*prob en la segunda ronda*/
+	limpiar();
+	printf("%s", titulo());
+	display_modo_apoyo(cartas, 4, jugador);
 	prob(mazo, jugador, mesa, comparador(jugador,2));
+
+
+	printf("\nPresione una tecla para continuar...");
+	getch();
+	limpiar();
+	printf("%s", titulo());
 
 
 	printf("\n");
@@ -75,12 +94,17 @@ void modo_apoyo()
 	ingresar_cartas(&carta_aux, 1);
 	cartas[4]=carta_aux;
 
-	display_modo_apoyo(cartas, 5, jugador);
 
 	marcar_mazo(&cartas[4], 1);
 	asignar(&mesa, cartas);
 	/*prob en la tercera ronda*/
+	limpiar();
+	printf("%s", titulo());
+	display_modo_apoyo(cartas, 5, jugador);
 	prob(mazo, jugador, mesa, comparador(jugador,3));
+
+	printf("\nPresione una tecla para terminar el programa...");
+	getch();
 }
 
 void ingresar_cartas(CARTA *cartas, int cantidad_preguntar)
