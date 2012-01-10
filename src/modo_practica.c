@@ -1,10 +1,6 @@
 #include "modo_practica.h"
 
 int modo_practica(){
-    limpiar();
-    printf("%s",titulo());
-    printf("\n\n\n");
-
     cantidad_jugadores();
 
     limpiar();
@@ -23,20 +19,49 @@ int modo_practica(){
 void cantidad_jugadores(){
     int cJugadores;
     int mInicial;
+	char entrada[5];
 
-    printf(" Cuantos jugadores participaran de este juego?\n");
-    printf(" Considerese a usted dentro del numero\n\n");
-    printf("\t Jugadores: "); scanf("%i",&cJugadores);
+	do{
+		limpiar();
+		printf("%s",titulo());
+		printf("\n\n\n");
 
-    printf("\n\n");
+		printf(" Cuantos jugadores participaran de este juego?\n");
+		printf(" Considerese a usted dentro del numero\n\n");
+		printf("\t Jugadores: "); //scanf("%i",&cJugadores);
+		leer_teclado(entrada,5);
 
-    printf(" Ingrese el dinero inicial que tendra cada uno de los participantes\n");
-    printf(" Considerese el monto en terminos de millones\n\n");
-    printf("\t Monto Inicial: "); scanf("%d",&mInicial);
+		if(!revisar_numero(entrada,5)){
+			printf("\nEl dato ingresado no es un numero, ingreselo nuevamente...");
+			getch();
+		}
+
+	}while(!revisar_numero(entrada,5));
+	sscanf(entrada,"%d", &cJugadores);
+
+    do{
+        limpiar();
+		printf("%s",titulo());
+		printf("\n\n\n");
+
+        printf(" Ingrese el dinero inicial que tendra cada uno de los participantes\n");
+        printf(" Considerese el monto en terminos de millones\n\n");
+        printf("\t Monto Inicial: ");
+        leer_teclado(entrada,5);
+
+        if(!revisar_numero(entrada,5)){
+			printf("\nEl dato ingresado no es un numero, ingreselo nuevamente...");
+			getch();
+		}
+    }while(!revisar_numero(entrada,5));
+    sscanf(entrada,"%d", &mInicial);
+
+    limpiar();
+    printf("%s",titulo());
+    printf("\n\n\n");
 
     jugadoresMesa = crearJugadores(cJugadores,mInicial);
     set_principio(jugadoresMesa->siguiente);
-
     printf("\n\n Presione una tecla para continuar");
 
     getch();
@@ -60,6 +85,7 @@ void info_de_juego(){
 int comienzaMP(){
     int rondas=1;
     int opcion,aumento;
+    char entrada[5];
     Jugador *jugando;
 
     /** Asignando las variables generales para el juego */
@@ -148,14 +174,22 @@ int comienzaMP(){
                         /** 50 es el ascii de la tecla 2 */
 						/** Aumentar la apuesta maxima */
                         if(opcion==50){
-							limpiar();
-							printf("%s",titulo());
-							printf("\n\n\n");
+							do{
+                                limpiar();
+                                printf("%s",titulo());
+                                printf("\n\n\n");
 
-							printf("Para cancelar esta accion ingrese un monto de 0\n\n");
-							printf("La apuesta maxima es de: %g",mesaJuego.apuesta_maxima);
-							printf("\nIngrese en cuanto desea aumentarla: %g+",mesaJuego.apuesta_maxima);
-							scanf("%i",&aumento);
+                                printf("Para cancelar esta accion ingrese un monto de 0\n\n");
+                                printf("La apuesta maxima es de: %g",mesaJuego.apuesta_maxima);
+                                printf("\nIngrese en cuanto desea aumentarla: %g+",mesaJuego.apuesta_maxima);
+                                leer_teclado(entrada,5);
+
+                                if(!revisar_numero(entrada,5)){
+                                    printf("\nEl dato ingresado no es un numero, ingreselo nuevamente...");
+                                    getch();
+                                }
+                            }while(!revisar_numero(entrada,5));
+                            sscanf(entrada,"%d", &aumento);
 
 							if(aumento!=0){
 							    apostando(jugando,mesaJuego.apuesta_maxima+aumento-jugando->apuesta_actual);

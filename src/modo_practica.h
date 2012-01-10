@@ -2,6 +2,7 @@
 #define MODO_PRACTICA_H_INCLUDED
 
 /** Librerias necesarias para el funcionamiento de modo_practica.c/h */
+#include <stdio.h>
 #include <malloc.h>
 #include "getch.h"
 #include "mesa.h"
@@ -9,6 +10,7 @@
 #include "jugador.h"
 #include "display.h"
 #include "apuesta.h"
+#include "entrada.h"
 
 /** Determina si la ronda finalizo */
 int _finRonda;

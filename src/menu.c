@@ -227,12 +227,8 @@ void creditos(){
     printf("\n\n\t\tEstructura de Datos y Algoritmos");
     printf("\n\t\tLenguaje usado: C");
 
-    printf("\n\n\tVersion del Juego: ---");
-    printf("\n\tUltima Edicion: -------\n");
-
-    printf("\n\n\t\t\t\tAGRADECIMIENTOS\n");
-
-    printf("\n\n\tGracias a ...");
+    printf("\n\n\tVersion del Juego: 1.0");
+    printf("\n\tUltima Edicion: Lunes 09 de Enero del 2012\n");
 
     getch();
     portada();

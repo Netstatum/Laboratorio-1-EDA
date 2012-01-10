@@ -46,7 +46,7 @@ typedef struct Jugador{
 	unsigned int id,jugando;
 	double dinero, apuesta_actual;
 
-	CARTA cartas[4];
+	CARTA cartas[5];
 
 	struct Jugador *siguiente;
 } Jugador;
