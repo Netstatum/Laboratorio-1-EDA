@@ -3,13 +3,7 @@
 int modo_practica(){
     cantidad_jugadores();
 
-    limpiar();
-    printf("%s",titulo());
-    printf("\n\n\n");
-
     info_de_juego();
-
-    limpiar();
 
     comienzaMP();
 
@@ -68,6 +62,10 @@ void cantidad_jugadores(){
 }
 
 void info_de_juego(){
+	limpiar();
+    printf("%s",titulo());
+    printf("\n\n\n");
+
     printf(" Este juego solo considera partidas de multiples jugadores mediante\n la misma pantalla, ");
     printf("es por ello que entre ustedes, jugadores, que\n deben ponerse deacuerdo en quien ");
     printf("ira primero y quien ira despues,\n para guiarse en los jugadores y no confudirse pueden ");
@@ -96,6 +94,7 @@ int comienzaMP(){
 
 
     /** Mensaje de principio de juego */
+	limpiar();
     printf("%s",titulo());
     printf("\n\n\n");
     printf("\tEl juego comienza con el jugador ID: %i",_principio->id);
@@ -111,9 +110,9 @@ int comienzaMP(){
 		jugando = _principio;
 
         /** Comienza la partida */
-        while(rondas<=4 && cualEsSiguiente_jugador(jugando)!=jugando && !allCheckorAllAlIn(jugando)){
+        while(rondas<=4 && cualEsSiguiente_jugador(jugando)!=jugando){
             /** Comienza el turno */
-            do{
+            while(cualEsSiguiente_jugador(jugando)!=jugando && !_finRonda && !allCheckorAllAlIn(jugando)){
                 display_principal(jugando, mesaJuego.cartasJugada,rondas+1,jugando->cartas);
 
                 printf("\nQue desea hacer?\n\n");
@@ -256,7 +255,7 @@ int comienzaMP(){
 			/** Si no se han retirado todos, ni es el fin de ronda ni todos han hecho Check
 				Se pasa al siguiente jugador
 			*/
-            }while(cualEsSiguiente_jugador(jugando)!=jugando && !_finRonda && !allCheckorAllAlIn(jugando));
+            }
             /** Acaba una ronda */
 
 			/** Si no se han retirado todos */
@@ -305,9 +304,20 @@ int comienzaMP(){
 		/** Si no se han retirado todos se debe verificar quien gana */
 		if(cualEsSiguiente_jugador(jugando)!=jugando){
 			//Se verifica quien tiene el mejor juego
-			rondas++; //solo para el debugger
+			menuSelector(jugando,0);
+			//debieran compararse las manos...
+			jugando->dinero += mesaJuego.pozoApuestas;
+
+            limpiar();
+            printf("%s",titulo());
+            printf("\n\n\n");
+
+            printf("Felicidades jugador ID:%u, has ganado esta partida",jugando->id);
+            printf("\nTu monto actual de dinero es: %g", jugando->dinero);
+            printf("\nPresione una tecla para continuar");
+            getch();
 		}else{
-            //gano pq los wns se retiraron
+            //gano pq los demas se retiraron
             jugando->dinero += mesaJuego.pozoApuestas;
 
             limpiar();

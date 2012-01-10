@@ -11,6 +11,7 @@
 #include "display.h"
 #include "apuesta.h"
 #include "entrada.h"
+#include "mejorJuego.h"
 
 /** Determina si la ronda finalizo */
 int _finRonda;
