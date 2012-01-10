@@ -39,7 +39,7 @@ int busqueda_carta_sin_pinta(int numero,CARTA mazo[]){
 }
 
 int busqueda_carta_con_pinta(char pinta,CARTA mazo[]){
-    int i,color;
+    int i,color=0;
     for (i=0;i<52;i++){
         if (mazo[i].pinta==pinta && mazo[i].jugada==0){
             color=color+1;
@@ -51,7 +51,7 @@ int busqueda_carta_con_pinta(char pinta,CARTA mazo[]){
 /*basicamente esta funcion me dice si hay determinada carta en el mazo*/
 
 int busqueda_carta_color_y_numero(int numero,char pinta,CARTA mazo[]){
-        int i,carta_exacta;
+    int i,carta_exacta=0;
     for (i=0;i<52;i++){
         if (mazo[i].pinta==pinta && mazo[i].jugada==0 && mazo[i].valor==numero){
             carta_exacta=carta_exacta+1;
@@ -579,9 +579,9 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
 
 
     if (indicador==6||indicador==8){ /*Corresponden a mano inicial par, de mismo color o no, con turno 1 o 2*/
-        int i,j,guarda_par1=0,guarda_par2=0,guarda_par3=0,guarda_par4=0;
-            if (busqueda_carta_con_pinta(mano[i].pinta,mesajuego.cartasJugada)==2){ /*Esto implica que hay 2 cartas en mesa que tienen la misma pinta que una de las cartas de tu mano, como el indicador es el caso 5, tienes la peor mano, asi que tus cartas son de distinto color...*/
-                pos_color=pos_color+multihipgeo(busqueda_carta_con_pinta(mano[i].pinta,mazo),1,0,0,tamano_mazo(mazo),1);
+        int guarda_par1=0,guarda_par2=0,guarda_par3=0,guarda_par4=0;
+            if (busqueda_carta_con_pinta(mano[0].pinta,mesajuego.cartasJugada)==2){ /*Esto implica que hay 2 cartas en mesa que tienen la misma pinta que una de las cartas de tu mano, como el indicador es el caso 5, tienes la peor mano, asi que tus cartas son de distinto color...*/
+                pos_color=pos_color+multihipgeo(busqueda_carta_con_pinta(mano[0].pinta,mazo),1,0,0,tamano_mazo(mazo),1);
                 pos_doble=1;/*Debido a que ya se tiene un par*/
             }
             int sucesor1,sucesor2,sucesor3,antecesor1,antecesor2,antecesor3;
@@ -657,10 +657,10 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
 
             pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mano[1].valor,mazo),1,busqueda_carta_sin_pinta(mano[0].valor,mazo),0,tamano_mazo(mazo),1);
 
-            if (busqueda_carta_sin_pinta(mano[i].valor,mesajuego.cartasJugada)==1) /*Significa que hay un trio*/{
-                pos_poker=pos_poker+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),1,0,0,tamano_mazo(mazo),1);
+            if (busqueda_carta_sin_pinta(mano[0].valor,mesajuego.cartasJugada)==1) /*Significa que hay un trio*/{
+                pos_poker=pos_poker+multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1,0,0,tamano_mazo(mazo),1);
             }
-
+            int j;
         for (j=0;j<5;j++){
             float pos_doble2;
             if (busqueda_carta_con_pinta(mesajuego.cartasJugada[j].pinta,mesajuego.cartasJugada)==3){
@@ -688,7 +688,7 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
 
     if (indicador==7||indicador==9){
         int i,j,guarda_par1=0,guarda_par2=0,guarda_par3=0,guarda_par4=0;
-        int sucesor1,sucesor2,sucesor3,antecesor1,antecesor2,antecesor3;
+        int sucesor1=0,sucesor2=0,antecesor1=0,antecesor2=0;
 
         if (mano[0].valor>mano[1].valor){
             if (mano[0].valor==13){
@@ -817,7 +817,7 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
             }
         }
         for (j=0;j<5;j++){
-            float pos_doble2;
+            float pos_doble2=0;
             if (indicador==7){
             if (busqueda_carta_con_pinta(mesajuego.cartasJugada[j].pinta,mesajuego.cartasJugada)==3){
                 pos_color=pos_color+multihipgeo(busqueda_carta_con_pinta(mesajuego.cartasJugada[j].pinta,mazo),1,0,0,tamano_mazo(mazo),1);
@@ -914,7 +914,6 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
     pos_escala_color=pos_escala_color*100;
     pos_full=pos_full*100;
     pos_poker=pos_poker*100;
-    pos_real=pos_real*100;
     pos_trio=pos_trio*100;
     Imprimir_datos(pos_doble,pos_trio,pos_doble_pareja,pos_escala,pos_color,pos_full,pos_poker,pos_escala_color);
 
