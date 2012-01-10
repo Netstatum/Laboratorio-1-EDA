@@ -151,7 +151,7 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
 
     /*DEBEN SER tipo float, ya que como guardan las probabilidades de cada caso, pues guardaran muchos decimales*/
 
-    float pos_doble=0,pos_trio=0,pos_doble_pareja=0,pos_color=0,pos_full=0,pos_poker=0,pos_escala=0,pos_escala_color=0,pos_real; /*estas variables indicaran las prob de exito de la ocurrencia de su nombre*/
+    float pos_doble=0,pos_trio=0,pos_doble_pareja=0,pos_color=0,pos_full=0,pos_poker=0,pos_escala=0,pos_escala_color=0; /*estas variables indicaran las prob de exito de la ocurrencia de su nombre*/
 
     if (indicador==0){
         int i;
@@ -354,7 +354,6 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
                 antecesor2=antecesor1-1;
             }
             pos_escala=multihipgeo(busqueda_carta_sin_pinta(sucesor1,mazo),1,busqueda_carta_sin_pinta(sucesor2,mazo),1,tamano_mazo(mazo),3)+multihipgeo(busqueda_carta_sin_pinta(antecesor1,mazo),1,busqueda_carta_sin_pinta(antecesor2,mazo),1,tamano_mazo(mazo),3)+multihipgeo(busqueda_carta_sin_pinta(antecesor1,mazo),1,busqueda_carta_sin_pinta(sucesor1,mazo),1,tamano_mazo(mazo),3);
-            /*falta ver pos_escala_color para cuando el indicador ==2*/
 
             if(indicador==4){
             pos_escala_color=multihipgeo(busqueda_carta_color_y_numero(sucesor1,mano[0].pinta,mazo),1,busqueda_carta_color_y_numero(sucesor2,mano[0].pinta,mazo),1,tamano_mazo(mazo),3)+multihipgeo(busqueda_carta_color_y_numero(antecesor1,mano[0].pinta,mazo),1,busqueda_carta_color_y_numero(antecesor2,mano[0].pinta,mazo),1,tamano_mazo(mazo),3)+multihipgeo(busqueda_carta_color_y_numero(antecesor1,mano[0].pinta,mazo),1,busqueda_carta_color_y_numero(sucesor1,mano[0].pinta,mazo),1,tamano_mazo(mazo),3);
@@ -393,7 +392,7 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
             if (busqueda_carta_con_pinta(mano[i].pinta,mesajuego.cartasJugada)==2){ /*Esto implica que hay 2 cartas en mesa que tienen la misma pinta que una de las cartas de tu mano, como el indicador es el caso 5, tienes la peor mano, asi que tus cartas son de distinto color...*/
                 pos_color=pos_color+multihipgeo(busqueda_carta_con_pinta(mano[i].pinta,mazo),1,0,0,tamano_mazo(mazo),1);
             }
-            int sucesor1,sucesor2,sucesor3,antecesor1,antecesor2,antecesor3;
+            int sucesor1=0,sucesor2=0,sucesor3=0,antecesor1=0,antecesor2=0,antecesor3=0;
             if (mano[i].valor==13){
                 sucesor1=1;
                 sucesor2=sucesor1+1;
@@ -467,6 +466,8 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
                 else if (i==1){
                     pos_doble=multihipgeo(busqueda_carta_sin_pinta(mano[1].valor,mazo),1,0,0,tamano_mazo(mazo),1);
                     pos_doble=pos_doble/2;
+                    pos_escala=pos_escala/2;
+                    pos_escala_color=pos_escala_color/2;
                     }
 
 
@@ -477,7 +478,7 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
                 else if (guarda_par1!=0&&guarda_par2==0){
                     guarda_par2=mano[i].valor;
                 }
-                if (busqueda_carta_sin_pinta(mano[i].pinta,mesajuego.cartasJugada)==2){
+                if (busqueda_carta_sin_pinta(mano[i].valor,mesajuego.cartasJugada)==2){
                 if (i==0){
                     pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mano[0].valor,mazo),1,busqueda_carta_sin_pinta(mano[1].valor,mazo),0,tamano_mazo(mazo),1);
             }
@@ -524,11 +525,8 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
         }
         }
         if (guarda_par1!=0){
-            if (guarda_par1!=5){
-                pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(5,mazo),1,0,0,tamano_mazo(mazo),1);
-            }
-            else{
-                pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(4,mazo),1,0,0,tamano_mazo(mazo),1);
+            if (guarda_par1!=mesajuego.cartasJugada[j].valor){
+                pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
             }
 
             if (guarda_par2!=0&&guarda_par1!=guarda_par2){
@@ -536,22 +534,16 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
         }
         }
         if (guarda_par3!=0){
-            if (guarda_par3!=5){
-                pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(5,mazo),1,0,0,tamano_mazo(mazo),1);
-            }
-            else{
-                pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(4,mazo),1,0,0,tamano_mazo(mazo),1);
+            if (guarda_par3!=mesajuego.cartasJugada[j].valor){
+                pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
             }
             if(guarda_par1!=0&&guarda_par1!=guarda_par3){
                 pos_full=pos_full+multihipgeo(busqueda_carta_sin_pinta(guarda_par3,mazo),1,0,0,tamano_mazo(mazo),1);
         }
         }
         if(guarda_par4!=0){
-            if (guarda_par4!=5){
-                pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(5,mazo),1,0,0,tamano_mazo(mazo),1);
-            }
-            else{
-                pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(4,mazo),1,0,0,tamano_mazo(mazo),1);
+            if (guarda_par4!=mesajuego.cartasJugada[j].valor){
+                pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
             }
 
         if(guarda_par1!=0&&guarda_par1!=guarda_par4){
@@ -559,11 +551,8 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
         }
         }
         if (guarda_par2!=0){
-            if (guarda_par2!=5){
-            pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(5,mazo),1,0,0,tamano_mazo(mazo),1);
-            }
-            else{
-            pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(4,mazo),1,0,0,tamano_mazo(mazo),1);
+            if (guarda_par2!=mesajuego.cartasJugada[j].valor){
+            pos_doble_pareja=pos_doble_pareja+multihipgeo(busqueda_carta_sin_pinta(mesajuego.cartasJugada[j].valor,mazo),1,0,0,tamano_mazo(mazo),1);
             }
             if(guarda_par3!=0&&guarda_par2!=guarda_par3){
             pos_full=pos_full+multihipgeo(busqueda_carta_sin_pinta(guarda_par3,mazo),1,0,0,tamano_mazo(mazo),1);
