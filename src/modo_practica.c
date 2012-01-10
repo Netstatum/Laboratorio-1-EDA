@@ -304,7 +304,7 @@ int comienzaMP(){
 		/** Si no se han retirado todos se debe verificar quien gana */
 		if(cualEsSiguiente_jugador(jugando)!=jugando){
 			//Se verifica quien tiene el mejor juego
-			menuSelector(jugando,0);
+			/** menuSelector(jugando,0); */ //no funciona bien...
 			//debieran compararse las manos...
 			jugando->dinero += mesaJuego.pozoApuestas;
 
