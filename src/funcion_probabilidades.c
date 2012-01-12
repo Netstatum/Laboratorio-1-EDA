@@ -150,14 +150,20 @@ int comparador(CARTA carta[],int turno){
 
 int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
 
-
+/*Defino las variables donde se pondran las probabilidades*/
     float pos_doble=0,pos_trio=0,pos_doble_pareja=0,pos_color=0,pos_full=0,pos_poker=0,pos_escala=0,pos_escala_color=0; /*estas variables indicaran las prob de exito de la ocurrencia de su nombre*/
 
     if (indicador==0){
         int i;
-        int sucesor1,sucesor2,sucesor3,antecesor1,antecesor2,antecesor3;
+        int sucesor1,sucesor2,sucesor3,antecesor1,antecesor2,antecesor3; /*Defino estos terminos que seran los sucesores y antecesores*/
 
-        for (i=0;i<2;i++){
+
+/*======Este procedimiento se hace para que despues se pueda sacar la probabilidades de hacer una escala================*/
+/*El motivo de este engorroso procedimiento es debido a que cual es el sucesor de un Kaiser?, el Kaiser es 13
+su sucesor es 14, pero 14 no existe, se comienza de 1 por tanto el sucesor del Kaiser es el As, y hay otros casos
+por eso se hace esto*/
+
+        for (i=0;i<2;i++){ /*2 veces pues son 2 cartas en la mano*/
             if (mano[i].valor==11){
                 sucesor1=12,sucesor2=13,sucesor3=1;
                 antecesor1=mano[i].valor-1,antecesor2=antecesor1-1,antecesor3=antecesor2-1;
@@ -186,7 +192,16 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
                 sucesor1=mano[i].valor+1,sucesor2=sucesor1+1,sucesor3=sucesor2+1;
                 antecesor1=mano[i].valor-1,antecesor2=antecesor1-1,antecesor3=antecesor2-1;
                 }
+
+/*Termino de la busqueda de sucesores y antecesores*/
+/*============================================================================================================================*/
+
+/*Ahora lo que hago es aplicar la funcion multihipergeometrica, saco la probabilidad de que en el flop me salga el sucesor1 y el sucesor2, o el sucesor 3 asi como lo requiera el caso*/
+
             pos_escala=pos_escala+multihipgeo(busqueda_carta_sin_pinta(sucesor1,mazo),1,busqueda_carta_sin_pinta(sucesor2,mazo),1,tamano_mazo(mazo),3)*multihipgeo(busqueda_carta_sin_pinta(sucesor3,mazo),1,0,0,tamano_mazo(mazo),3)+multihipgeo(busqueda_carta_sin_pinta(antecesor1,mazo),1,busqueda_carta_sin_pinta(antecesor2,mazo),1,tamano_mazo(mazo),3)*multihipgeo(busqueda_carta_sin_pinta(antecesor3,mazo),1,0,0,tamano_mazo(mazo),3);
+
+            /*Aqui hago lo mismo pero busco los sucesores o antecesores que tengan la MISMA pinta*/
+
             pos_escala_color=pos_escala_color+multihipgeo(busqueda_carta_color_y_numero(sucesor1,mano[i].pinta,mazo),1,busqueda_carta_color_y_numero(sucesor2,mano[i].pinta,mazo),1,tamano_mazo(mazo),3)*multihipgeo(busqueda_carta_color_y_numero(sucesor3,mano[i].pinta,mazo),1,0,0,tamano_mazo(mazo),3)+multihipgeo(busqueda_carta_color_y_numero(antecesor1,mano[i].pinta,mazo),1,busqueda_carta_color_y_numero(antecesor2,mano[i].pinta,mazo),1,tamano_mazo(mazo),3)*multihipgeo(busqueda_carta_color_y_numero(antecesor3,mano[i].pinta,mazo),1,0,0,tamano_mazo(mazo),3);
             if (mano[0].pinta!=mano[1].pinta){
                 pos_color=pos_color+multihipgeo(busqueda_carta_con_pinta(mano[i].pinta,mazo),3,busqueda_carta_con_pinta(mano[i].pinta,mazo),0,tamano_mazo(mazo),3);
@@ -194,6 +209,9 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
             else{
             pos_color=multihipgeo(busqueda_carta_con_pinta(mano[i].pinta,mazo),2,busqueda_carta_con_pinta(mano[i].pinta,mazo),1,tamano_mazo(mazo),3);
             }
+
+/*==============Esto lo que hace es buscar si hay 3 cartas iguales en el mazo, (iguales a la carta que tengo en la mano,
+si es asi entonces busco la probabilidad de que me salgan esas 3 cartas en el siguiente flop===========================*/
             if (busqueda_carta_sin_pinta(mano[i].valor,mazo)==3){
             pos_poker=pos_poker+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),2,busqueda_carta_sin_pinta(mano[i].valor,mazo),1,tamano_mazo(mazo),3);
             pos_doble_pareja=pos_poker;
@@ -203,7 +221,14 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
             pos_doble_pareja=pos_poker;
             }
 
+/*===================================================================================================================*/
+/*Aqui uso la funcion multihipergeometrica para buscar la probabilidad de que en el flop me salgan 2 cartas iguales a la que
+tengo tambien saco la probabilidad de que me salga una carta igual a la que tengo, esto refiere a sacar la prob
+de que me salga un trio o un par, la condicion significa a que si bucle va por 0, se buscara las probabilidades de que
+salga con la primera carta de mi mano, si el bucle va por i = 1  la buscara por las cartas de la segunda mano*/
+
             if (i==0){
+
                 pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),1,busqueda_carta_sin_pinta(mano[i+1].valor,mazo),0,tamano_mazo(mazo),3);
                 pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),2,busqueda_carta_sin_pinta(mano[i+1].valor,mazo),0,tamano_mazo(mazo),3);
             }
@@ -211,10 +236,15 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
                 pos_doble=pos_doble+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),1,busqueda_carta_sin_pinta(mazo[i-1].valor,mazo),0,tamano_mazo(mazo),3)+multihipgeo(busqueda_carta_sin_pinta(mano[i-1].valor,mazo),1,busqueda_carta_sin_pinta(mano[i].valor,mazo),1,tamano_mazo(mazo),3);
                 pos_trio=pos_trio+multihipgeo(busqueda_carta_sin_pinta(mano[i].valor,mazo),2,busqueda_carta_sin_pinta(mazo[i-1].valor,mazo),0,tamano_mazo(mazo),3);
             }
-            /*la posibilidad de que haya full es nula, asi que no se modifica*/
 
         }
     }
+
+/*=============================================================================================================*/
+
+/*Aqui el procedimiento es parecido al anterior, pero aqui al usar la multihipergeometrica, se tendra en cuenta que ya
+se tiene un par en la mano!!, el procedimiento es mmuuuuuuy parecido se tienen que puro fijar igual, lo que mas cambian
+son los parametros que se le ponen a la funcion multihipergeoemtrica al calcular las probabilidades*/
 
     if (indicador==1 || indicador==3){
         int i,sucesor1,sucesor2,sucesor3,antecesor1,antecesor2,antecesor3;
@@ -285,15 +315,8 @@ int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
         }
     }
 
-    /*Falta ver la escalera real....*/
-
     if (indicador==2||indicador==4){
         int i;
-
-        /*Es necesario el siguiente proceso ya que para usar la formula de probabilidades, nito saber que cartas me deberian salir,
-        por esto mismo, si tengo una carta 13, la sucesora de esta es 14, pero 14 no existe!, el sucesor de esta deberia ser 1, debido a esto
-        los valores de las cartas se pasan a variables independientes y se hace la busqueda apoyandome en las variables sucesores y antecesores
-        segun corresponda*/
 
         if (mano[0].valor>mano[1].valor){
             int sucesor1=0,sucesor2=0,antecesor1=0,antecesor2=0;
