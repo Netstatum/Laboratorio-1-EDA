@@ -5,6 +5,7 @@
 #include "jugador.h"
 #include "mesa.h"
 
+/*=========Esto es para calcular factorial=======*/
 float log_factorial(int n)
 {
 	float factorial=0;
@@ -18,6 +19,10 @@ float log_factorial(int n)
 	return factorial;
 }
 
+/*====================================================*/
+
+/*Esto es para calcula combinatoria de la forma a sobre b */
+
 double combinatoria(unsigned int a, unsigned int b){
 	if (b==0 || a==b){
 		return 1;
@@ -26,29 +31,37 @@ double combinatoria(unsigned int a, unsigned int b){
 		return log_factorial(a)-((log_factorial(b)+log_factorial(a-b)));
 	}
 }
+/*==========================================*/
 
-/*Permite saber cuantas cartas de un tipo quedan*/
+/*Permite saber cuantas cartas de un tipo quedan, por ejemplo cuantos cartas con el numero 4 quedan en el mazo (sin contar la pinta)*/
 
 int busqueda_carta_sin_pinta(int numero,CARTA mazo[]){
     int i, cantidad=0;
-    for (i=0;i<52;i++){
+    for (i=0;i<52;i++){ /*Para esto busco en el array del mazo, si el valor es igual al numero ingresado en la funcion y si ademas, la carta del mazo no ha sido jugada*/
         if (mazo[i].valor==numero && mazo[i].jugada==0){
         cantidad=cantidad+1;}
     }
-    return cantidad;
+    return cantidad; /*Retorno la cantidad de encuentros*/
 }
+
+/*======================================================================================================================0*/
+
+/*Permite saber que cartas de cierta pinta quedan en el mazo*/
 
 int busqueda_carta_con_pinta(char pinta,CARTA mazo[]){
     int i,color=0;
     for (i=0;i<52;i++){
-        if (mazo[i].pinta==pinta && mazo[i].jugada==0){
+        if (mazo[i].pinta==pinta && mazo[i].jugada==0){ /*Es lo mismo que con la funcion anterior, pero aqui no se toma en cuenta el valor de la carta sino que su pinta*/
             color=color+1;
         }
     }
-    return color;
+    return color; /*Se retorna la cantidad de cartas con la misma pinta*/
 }
 
-/*basicamente esta funcion me dice si hay determinada carta en el mazo*/
+/*======================================================================================================================*/
+
+
+/*Esta funcion me permite saber si hay una carta en especifico en el mazo*/
 
 int busqueda_carta_color_y_numero(int numero,char pinta,CARTA mazo[]){
     int i,carta_exacta=0;
@@ -61,28 +74,27 @@ int busqueda_carta_color_y_numero(int numero,char pinta,CARTA mazo[]){
     return carta_exacta;
 }
 
+/*======================================================================*/
+
 /*Permite saber tamaño mazo*/
 
 int tamano_mazo(CARTA mazo[]){
     int i, tamano=0;
-    for (i=0;i<52;i++){
+    for (i=0;i<52;i++){ /*Para ello busco la cantidad de cartas que no han sido jugadas del mazo (las que tienen su indicador jugada=0*/
         if (mazo[i].jugada==0){
         tamano=tamano+1;
         }
     }
     return tamano;
 }
-/*Funcion multihipergeometrica en su forma generalizada, falta especificar ahora para los casos particulares de las propias combinaciones de cartas*/
+/*Funcion multihipergeometrica en su forma generalizada*/
 float multihipgeo(int a, int nita_a,int b,int nita_b,int t_mazo,int t_flop){
 	return exp(combinatoria(a,nita_a)+combinatoria(b,nita_b)+combinatoria((t_mazo-(a+b)),(t_flop-(nita_a+nita_b)))-combinatoria(t_mazo,t_flop));
 }
 
-/*Ahora hay que ver que combiene hacer, como en un principio se tienen 2 cartas, hay que ver si estan son iguales, si son diferentes, si son
-de la misma pinta, o si son consecutivas, esto sirve para el principio en que NO HAY CARTAS EN MESA TODAVIA*/
-
 /*------------------------------------------------------------------------------------------
 
-/*Funcion que "deberia" mostrar los datos en pantalla*/
+/*Funcion que muestra los datos en pantalla*/
 void Imprimir_datos(float pos_doble,float pos_trio, float pos_doble_pareja, float pos_escala, float pos_color, float pos_full, float pos_poker, float pos_escala_color){
 printf("Doble:%.10f", pos_doble);printf("%\n");
 printf("Trio:%.10f", pos_trio);printf("%\n");
@@ -94,62 +106,50 @@ printf("Poker:%.10f",pos_poker);printf("%\n");
 printf("Escala Color:%.10f",pos_escala_color);printf("%\n");
 }
 
-/*---------------------De esta forma tendria que ser la funcion, quedo a medio hacer D:-------------------------------------------------------------------*/
+/*Esta funcion me indica que tipo de cartas me quedaron en la mano cuando me las pasaron y en que turno voy asi se puede diferenciar el caso en que salen 3 cartas del mazo a la mesa
+y el otro caso en que solo sale una carta del mazo a la mesa*/
 
 int comparador(CARTA carta[],int turno){
-    int indicador=0;
+    int indicador=0; /*Si el indicador queda como 0, significa que tienes una mala mano y estas en el turno 1*/
 
-    if (turno==0){
-        /*esto sirve para el principio en que NO HAY CARTAS EN MESA TODAVIA*/
+    if (turno==0){ /*Significa que saldran 3 cartas del mazo a la mesa!!!*/
 
-    if (carta[0].valor==carta[1].valor){
+    if (carta[0].valor==carta[1].valor){ /*Esto significa que las cartas que te han salido son iguales!! y estas en el turno 1*/
         indicador=indicador+1;
-    } /* 1 significa que se puede hacer un trio, una doble pareja , full o un poker*/
-    if (carta[0].valor==(carta[0].valor+1)||carta[0].valor==(carta[0].valor-1)){
-        indicador=2;/* 2 significa que se puede hacer una escala*/
     }
-    if (indicador==1&&carta[0].pinta==carta[1].pinta){
-        indicador=indicador+2; /* significa que ademas de lo que se puede hacer en indicador 1, se puede hacer color*/
+    if (carta[0].valor==(carta[0].valor+1)||carta[0].valor==(carta[0].valor-1)){ /*Significa que tus cartas se diferencia en 1 unidad, o sea son consecutivas.... lo que significa que hay mas posibilidades de hacer una escala!!*/
+        indicador=2;
     }
-    if (indicador==2&&carta[0].pinta==carta[1].pinta){
-        indicador=indicador+2; /* significa que ademas de lo que se puede hacer en indicador 2, se puede hacer escala color color*/
+    if (indicador==1&&carta[0].pinta==carta[1].pinta){ /*Significa que tienes un par y ademas son de la misma pinta*/
+        indicador=indicador+2;
+    }
+    if (indicador==2&&carta[0].pinta==carta[1].pinta){ /*Significa que tus cartas son consecutivas y de la misma pinta*/
+        indicador=indicador+2;
     }
     }
-/*Significa que ademas de las 2 cartas de la mano hay 3 en mesa, y que el siguiente flop es de solo 1 carta*/
-
-/*En general los siguientes indicadores me diran que cumple las mismas propiedades que los indicadores del 0 al 4, pero que
-ahora estan en el turno 1, esto significa que al estar en el turno 1, el flop será solo de una carta algo que tomare en cuenta
-en la funcion de prob, tambien tengo que tomar en cuenta las cartas que están en la mesa, que SOLO son 3 en este turno*/
-
-        if (indicador==0&&(turno==1||turno==2))
-        /*Este es el peor caso, ya que como no habia nada favorable al principio, entonces habrá que comparar todas
-        las cartas entre la mano y la mesa, y lanzar un indicador xP*/
-        {
+        if (indicador==0&&(turno==1||turno==2)){ /*Lo mismo que el indicador 0, pero ahora está en el turno 1 o 2*/
             indicador=5;
         }
-        else if (indicador==1&&(turno==1||turno==2)){
+        else if (indicador==1&&(turno==1||turno==2)){/*Lo mismo que el indicador 1, pero ahora está en el turno 1 o 2*/
             indicador=6;
         }
-        else if (indicador==2&&(turno==1||turno==2)){
+        else if (indicador==2&&(turno==1||turno==2)){/*Lo mismo que el indicador 2, pero ahora está en el turno 1 o 2*/
             indicador=7;
         }
-        else if (indicador==3&&(turno==1||turno==2)){
+        else if (indicador==3&&(turno==1||turno==2)){/*Lo mismo que el indicador 3, pero ahora está en el turno 1 o 2*/
             indicador==8;
         }
-        else if (indicador==4&&(turno==1||turno==2)){
+        else if (indicador==4&&(turno==1||turno==2)){/*Lo mismo que el indicador 4, pero ahora está en el turno 1 o 2*/
             indicador==9;
         }
 
-
-    return indicador;
-        /*Si al final el valor de indicador es igual a 0, significa que la prob de ocurrencia de las combinaciones
-    será constante, yá explicare esto...*/
+    return indicador; /*el indicador a final de cuentas, es el que me dice que tipo de mano tiene el jugador y en que turno va*/
 }
-/*avanzando cualquier comentario es bienvenido xP*/
+
+/*Esta funcion me retorna las probabilidades de que me salga la carta que necesito en el flop, river o turno para hacer alguna combinacion*/
 
 int prob(CARTA mazo[],CARTA mano[],MESA mesajuego,int indicador){
 
-    /*DEBEN SER tipo float, ya que como guardan las probabilidades de cada caso, pues guardaran muchos decimales*/
 
     float pos_doble=0,pos_trio=0,pos_doble_pareja=0,pos_color=0,pos_full=0,pos_poker=0,pos_escala=0,pos_escala_color=0; /*estas variables indicaran las prob de exito de la ocurrencia de su nombre*/
 
